@@ -40,6 +40,32 @@ int longestZigZag(TreeNode *root)
     return res - 1;//计算的是节点，-1得到路径长度
 }
 
+
+void dfs_1(TreeNode* root,bool dir,int len)
+{
+    if(!root)
+        return;
+    res=max(res,len);
+    if(dir)//当前节点为父节点右孩子
+    {
+        dfs_1(root->left,false,len+1);//满足之字形，路径加1
+        dfs_1(root->right,true,1);//不满足之字形，路径置1
+    }
+    else
+    {
+        dfs_1(root->right,true,len+1);
+        dfs_1(root->left,false,1);
+    }
+}
+
+int longestZigZag_1(TreeNode* root)
+{
+    res=0;
+    dfs_1(root->left,false,1);
+    dfs_1(root->right,true,1);
+    return res;
+}
+
 int main()
 {
     TreeNode r(1);
