@@ -24,8 +24,8 @@ pair<int, int> dfs(TreeNode *root)
 {
     if (root == nullptr)
         return make_pair(0, 0);
-    pair<int, int> leftt = dfs(root->left);
-    pair<int, int> rightt = dfs(root->right);
+    pair<int, int> leftt = dfs(root->left);//左子树最长之字形路径
+    pair<int, int> rightt = dfs(root->right);//右子树最长之字形路径
     int leftzz = 1 + leftt.second;
     int rightzz = 1 + rightt.first;
     res = max(res, leftzz);
@@ -37,7 +37,7 @@ int longestZigZag(TreeNode *root)
 {
     res = 0;
     dfs(root);
-    return res - 1;
+    return res - 1;//计算的是节点，-1得到路径长度
 }
 
 int main()
