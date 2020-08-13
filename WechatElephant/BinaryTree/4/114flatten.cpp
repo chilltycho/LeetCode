@@ -8,20 +8,17 @@ struct TreeNode
     TreeNode *right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
-TreeNode *last = nullptr;
-
+TreeNode *pre = nullptr;
+//若使用前序，则右枝会被覆盖。故使用后序。右->左->根
 void flatten(TreeNode *root)//将二叉树变为链表
 {
     if (root == nullptr)
         return;
-    flatten(root->left);//将根节点左子树变为链表
-    flatten(root->right);//将根节点右子树变为链表
-    auto temp=root->right;
-    root->right=root->left;
+    flatten(root->right);
+    flatten(root->left);
+    root->right=pre;
     root->left=nullptr;
-    while(root->right!=nullptr)
-        root=root->right;
-    root->right=temp;
+    pre=root;
 }
 
 void printlist(TreeNode *root)

@@ -7,7 +7,7 @@ using namespace std;
 vector<vector<int>> res;
 void findCombinations(int n, int k, int begin, vector<int> &pre)
 {
-    if (pre.size() == k)
+    if (pre.size() == k)//深度为k
     {
         res.push_back(pre);
         return;

@@ -10,7 +10,6 @@ struct TreeNode
 };
 
 int res;
-int pathsum;
 //返回经过root的单边分支最大和，max(root,root+left,root+right)
 int dfs(TreeNode *root)
 {

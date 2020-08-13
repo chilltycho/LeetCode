@@ -24,10 +24,10 @@ pair<int, int> dfs(TreeNode *root)
 {
     if (root == nullptr)
         return make_pair(0, 0);
-    pair<int, int> leftt = dfs(root->left);
-    pair<int, int> rightt = dfs(root->right);
-    int leftzz = 1 + leftt.second;
-    int rightzz = 1 + rightt.first;
+    pair<int, int> leftt = dfs(root->left);//左子树的最长之字形路径
+    pair<int, int> rightt = dfs(root->right);//右子树的最长之字形路径
+    int leftzz = 1 + leftt.second;//二叉树的最长左之根路径
+    int rightzz = 1 + rightt.first;//二叉树的最长右之根路径
     res = max(res, leftzz);
     res = max(res, rightzz);
     return make_pair(leftzz, rightzz);//最长左之根路径长度，最长右之根路径长度

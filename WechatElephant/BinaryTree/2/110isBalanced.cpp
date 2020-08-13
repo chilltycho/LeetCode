@@ -12,7 +12,7 @@ struct TreeNode
 
 bool balanced;
 
-int dfs(TreeNode *root)
+int dfs(TreeNode *root)//求根节点到叶子深度
 {
     if (root == nullptr)
         return 0;

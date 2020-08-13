@@ -16,7 +16,7 @@ void dfs(TreeNode *root) //前序
     dfs(root->left);
     //cout<<root->val<<' ';//中序：先左节点，再当前节点，再右节点
     dfs(root->right);
-    cout<<root->val<<' ';//先左、右节点，再当前节点
+    cout << root->val << ' '; //先左、右节点，再当前节点
 }
 
 int main()
@@ -37,18 +37,19 @@ int main()
     n4.left = &n3;
     n6.right = &n7;
 #endif
-TreeNode r(1);
+    TreeNode r(1);
     TreeNode n2(2);
     TreeNode n5(5);
     TreeNode n3(3);
     TreeNode n4(4);
     TreeNode n6(6);
+    TreeNode n7(7);
 
     r.left = &n2;
     r.right = &n5;
     n2.left = &n3;
     n2.right = &n4;
     n5.right = &n6;
-
+    n5.left = &n7;
     dfs(&r);
 }

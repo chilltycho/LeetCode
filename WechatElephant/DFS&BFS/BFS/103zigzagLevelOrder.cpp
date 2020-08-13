@@ -23,30 +23,34 @@ vector<vector<int>> zigzagLevelOrder(TreeNode *root)
     {
         int size = mq.size();
         vector<int> temp;
-        if(isleft)
+        if (isleft)
         {
-            for(int i=0;i<size;i++)
+            for (int i = 0; i < size; i++)
             {
-                auto node=mq.front();
+                auto node = mq.front();
                 mq.pop_front();
                 temp.push_back(node->val);
-                if(node->left) mq.push_back(node->left);
-                if(node->right) mq.push_back(node->right);
+                if (node->left)
+                    mq.push_back(node->left);
+                if (node->right)
+                    mq.push_back(node->right);
             }
         }
         else
         {
-            for(int i=0;i<size;i++)
+            for (int i = 0; i < size; i++)
             {
-                auto node=mq.back();
+                auto node = mq.back();
                 mq.pop_back();
                 temp.push_back(node->val);
-                if(node->right) mq.push_front(node->right);
-                if(node->left) mq.push_front(node->left);
+                if (node->right)
+                    mq.push_front(node->right);
+                if (node->left)
+                    mq.push_front(node->left);
             }
         }
         res.push_back(temp);
-        isleft=!isleft;
+        isleft = !isleft;
     }
     return res;
 }

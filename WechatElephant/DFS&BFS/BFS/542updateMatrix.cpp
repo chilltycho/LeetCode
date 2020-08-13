@@ -18,7 +18,7 @@ void updateMatrix(vector<vector<int>> &matrix)
     for (int i = 0; i < row; i++)
         for (int j = 0; j < col; j++)
             if (matrix[i][j] == 0)
-                mq.push_back({i, j});
+                mq.push_back({i, j});//以0为起点
     vector<vector<int>> moves{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     int dis = -1;
     while (!mq.empty())

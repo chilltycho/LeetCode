@@ -62,5 +62,5 @@ int main()
     n20.left = &n15;
     n20.right = &n7;
 
-    cout << minDepth(&p);
+    cout << minDepth_1(&p);
 }

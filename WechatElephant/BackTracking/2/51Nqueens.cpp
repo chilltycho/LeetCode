@@ -58,7 +58,7 @@ int main()
     for (auto c : res)
     {
         for (auto cc : c)
-            cout << cc << ' ';
+            cout << cc <<endl;
         cout << endl;
     }
 }

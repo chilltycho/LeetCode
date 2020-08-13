@@ -22,7 +22,7 @@ vector<string> res;
 string s;
 void dfs(string digits, int index)
 {
-    if (index == digits.size())
+    if (index == digits.size())//到达叶子节点
     {
         res.push_back(s);
         return;

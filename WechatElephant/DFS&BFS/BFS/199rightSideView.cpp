@@ -10,28 +10,48 @@ struct TreeNode
     TreeNode *right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
-vector<int> rightSideView(TreeNode* root)
+vector<int> rightSideView(TreeNode *root)
 {
     vector<int> res;
-    if(root==nullptr)
+    if (root == nullptr)
         return res;
-    queue<TreeNode*> mq;
+    queue<TreeNode *> mq;
     mq.push(root);
-    while(!mq.empty())
+    while (!mq.empty())
     {
-        int n=mq.size();
-        auto node=mq.back();
-        res.push_back(node->val);    
-        for(int i=0;i<n;i++)
+        int n = mq.size();
+        auto node = mq.back();
+        res.push_back(node->val);
+        for (int i = 0; i < n; i++)
         {
-            node=mq.front();//注意这一步，应从头一个一个删除
+            node = mq.front(); //注意这一步，应从头一个一个删除
             mq.pop();
-            if(node->left!=nullptr) mq.push(node->left);
-            if(node->right!=nullptr) mq.push(node->right);
+            if (node->left != nullptr)
+                mq.push(node->left);
+            if (node->right != nullptr)
+                mq.push(node->right);
         }
     }
-    return res;   
+    return res;
 }
+
+vector<int> res;
+void dfs(TreeNode *root, int depth)//深度优先搜索:根->右->左。深度==数组长度时
+{
+    if (root == nullptr)
+        return;
+    if (depth == res.size())
+        res.push_back(root->val);
+    dfs(root->right, depth + 1);
+    dfs(root->left, depth + 1);
+}
+
+vector<int> rightSideView_1(TreeNode *root)
+{
+    dfs(root, 0);
+    return res;
+}
+
 
 int main()
 {
@@ -42,9 +62,9 @@ int main()
     root.left = &t1;
     root.right = &t2;
     root.left->left = &t3;
-    auto vii = rightSideView(&root);
+    auto vii = rightSideView_1(&root);
     for (auto c : vii)
     {
-         cout << c << ' ';
+        cout << c << ' ';
     }
 }

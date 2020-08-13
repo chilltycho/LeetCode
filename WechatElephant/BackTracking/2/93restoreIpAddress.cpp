@@ -7,7 +7,7 @@ using namespace std;
 
 vector<string> res;
 
-int judgeIfIpSegment(string s, int left, int right)
+int judgeIfIpSegment(string s, int left, int right) //判断片段是否合法，0-255
 {
     int len = right - left + 1;
     if (len > 1 && s[left] == '0')
@@ -24,16 +24,21 @@ void dfs(string s, int len, int split, int begin, vector<string> &path)
 {
     if (begin == len)
     {
-        if (split == 4)
+        if (split == 4) //分成4段
+        {
+            string tempres = "";
             for (int i = 0; i < 4; i++)
             {
-                res[i] += path[i] + ".";
+                tempres += path[i] + ".";
             }
+            tempres.pop_back();
+            res.push_back(tempres);
+        }
         return;
     }
-    if (len - begin < (4 - split) || len - begin > 3 * (4 - split))
+    if (len - begin < (4 - split) || len - begin > 3 * (4 - split)) //len-begin为剩余长度，看剩下的够不够
         return;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++) //每个节点可截取1、2、3位
     {
         if (begin + i >= len)
             break;
@@ -41,7 +46,7 @@ void dfs(string s, int len, int split, int begin, vector<string> &path)
         if (ipSegment != -1)
         {
             path.push_back(to_string(ipSegment));
-            dfs(s, len, split + 1, begin + 1, path);
+            dfs(s, len, split + 1, begin + i + 1, path);
             path.pop_back();
         }
     }
@@ -50,9 +55,8 @@ void dfs(string s, int len, int split, int begin, vector<string> &path)
 vector<string> restoreIpAddresses(string s)
 {
     int len = s.size();
-    if (len < 4 || len > 12)
+    if (len < 4 || len > 12) //字符串长度小于4或大于12，一定不能凑出合法ip
         return res;
-    vector<string> s(4);
     vector<string> path;
     int splitTimes = 0;
     dfs(s, len, splitTimes, 0, path);

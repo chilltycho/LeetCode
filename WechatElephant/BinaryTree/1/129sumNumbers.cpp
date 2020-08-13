@@ -15,7 +15,7 @@ int helper(TreeNode *root, int i) //dfs
     if (root == nullptr)
         return 0;
     int temp = i * 10 + root->val;                       //temp不能作为全局变量
-    if (root->left == nullptr && root->right == nullptr) //到达叶子节点
+    if (root->left == nullptr && root->right == nullptr) //到达叶子节点时返回
         return temp;
     return helper(root->left, temp) + helper(root->right, temp);
 }
