@@ -2,7 +2,7 @@
 #include <vector>
 #include <queue>
 using namespace std;
-//坏橘子为2，好的为1，没橘子为1，相邻每分钟可感染，求感染所有的分钟数，若无法全部感染，返回-1
+//坏橘子为2，好的为1，没橘子为0，相邻每分钟可感染，求感染所有的分钟数，若无法全部感染，返回-1
 bool inArea(vector<vector<int>> &grid, int r, int c)
 {
     int row = grid.size();
@@ -26,10 +26,10 @@ int orangeRotting(vector<vector<int>> &grid) //从2开始多源bfs，若相邻�
                 count1++;
         }
     }
-    while (count1>0&&!mq.empty())
+    while (count1 > 0 && !mq.empty())
     {
         int n = mq.size();
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)//层序
         {
             auto pos = mq.front();
             int r = pos[0];
@@ -50,15 +50,15 @@ int orangeRotting(vector<vector<int>> &grid) //从2开始多源bfs，若相邻�
         minutes++;
     }
     if (count1 == 0)
-        return minutes;//考虑输入为0，minutes为-1
+        return minutes; //考虑输入为0，minutes为-1
     else
-        return -1;
+        return -1;//还有不可能腐烂的橘子
 }
 
 int main()
 {
     vector<vector<int>> vii{{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
-    vector<vector<int>> vii1{{2,1,1},{0,1,1},{1,0,1}};
-    vector<vector<int>> vii2{{0,2}};
+    vector<vector<int>> vii1{{2, 1, 1}, {0, 1, 1}, {1, 0, 1}};
+    vector<vector<int>> vii2{{0, 2}};
     cout << orangeRotting(vii2);
 }

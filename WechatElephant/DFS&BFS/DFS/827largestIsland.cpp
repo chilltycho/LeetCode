@@ -3,7 +3,6 @@
 #include <set>
 using namespace std;
 //二维地图上，0代表海洋，1代表陆地，只能将一格0变为1，求最大岛屿面积
-
 bool inArea(vector<vector<int>> &grid, int r, int c)
 {
     int row = grid.size();
@@ -12,7 +11,7 @@ bool inArea(vector<vector<int>> &grid, int r, int c)
         return true;
     return false;
 }
-int dfs(vector<vector<int>> &grid, int r, int c)
+int dfs(vector<vector<int>> &grid, int r, int c)//计算面积
 {
     if (inArea(grid, r, c) && grid[r][c] == 1)
     {
@@ -34,7 +33,7 @@ int largestIsland(vector<vector<int>> &grid) //对每个0暂时变为1，再统�
                 grid[i][j] = 1;
                 int area = dfs(grid, i, j);
                 maxArea = max(area, maxArea);
-                grid[i][j] = 0;
+                grid[i][j] = 0;//回溯
             }
         }
     }
@@ -42,8 +41,6 @@ int largestIsland(vector<vector<int>> &grid) //对每个0暂时变为1，再统�
         return grid.size() * grid[0].size();
     return maxArea;
 }
-
-//法二，对每个连通块，将所有陆地赋值为index并记录大小area[index],对每个0，查找周围区域大小并计入结果
 
 //法二，对每个连通块，将所有陆地赋值为index并记录大小area[index],对每个0，查找周围区域大小并计入结果
 int dfs_1(vector<vector<int>>& grid, int r, int c, int index)

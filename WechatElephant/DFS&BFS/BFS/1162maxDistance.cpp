@@ -26,12 +26,12 @@ int maxDistance(vector<vector<int>> grid)
     if (mq.empty() || mq.size() == N * N)
         return -1;
     vector<vector<int>> moves{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-    int distance = -1;
+    int distance = -1;//只有陆地或者海洋时，返回-1
     while (!mq.empty())
     {
         distance++; //由于每次总是x或y轴移动一次，所以每次距离加1
         int n = mq.size();
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++)//层序
         {
             vector<int> node = mq.front();
             mq.pop_front();

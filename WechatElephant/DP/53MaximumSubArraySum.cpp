@@ -1,15 +1,12 @@
 /*给定一个整数数组，找到一个具有最大和的连续子数组（连续子数组最少包含一个元素）
-返回其最大和。
-*/
+返回其最大和。*/
 #include <vector>
 #include <iostream>
 using namespace std;
 
 //子数组一定连续，子序列可以不连续。
-/*
-1.正确定义子问题：f(k)表示nums[0,..k)中，以最后一个元素结尾的最大子数组和
-2.递推：f(k)=max(f(k-1),0)+nums[k-1]由于子问题定义，肯定要nums[k-1]
-*/
+/*1.正确定义子问题：f(k)表示nums[0,..k)中，以最后一个元素结尾的最大子数组和
+2.递推：f(k)=max(f(k-1),0)+nums[k-1]由于子问题定义，肯定要nums[k-1]*/
 int maxSubArray(vector<int> &nums)
 {
     int size = nums.size();

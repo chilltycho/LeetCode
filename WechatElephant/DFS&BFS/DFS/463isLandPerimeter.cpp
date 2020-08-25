@@ -1,57 +1,14 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-#if 0
-bool inArea(vector<vector<int>>& grid, int r, int c)
-{
-    int Row = grid.size();
-    int Col = grid[0].size();
-    if (0 <= r && r < Row && 0 <= c && c < Col)
-        return true;
-    return false;
-}
-int countland(vector<vector<int>>& grid, int r, int c)
-{
-    int res = 0;
-    if (inArea(grid, r - 1, c) && (grid[r - 1][c] == 1 || grid[r - 1][c] == 2))
-        res++;
-    if (inArea(grid, r + 1, c) && (grid[r + 1][c] == 1 || grid[r + 1][c] == 2))
-        res++;
-    if (inArea(grid, r, c - 1) && (grid[r][c - 1] == 1 || grid[r][c - 1] == 2))
-        res++;
-    if (inArea(grid, r, c + 1) && (grid[r][c + 1] == 1 || grid[r][c + 1] == 2))
-        res++;
-    return res;
-}
-void dfs(vector<vector<int>>& grid, int r, int c, int& count)
-{
-    if (!inArea(grid, r, c) || grid[r][c] == 0||grid[r][c]==2)
-        return;
-    grid[r][c] = 2;
-    count += (4 - countland(grid, r, c));
-    dfs(grid, r - 1, c, count);
-    dfs(grid, r + 1, c, count);
-    dfs(grid, r, c - 1, count);
-    dfs(grid, r, c + 1, count);
-}
 
-int islandPerimeter(vector<vector<int>>& grid)
-{
-    int res = 0;
-    int r = grid.size(), c = grid[0].size();
-    for (int i = 0; i < r; i++)
-        for (int j = 0; j < c; j++)
-            dfs(grid, i, j, res);
-    return res;
-}
-#endif
 int dfs(vector<vector<int>> &grid, int r, int c)
 {
-    if (!(0 <= r && r < grid.size() && 0 <= c && c < grid[0].size()))//边界+1
+    if (!(0 <= r && r < grid.size() && 0 <= c && c < grid[0].size())) //边界+1
         return 1;
-    if (grid[r][c] == 0)//相邻0加一
+    if (grid[r][c] == 0) //相邻0加一
         return 1;
-    if (grid[r][c] != 1)//
+    if (grid[r][c] != 1) //走过的陆地
         return 0;
     grid[r][c] = 2;
     return dfs(grid, r - 1, c) + dfs(grid, r + 1, c) + dfs(grid, r, c - 1) + dfs(grid, r, c + 1);
@@ -65,8 +22,33 @@ int islandPerimeter(vector<vector<int>> &grid)
                 return dfs(grid, r, c);
         }
 }
+
+//法2，每个岛周长为4，若有一个岛相邻，减2。周长=每块岛屿*4-每相邻*2
+int islandPerimeter_1(vector<vector<int>> &grid)
+{
+    int res = 0;
+    int row = grid.size();
+    int col = grid[0].size();
+    for (int i = 0; i < row; i++) //从左到右，从上到下遍历。只需看当前陆地是否与左或上方陆地相邻
+    {
+        for (int j = 0; j < col; j++)
+        {
+            if (grid[i][j] == 1)
+            {
+                res += 4;
+                if (i - 1 >= 0 && grid[i - 1][j] == 1)
+                    res -= 2;
+                if (j - 1 >= 0 && grid[i][j - 1] == 1)
+                    res -= 2;
+            }
+        }
+    }
+    return res;
+}
+
 int main()
 {
     vector<vector<int>> vii{{0, 1, 0, 0}, {1, 1, 1, 0}, {0, 1, 0, 0}, {1, 1, 0, 0}};
-    cout << islandPerimeter(vii);
+    //cout << islandPerimeter(vii) << endl;
+    cout << islandPerimeter_1(vii) << endl;
 }

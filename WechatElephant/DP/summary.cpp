@@ -1,5 +1,5 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 using namespace std;
 /*
 打劫农舍问题：每个房子内有一定现金，不能头相邻两间，求能偷最大金额。
@@ -72,7 +72,28 @@ int longestCommonSubsequences(string s, string t)
     }
     return dp[m][n];
 }
-
+int longestCommonSubsequences_space(string s, string t)
+{
+    if (s.empty() || t.empty())
+        return 0;
+    int m = s.size();
+    int n = t.size();
+    vector<int> dp(n + 1, 0);
+    for (int i = 1; i <= m; i++)
+    {
+        int temp = 0, dp_j = 0;
+        for (int j = 1; j <= n; j++)
+        {
+            if (s[i - 1] == t[j - 1])
+                dp_j = temp + 1;
+            else
+                dp_j = max(dp[j], dp[j - 1]);
+            temp = dp[j];
+            dp[j] = dp_j;
+        }
+    }
+    return dp[n];
+}
 //最优解与最值，上面方法仅求出最值，为求出如何做达到最值。
 
 vector<int> rob_backup(vector<int> &nums)
@@ -116,5 +137,5 @@ int main()
         cout << c << ' ';
     cout << endl;
     string s = "abcde", t = "ace";
-    cout << longestCommonSubsequences(s, t);
+    cout << longestCommonSubsequences_space(s, t) << endl;
 }
