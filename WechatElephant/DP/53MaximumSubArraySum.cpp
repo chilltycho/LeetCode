@@ -12,8 +12,8 @@ int maxSubArray(vector<int> &nums)
     int size = nums.size();
     int dp[size + 1];
     dp[0] = 0;
-    int res = 0;
-    for (int i = 1; i < size; i++)
+    int res = nums[0];
+    for (int i = 1; i <= size; i++)
     {
         dp[i] = nums[i - 1] + max(dp[i - 1], 0);
         res = max(res, dp[i]);
@@ -24,7 +24,7 @@ int maxSubArray(vector<int> &nums)
 int maxSubArray_1(vector<int> &nums)
 {
     int size = nums.size();
-    int old = 0, newval = 0;
+    int old = 0, newval = nums[0];
     for (int i = 1; i < size; i++)
     {
         old = nums[i - 1] + max(old, 0);
@@ -37,7 +37,7 @@ int maxSubArray_2(vector<int> &nums)
 {
     int size = nums.size();
     int old = 0, newval = 0;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i <= size; i++)
     {
         if (old + nums[i] > nums[i])
             old = old + nums[i];

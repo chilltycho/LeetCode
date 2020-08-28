@@ -1,0 +1,29 @@
+#include <vector>
+#include <cassert>
+using namespace std;
+//给定由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数
+
+//回溯法超时
+int combinationSum4(vector<int> &nums, int target) //看成换硬币问题，求换方法总数
+{
+    if (target == 0)
+        return 1;
+    vector<unsigned> dp(target + 1, 0);
+    dp[0] = 1;
+    for (int i = 1; i <= target; i++)
+    {
+        for (auto c : nums)
+        {
+            if (i >= c)
+                dp[i] += dp[i - c];
+        }
+    }
+    return dp[target];
+}
+
+int main()
+{
+    vector<int> nums{3, 2, 1};
+    int target = 4;
+    assert(7 == combinationSum4(nums, 4));
+}

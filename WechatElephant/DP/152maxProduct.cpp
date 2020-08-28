@@ -12,10 +12,12 @@ fmin[i]=min(fmax[i-1]*ai,fmin[i-1]*ai,ai)
 */
 int maxProduct(vector<int> &nums)
 {
-    if(nums.empty())
+    if (nums.empty())
         return 0;
     vector<int> maxF(nums), minF(nums);
-    int res = 0;
+    int res = nums[0];
+    maxF[0] = nums[0];
+    minF[0] = nums[0];
     for (int i = 1; i < nums.size(); ++i)
     {
         maxF[i] = max(maxF[i - 1] * nums[i], max(nums[i], minF[i - 1] * nums[i]));
