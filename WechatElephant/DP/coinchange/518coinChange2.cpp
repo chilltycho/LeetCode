@@ -17,12 +17,12 @@ int change(int amount, vector<int> &coins)
         for (int k = 0; k <= amount; k++)
         {
             if (k == 0)
-                dp[i][k] = 1;
+                dp[i][k] = 1;//使用硬币列表[0,i]可凑成金额为j的组合数
             else if (i == 0)
                 dp[i][k] = 0;
             else
             {
-                dp[i][k] = dp[i - 1][k];
+                dp[i][k] = dp[i - 1][k];//f(i,k)=f(i,k-ci)+f(i-1,k)  决定拿面额最大硬币ci + 决定不拿ci只选(c1..ci)
                 if (k >= coins[i - 1])
                     dp[i][k] += dp[i][k - coins[i - 1]];
             }

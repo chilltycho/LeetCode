@@ -6,13 +6,13 @@ int coinChange(vector<int> &coins, int amount)
 {
     if (amount == 0)
         return 0;
-    vector<unsigned> dp(amount + 1, amount + 1);
+    vector<unsigned> dp(amount + 1, amount + 1); //假设都凑不出来
     dp[0] = 0;
-    for (int i = 1; i <= amount; i++)
+    for (int i = 1; i <= amount; i++)//dp[amount]=min(1+dp[amount-coins[i]])
     {
         for (const auto c : coins)
         {
-            if (i >= c)
+            if (i >= c && dp[i - c] != amount + 1)
                 dp[i] = min(dp[i], 1 + dp[i - c]);
         }
     }

@@ -1,7 +1,7 @@
 #include <vector>
 #include <cassert>
 using namespace std;
-//给定由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数
+//给定由正整数组成且不存在重复数字的数组，找出和为给定目标正整数的组合的个数，顺序不同视为不同组合(与518不同)
 
 //回溯法超时
 int combinationSum4(vector<int> &nums, int target) //看成换硬币问题，求换方法总数
