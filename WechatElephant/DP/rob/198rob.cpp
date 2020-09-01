@@ -16,8 +16,22 @@ int rob(vector<int> &nums)
     return dp[nums.size()];
 }
 
+int rob_s(vector<int> &nums)
+{
+    if (nums.empty())
+        return 0;
+    auto pre = 0, cur = nums[0], temp = 0;
+    for (auto i = 2; i <= nums.size(); i++)
+    {
+        temp = cur;
+        cur = max(cur, pre + nums[i - 1]);
+        pre = temp;
+    }
+    return cur;
+}
+
 int main()
 {
     vector<int> nums{1, 2, 3, 1};
-    cout << rob(nums) << endl;
+    cout << rob_s(nums) << endl;
 }
