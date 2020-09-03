@@ -18,7 +18,7 @@ bool isValid(vector<string> &board, int row, int col)
         if (board[i][j] == 'Q')
             return false;
     }
-    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) //右上
+    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) //左上
     {
         if (board[i][j] == 'Q')
             return false;
@@ -58,7 +58,7 @@ int main()
     for (auto c : res)
     {
         for (auto cc : c)
-            cout << cc <<endl;
+            cout << cc << endl;
         cout << endl;
     }
 }
