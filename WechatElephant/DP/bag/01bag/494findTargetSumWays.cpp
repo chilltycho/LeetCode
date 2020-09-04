@@ -86,6 +86,7 @@ int findTargetSumWays_dp2(vector<int> &nums, int S)
     auto len = (sum + S) / 2; //目标容量
     vector<vector<int>> dp(nums.size() + 1, vector<int>(len + 1, 0));
     dp[0][0] = 1;
+    dp[0][nums[0]]=1;
     for (int i = 1; i <= nums.size(); i++)
     {
         for (int j = 0; j <= len; j++)
