@@ -63,7 +63,7 @@ int findTargetSumWays_dp1(vector<int> &nums, int S)
         return 0;
     if ((sum + S) % 2 == 1) //背包容量x应为整数
         return 0;
-    auto len = (sum + S) / 2;
+    auto len = (sum + S) / 2; //目标容量
     vector<int> dp(len + 1, 0);
     dp[0] = 1;
     for (auto num : nums)
@@ -73,9 +73,35 @@ int findTargetSumWays_dp1(vector<int> &nums, int S)
     }
     return dp[len];
 }
+
+int findTargetSumWays_dp2(vector<int> &nums, int S)
+{
+    int sum = 0;
+    for (auto c : nums)
+        sum += c;
+    if (abs(S) > sum)
+        return 0;
+    if ((sum + S) % 2 == 1) //背包容量x应为整数
+        return 0;
+    auto len = (sum + S) / 2; //目标容量
+    vector<vector<int>> dp(nums.size() + 1, vector<int>(len + 1, 0));
+    dp[0][0] = 1;
+    for (int i = 1; i <= nums.size(); i++)
+    {
+        for (int j = 0; j <= len; j++)
+        {
+            if (j >= nums[i])
+                dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]];
+            else
+                dp[i][j] = dp[i - 1][j];
+        }
+    }
+    return dp[nums.size()][len];
+}
+
 int main()
 {
     vector<int> nums{1, 1, 1, 1, 1};
     int S = 3;
-    assert(5 == findTargetSumWays_dp1(nums, S));
+    assert(5 == findTargetSumWays_dp2(nums, S));
 }

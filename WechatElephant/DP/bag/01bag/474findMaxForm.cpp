@@ -27,15 +27,16 @@ int findMaxForm(vector<string> &strs, int m, int n)
     for (int i = 1; i <= len; i++)
     {
         auto cnt = countZeroAndOne(strs[i - 1]);
+        auto zeros = cnt.first;
+        auto ones = cnt.second;
         for (int j = 0; j <= m; j++)
         {
             for (int k = 0; k <= n; k++)
             {
-                dp[i][j][k] = dp[i - 1][j][k];
-                auto zeros = cnt.first;
-                auto ones = cnt.second;
                 if (j >= zeros && k >= ones)
                     dp[i][j][k] = max(dp[i - 1][j][k], dp[i - 1][j - zeros][k - ones] + 1);
+                else
+                    dp[i][j][k] = dp[i - 1][j][k];
             }
         }
     }
@@ -66,7 +67,7 @@ int findMaxForm_sp(vector<string> &strs, int m, int n)
 int main()
 {
     vector<string> v1{"10", "0001", "111001", "1", "0"};
-    assert(4 == findMaxForm_sp(v1, 5, 3)); //5个0，3个1可拼出"10","0001","1","0"
+    assert(4 == findMaxForm(v1, 5, 3)); //5个0，3个1可拼出"10","0001","1","0"
     vector<string> v2{"10", "0", "1"};
     assert(2 == findMaxForm_sp(v2, 1, 1)); //可拼出"10"，但无剩余。好的选择是拼出"0"和"1"
 }
