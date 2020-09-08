@@ -7,12 +7,12 @@ using namespace std;
 vector<vector<int>> res;
 void findCombinations(int n, int k, int begin, vector<int> &pre)
 {
-    if (pre.size() == k)//深度为k
+    if (pre.size() == k) //深度为k
     {
         res.push_back(pre);
         return;
     }
-    for (int i = begin; i <= n; i++)
+    for (int i = begin; i <= n - (k - pre.size()) + 1; i++)
     {
         pre.push_back(i);
         findCombinations(n, k, i + 1, pre);

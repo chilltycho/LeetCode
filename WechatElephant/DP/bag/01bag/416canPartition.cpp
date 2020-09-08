@@ -20,7 +20,7 @@ bool canPartition(vector<int> &nums)
     vector<vector<bool>> dp(len, vector<bool>(target + 1, false));
     if (nums[0] <= target)
         dp[0][nums[0]] = true;
-    dp[0][0]=true;//target为0时，无需填充
+    dp[0][0] = true; //target为0时，无需填充
     for (int i = 1; i < len; i++)
     {
         for (int j = 0; j <= target; j++)
@@ -51,7 +51,7 @@ bool canPartition_sp(vector<int> &nums)
         return false;
     int target = sum / 2;
     vector<bool> dp(target + 1, false);
-    dp[0] = true;//设为true对状态转移无影响
+    dp[0] = true; //设为true对状态转移无影响
     for (int i = 1; i < len; i++)
     {
         for (int j = target; nums[i] <= j; j--) //0-1背包问题，故逆序
@@ -63,6 +63,49 @@ bool canPartition_sp(vector<int> &nums)
     }
     return dp[target];
 }
+
+bool find_bru(vector<int> &nums, int target, int index)
+{
+    if (target == 0)
+        return true;
+    for (int i = index; i < nums.size(); i++)
+    {
+        if (target - nums[i] < 0)
+            return false;
+        if (find_bru(nums, target - nums[i], i + 1))
+            return true;
+    }
+    return false;
+}
+
+bool find_dfs(vector<int> &nums, int target, int index)
+{
+    if (target == 0)
+        return true;
+    for (int i = index; i < nums.size(); i++)
+    {
+        if (i > index && nums[i] == nums[i - 1])//剪枝，假定三个连续1，若第一次未找到，则第二次也不会
+            continue;
+        if (target - nums[i] < 0)
+            return false;
+        if (find_dfs(nums, target - nums[i], i + 1))
+            return true;
+    }
+    return false;
+}
+
+bool canPartition_dfs(vector<int> &nums)
+{
+    int total = 0;
+    for (int num : nums)
+        total += num;
+    if (total % 2 != 0)
+        return false;
+    if (total == 0)
+        return true;
+    return find_bru(nums, total / 2, 0);
+}
+
 int main()
 {
     vector<int> v1{1, 5, 11, 5};

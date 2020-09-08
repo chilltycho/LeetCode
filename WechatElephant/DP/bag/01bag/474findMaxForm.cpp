@@ -13,7 +13,6 @@ pair<int, int> countZeroAndOne(string str)
         if (c == '0')
             cnt.first++;
         else
-
             cnt.second++;
     }
     return cnt;
