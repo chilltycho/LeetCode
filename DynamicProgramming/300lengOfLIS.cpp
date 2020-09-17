@@ -9,7 +9,7 @@ using namespace std;
 动态规划核心设计思想是数学归纳法。
 可假设dp[0,...,i-1]已经被计算出来了，怎样通过这些结果算出dp[i]?
 1.明确dp[i]意义，dp[i]表示以nums[i]这个数结尾的最长递增子序列长度。
-2.若nums[i]>nums[i-1]，则dp[i]=dp[i-1]+1。否则比较dp[i-2]知道nums[i-k]>nums[i]或i-k<0为止
+2.若nums[i]>nums[i-1]，则dp[i]=dp[i-1]+1。否则比较dp[i-2]直到nums[i-k]>nums[i]或i-k<0为止
 */
 int lengofLIS(vector<int>& nums)
 {
