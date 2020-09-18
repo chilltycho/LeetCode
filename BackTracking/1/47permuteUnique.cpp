@@ -39,6 +39,7 @@ void dfs(vector<int> &nums, int len, int depth)
         }
     }
 }
+
 vector<vector<int>> permute_1(vector<int> &nums)
 {
     int len = nums.size();

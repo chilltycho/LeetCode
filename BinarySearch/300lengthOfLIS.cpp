@@ -6,9 +6,7 @@
 using namespace std;
 //可使用动态规划O(n^2)
 /*贪心算法：若已得到的上升子序列结尾的数越小，遍历时后接一个数，更有可能构成更长上升自序列
-tail[i]表示长度为i+1的所有上升子序列的结尾的最小值
-
-*/
+tail[i]表示长度为i+1的所有上升子序列的结尾的最小值*/
 int lengthOfLIS(vector<int> &nums)
 {
     int len = nums.size();
