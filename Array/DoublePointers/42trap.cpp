@@ -1,4 +1,5 @@
 #include <vector>
+#include <stack>
 #include <cassert>
 using namespace std;
 int getMax(vector<int> &height)
@@ -100,9 +101,33 @@ int trap_4(vector<int> &height)
     }
     return sum;
 }
-
+/*每匹配一对括号，就计算两堵墙中的水。用栈保存每堵墙。
+当前高度小于栈顶高度，有积水，入栈
+当前高度大于栈顶高度，计算积水，入栈*/
+int trap_5(vector<int> &height)
+{
+    int sum = 0;
+    stack<int> si;
+    int cur = 0;
+    while (cur < height.size())
+    {
+        while (!si.empty() && height[cur] > height[si.top()])
+        {
+            int h = height[si.top()];
+            si.pop();
+            if (si.empty())
+                break;
+            int dis = cur - si.top() - 1;
+            int minh = min(height[si.top()], height[cur]);
+            sum += dis * (minh - h);
+        }
+        si.push(cur);
+        cur++;
+    }
+    return sum;
+}
 int main()
 {
     vector<int> vi{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-    assert(6 == trap_4(vi));
+    assert(6 == trap_5(vi));
 }

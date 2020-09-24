@@ -1,9 +1,4 @@
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
+#include"utl.h"
 
 //面试中链表一定都是单链表，应该避免使用：1.加入哑节点 2.使用二级指针
 //框架
@@ -25,4 +20,11 @@ void foo()
         prev = curr;
         curr = curr->next;
     }
+}
+
+int main()
+{
+    vector<int> vi{1,3,4,5,6};
+    auto head=createLinkedList(vi);
+    printLinkeList(head);
 }

@@ -1,12 +1,4 @@
-#include <iostream>
-using namespace std;
-
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
+#include"utl.h"
 
 ListNode *reverseList(ListNode *head, int n)
 {
@@ -37,7 +29,7 @@ ListNode *reverseBetween(ListNode *head, int m, int n)
         prev = curr;
         curr = curr->next;
     }
-    if (prev == nullptr)
+    if (prev == nullptr)//头节点
         return reverseList(head, n - m);
     else
     {
@@ -46,30 +38,10 @@ ListNode *reverseBetween(ListNode *head, int m, int n)
     }
 }
 
-void print(ListNode *head)
-{
-    ListNode *prev = nullptr;
-    ListNode *curr = head;
-    while (curr != nullptr)
-    {
-        cout << curr->val << ' ';
-        prev = curr;
-        curr = curr->next;
-    }
-}
 int main()
 {
-    ListNode head(1);
-    ListNode l2(2);
-    ListNode l3(3);
-    ListNode l4(4);
-    ListNode l5(5);
-    head.next = &l2;
-    l2.next = &l3;
-    l3.next = &l4;
-    l4.next = &l5;
-    //print(&head);
-
-    ListNode *newlist = reverseBetween(&head, 1, 4);
-    print(newlist);
+    vector<int> vi{1,2,3,4,5};
+    auto head=createLinkedList(vi);
+    auto res=reverseBetween(head,2,4);
+    printLinkeList(res);
 }

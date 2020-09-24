@@ -15,7 +15,7 @@ void insert(ListNode **linkp, int new_value)
     while ((current = *linkp) != nullptr) //从小到大排列
     {
         linkp = &(current->next); //current中next的地址
-        //*linkp=(current->next);//是错误写法，此时根节点会边，
+        //*linkp=(current->next);//是错误写法，此时根节点会变
     }
     newnode = (ListNode *)malloc(sizeof(ListNode));
     if (newnode == nullptr)
