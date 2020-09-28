@@ -6,9 +6,11 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+//头尾双指针，一边小时移动该边。正确性：数组中所有位置可作为容器边界
 int maxArea(vector<int> &height)
 {
+    if(height.size()<2)
+        return 0;
     int res = 0;
     int i = 0;
     int j = height.size() - 1;
@@ -23,7 +25,7 @@ int maxArea(vector<int> &height)
     }
     return res;
 }
-
+//暴力法，遍历所有边界情况
 int maxArea_vio(vector<int> &height)
 {
     int res = 0;

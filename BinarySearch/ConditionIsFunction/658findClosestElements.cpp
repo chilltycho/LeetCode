@@ -32,7 +32,7 @@ vector<int> findClosestElements_bi(vector<int> &arr, int k, int x)
     while (left < right)
     {
         int mid = left + (right - left) / 2;
-        if (x - arr[mid] > arr[mid + k] - x)
+        if (x - arr[mid] > arr[mid + k] - x)//左索引差值>右索引差值，右移
             left = mid + 1;
         else
             right = mid;

@@ -8,7 +8,7 @@ int binarySearch(vector<int> &nums, int target)
         return -1; //未找到
     int left = 0;
     int right = len - 1;
-    while (left <= right)//注意一个元素情况
+    while (left <= right) //注意一个元素情况
     {
         int mid = left + (right - left) / 2;
         if (nums[mid] == target)
@@ -36,8 +36,21 @@ int binarySearch_2(vector<int> &nums, int left, int right, int target)
     return -1;
 }
 
+int binarySearch_3(vector<int> &nums, int l, int r, int target)
+{
+    while (l < r)
+    {
+        int mid = l + (r - l) / 2;
+        if (nums[mid] > target)
+            r = mid - 1;
+        else
+            l = mid;
+    }
+    return l;
+}
+
 int main()
 {
     vector<int> nums{-1, 0, 3, 5, 9, 12};
-    cout << binarySearch_2(nums, 0, nums.size() - 1, 9);
+    cout << binarySearch_3(nums, 0, nums.size() - 1, 4);
 }
