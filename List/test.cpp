@@ -132,5 +132,5 @@ int main()
     //proot->value=-999;
     for (int i = 0; i < 2; i++)
         insert(&proot, i);
-
+    
 }

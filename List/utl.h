@@ -33,3 +33,19 @@ void printLinkeList(ListNode *head)
     }
     cout << "nullptr " << endl;
 }
+
+void deleteLinkedList(ListNode *head)
+{
+    if (head == nullptr)
+        free(head);
+    ListNode *cur = head;
+    ListNode *nex = nullptr;
+    while (cur != nullptr)
+    {
+        nex = cur->next;
+        free(cur);
+        cur = nex;
+    }
+    head=nullptr;
+}
+//valgrind --leak-check=full  ./leptjson_test 内存泄漏检测

@@ -21,6 +21,7 @@ ListNode *oddEvenList(ListNode *head)
 int main()
 {
     vector<int> vi{1, 2, 3, 4, 5};
+
     auto head = createLinkedList(vi);
     auto res = oddEvenList(head);
     printLinkeList(res); //1,3,5,2,4
@@ -29,4 +30,5 @@ int main()
     auto head1 = createLinkedList(vi1);
     auto res1 = oddEvenList(head1);
     printLinkeList(res1); //2,3,6,7,1,5,4
+
 }
