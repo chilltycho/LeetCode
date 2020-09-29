@@ -8,9 +8,10 @@ vector<int> plusOne(vector<int> &digits)
     {
         digits[i]++;
         digits[i] = digits[i] % 10;
-        if (digits[i] != 0)
+        if (digits[i] != 0)//无进位，否则继续高位+1
             return digits;
     }
+    //需扩容
     digits = vector<int>(digits.size() + 1);
     digits[0] = 1;
     return digits;

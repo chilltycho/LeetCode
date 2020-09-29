@@ -11,6 +11,8 @@ int single(int a[], int n)
 
 int main()
 {
-    int a[]{2,0,2, 1, 1};
+    int a[]{2, 0, 2, 1, 1};
     cout << single(a, 3) << endl;
+    int b[]{0};
+    cout << single(b, 1) << endl;
 }

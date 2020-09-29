@@ -31,7 +31,6 @@ void moveZeroes(vector<int> &nums)
         }
     }
 }
-//对[0,0,0,1] 也需N次操作
 void moveZeroes_1(vector<int> &nums)
 {
     int lastNonZerosFoundAt = 0;
@@ -42,12 +41,12 @@ void moveZeroes_1(vector<int> &nums)
         nums[i] = 0;
 }
 
-//慢指针之前为非零，慢指针与快指针之间为0
 void moveZeroes_2(vector<int> &nums)
 {
+    //[0,slow]为非零,[slow,cur]为0
     for (int slow = 0, cur = 0; cur < nums.size(); cur++)
         if (nums[cur] != 0)
-            swap(nums[slow], nums[cur]);
+            swap(nums[slow++], nums[cur]);
 }
 
 int main()

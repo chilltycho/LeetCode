@@ -14,7 +14,7 @@ vector<vector<int>> merge(vector<vector<int>> &intervals)
     for (int i = 0; i < intervals.size(); i++)
     {
         int L = intervals[i][0], R = intervals[i][1];
-        if (!merged.size() || merged.back()[1] < L)
+        if (!merged.size() || merged.back()[1] < L)//最后一个元素
             merged.push_back({L, R});
         else
             merged.back()[1] = max(merged.back()[1], R);
@@ -26,4 +26,11 @@ int main()
 {
     //区间[1,3]和[2,6]重叠，合并为[1,6]。返回[[1,6],[8,10],[15,18]]
     vector<vector<int>> intervals{{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+    auto res = merge(intervals);
+    for (const auto &c : res)
+    {
+        for (const auto &cc : c)
+            cout << cc << ' ';
+        cout << endl;
+    }
 }

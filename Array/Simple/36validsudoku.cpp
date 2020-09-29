@@ -2,20 +2,6 @@
 #include <vector>
 #include <map>
 using namespace std;
-/*输入形式，只判断行列，九宫格有效性，不考虑是否能解
-[
-  ["8","3",".",".","7",".",".",".","."],
-  ["6",".",".","1","9","5",".",".","."],
-  [".","9","8",".",".",".",".","6","."],
-  ["8",".",".",".","6",".",".",".","3"],
-  ["4",".",".","8",".","3",".",".","1"],
-  ["7",".",".",".","2",".",".",".","6"],
-  [".","6",".",".",".",".","2","8","."],
-  [".",".",".","4","1","9",".",".","5"],
-  [".",".",".",".","8",".",".","7","9"]
-]
-*/
-
 bool isValidSudoKu(vector<vector<char>> &board)
 {
     vector<vector<int>> row(9, vector<int>(9, 0));
@@ -45,11 +31,11 @@ bool isValidSudoKu(vector<vector<char>> &board)
 
 bool isValidSudoKu_1(vector<vector<char>> &board)
 {
-    vector<int> wow(9, 0);
+    vector<int> wow(9, 0);//9行，9列，9格用9个数代替
     int mux1, mux2, mux3, box_index;
     for (int i = 0; i < 9; i++)
     {
-        for (int j = 0; j < 0; j++)
+        for (int j = 0; j < 9; j++)
         {
             if (board[i][j] == '.')
                 continue;
@@ -68,7 +54,7 @@ bool isValidSudoKu_1(vector<vector<char>> &board)
                 return false;
         }
     }
-    return false;
+    return true;
 }
 
 int main()

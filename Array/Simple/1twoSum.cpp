@@ -1,9 +1,10 @@
 #include <map>
 #include <iostream>
 #include <vector>
+#include<algorithm>
 using namespace std;
-
-vector<int> twoSum(vector<int> &nums, int target) //给定targetsum，找出nums中两数之和为target，答案唯一
+//给定targetsum，找出nums中两数之和为target，答案唯一
+vector<int> twoSum(vector<int> &nums, int target)
 {
     for (int i = 0; i < nums.size(); i++)
         for (int j = i + 1; j < nums.size(); j++)

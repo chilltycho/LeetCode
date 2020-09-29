@@ -13,13 +13,10 @@ int lengthOfLongestSubstring(string s)
     for (int left = 0, right = 0; right < len; right++)
     {
         hashMap[s[right]]++;
-        if (hashMap[s[right]] == 2)
+        while (hashMap[s[right]] == 2) //出现重复，右滑窗口，且减少字符相应出现次数。
         {
-            while (hashMap[s[right]] == 2)//出现重复，右滑窗口，且减少字符相应出现次数。
-            {
-                hashMap[s[left]]--;
-                left++;
-            }
+            hashMap[s[left]]--;
+            left++;
         }
         res = max(res, right - left + 1);
     }

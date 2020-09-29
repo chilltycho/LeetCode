@@ -3,22 +3,6 @@
 #include <iostream>
 using namespace std;
 
-int removeDuplicates(vector<int> &nums)
-{
-    if (nums.size() < 3)
-        return nums.size();
-    int j = 2;
-    for (int i = 2; i < nums.size(); i++)
-    {
-        if (nums[i] != nums[j - 2])
-        {
-            nums[j] = nums[i];
-            j++;
-        }
-    }
-    return j;
-}
-
 //允许k个重复元素
 int removeDuplicates_1(vector<int> &nums, int k)
 {
@@ -28,7 +12,7 @@ int removeDuplicates_1(vector<int> &nums, int k)
     int index = k - 1;
     for (int i = k; i < nums.size(); i++)
     {
-        if (nums[i] != nums[index - k + 1])
+        if (nums[i] != nums[index - k + 1])//此时可扩张结果数组
         {
             index++;
             nums[index] = nums[i];
@@ -40,7 +24,7 @@ int removeDuplicates_1(vector<int> &nums, int k)
 int main()
 {
     vector<int> nums1{1, 1, 1, 2, 2, 3};
-    int res1 = removeDuplicates(nums1);
+    int res1 = removeDuplicates_1(nums1,2);
     for (int i = 0; i < res1; i++)
         cout << nums1[i] << ' ';
     cout << endl;
