@@ -3,7 +3,37 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-
+//暴力法，不重复遍历三元组
+vector<vector<int>> threeSum_brute(vector<int> &nums)
+{
+    vector<vector<int>> res;
+    int len = nums.size();
+    if (len < 3)
+        return res;
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+    for (int first = 0; first < n - 2; first++)
+    {
+        //当和上次枚举元素相同时，跳过避免重复
+        if (first > 0 && nums[first] == nums[first - 1])
+            continue;
+        for (int second = first + 1; second < n - 1; second++)
+        {
+            if (second > first + 1 && nums[second] == nums[second - 1])
+                continue;
+            for (int third = second + 1; third < n; third++)
+            {
+                if (third > second + 1 && nums[third] == nums[third - 1])
+                    continue;
+                if (nums[first] + nums[second] + nums[third] == 0)
+                    res.push_back(vector<int>{nums[first], nums[second], nums[third]});
+            }
+        }
+    }
+    return res;
+}
+/*暴力法优化，固定前两重循环元素a,b则只有唯一元素a+b+c=0，二重循环往后枚举b'，则a+b+c'=0时，有c'<c。
+* 故可从小到大枚举b，从大到小枚举c，第二重，第三重循环实际为并列关系*/
 vector<vector<int>> threeSum(vector<int> &nums)
 {
     vector<vector<int>> res;
@@ -18,25 +48,25 @@ vector<vector<int>> threeSum(vector<int> &nums)
             break;
         if (i > 0 && nums[i] == nums[i - 1])
             continue; //不允许方案重复
-        int left = i + 1;
-        int right = len - 1;
-        while (left < right)
+        int second = i + 1;
+        int third = len - 1;
+        while (second < third)
         {
-            int sum = nums[i] + nums[left] + nums[right];
+            int sum = nums[i] + nums[second] + nums[third];
             if (sum == 0)
             {
-                res.push_back(vector<int>{nums[i], nums[left], nums[right]});
-                while (left < right && nums[left + 1] == nums[left])
-                    left++;
-                while (left < right && nums[right - 1] == nums[right])
-                    right--;
-                left++;
-                right--;
+                res.push_back(vector<int>{nums[i], nums[second], nums[third]});
+                while (second < third && nums[second + 1] == nums[second]) //第二个元素不能重复
+                    second++;
+                while (second < third && nums[third - 1] == nums[third]) //第三个元素不能重复
+                    third--;
+                second++;
+                third--;
             }
             else if (sum > 0)
-                right--;
+                third--;
             else
-                left++;
+                second++;
         }
     }
     return res;

@@ -38,5 +38,5 @@ int main()
                                {10, 13, 14, 17, 24},
                                {18, 21, 23, 26, 30}};
     vector<vector<int>> vi;
-    cout << searchMatrix(vi, 6);
+    cout << searchMatrix(matrix, 4) << endl;
 }

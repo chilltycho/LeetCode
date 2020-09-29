@@ -14,7 +14,7 @@ void merge(vector<int> &nums1, int m, vector<int> &nums2, int n)
     }
     if (r >= 0)
     {
-        for (r; r >= 0; r--)
+        for (; r >= 0; r--)
             nums1[r] = nums2[r];
     }
 }

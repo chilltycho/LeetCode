@@ -2,7 +2,6 @@
 使得它们与x轴共同构成的容器可以容纳最多的水。面积只与两柱子有关
 输入：[1,8,6,2,5,4,8,3,7]
 输出：49*/
-
 #include <iostream>
 #include <vector>
 using namespace std;

@@ -4,7 +4,6 @@ using namespace std;
 /*给定一个已按升序排列的有序数组，找到两个数使得他们相加之和等于目标数
 index1,index2 答案唯一
 输入nums[2,7,11,15] target=9 输出[1,2]*/
-
 vector<int> twoSum(vector<int> &nums, int target)
 {
     int i = 0;
