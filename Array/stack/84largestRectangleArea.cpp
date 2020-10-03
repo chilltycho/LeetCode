@@ -24,53 +24,8 @@ int largestRectangleArea(vector<int> &heights)
     }
     return res;
 }
-//单调递增栈，只存入比栈顶高的下标值，否则一直弹出栈
-int largestRectangleArea_1(vector<int> &heights)
-{
-    int len = heights.size() - 1;
-    if (len == 0)
-        return 0;
-    if (len == 1)
-        return heights[0];
-    int res = 0;
-    stack<int> si;
-    for (int i = 0; i < len; i++)
-    {
-        //当前高度较小，则可计算栈中较高高度面积
-        while (!si.empty() && heights[i] < heights[si.top()])
-        {
-            int curHeight = heights[si.top()];
-            while (!si.empty() && heights[si.top()] == curHeight)
-            {
-                si.pop();
-            }
-            int curWidth;
-            if (si.empty())
-                curWidth = 1;
-            else
-            {
-                curWidth = i - si.top() - 1;
-            }
-            res = max(res, curHeight * curWidth);
-        }
-        si.push(i);
-    }
-    while (!si.empty())
-    {
-        int curHeight = heights[si.top()];
-        while (!si.empty() && heights[si.top()] == curHeight)
-            si.pop();
-        int curWidth;
-        if (si.empty())
-            curWidth = len;
-        else
-            curWidth = len - si.top() - 1;
-        res = max(res, curHeight * curWidth);
-    }
-    return res;
-}
 
-//加哨兵
+//单调递增栈
 int largestRectangleArea_2(vector<int> &heights)
 {
     if (heights.size() == 0)
@@ -82,7 +37,7 @@ int largestRectangleArea_2(vector<int> &heights)
     int len = heights.size();
     stack<int> stk;
     for (int i = 0; i < len; i++)
-    {
+    {   //当前元素较小，可计算以栈顶为高的矩形面积
         while (!stk.empty() && heights[i] < heights[stk.top()])
         {
             int top = stk.top();
@@ -93,6 +48,7 @@ int largestRectangleArea_2(vector<int> &heights)
     }
     return res;
 }
+
 int main()
 {
     vector<int> vi{2, 1, 5, 6, 2, 3};

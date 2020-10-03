@@ -12,39 +12,40 @@ bool checkInclusion(string s1, string s2)
 {
     if (s1.size() > s2.size())
         return false;
-    int slmap[26]{0};
+    int need[26]{0};
     for (int i = 0; i < s1.size(); i++)
-        slmap[s1[i] - 'a']++;
+        need[s1[i] - 'a']++;
     for (int i = 0; i <= s2.size() - s1.size(); i++)
     {
-        int s2map[26]{0};
+        int window[26]{0};
         for (int j = 0; j < s1.size(); j++)
-            s2map[s2[i + j] - 'a']++;
-        if (matches(slmap, s2map))
+            window[s2[i + j] - 'a']++;
+        if (matches(need, window))
             return true;
     }
     return false;
 }
 
-bool checkInclusion_1(string s1,string s2)
+bool checkInclusion_1(string s1, string s2)
 {
-    if(s1.size()>s2.size())
+    if (s1.size() > s2.size())
         return false;
-    int s1map[26]{0};
-    int s2map[26]{0};
-    for(int i=0;i<s1.size();i++)
+    int need[26]{0};
+    int window[26]{0};
+    for (int i = 0; i < s1.size(); i++)
     {
-        s1map[s1[i]-'a']++;
-        s2map[s2[i]-'a']++;
+        need[s1[i] - 'a']++;
+        window[s2[i] - 'a']++;
     }
-    for(int i=0;i<s2.size()-s1.size();i++)
+    for (int l = 0; l < s2.size() - s1.size(); l++)
     {
-        if(matches(s1map,s2map))
+        if (matches(need, window))
             return true;
-        s2map[s2[i+s1.size()]-'a']++;
-        s2map[s2[i]-'a']--;
+        //右移窗口
+        window[s2[l + s1.size()] - 'a']++;
+        window[s2[l] - 'a']--;
     }
-    return matches(s1map,s2map);
+    return matches(need, window);
 }
 
 int main()

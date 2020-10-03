@@ -4,14 +4,11 @@
 输入：tasks=[A,A,A,B,B,B] n=2 
 输出：8  AB0AB0AB  0表示待命*/
 #include <iostream>
-#include <unordered_map>
 #include <vector>
 #include <algorithm>
 using namespace std;
-/*
-所有任务安排完成后，若仍有剩余槽，则答案为任务数（填入槽）+剩余空闲时间
-若槽不够，则答案一定为任务总数，这时将该任务直接往后加，一定满足冷却要求
-*/
+/*所有任务安排完成后，若仍有剩余槽，则答案为任务数（填入槽）+剩余空闲时间
+若槽不够，则答案一定为任务总数，这时将该任务直接往后加，一定满足冷却要求*/
 int leastInterval(vector<char> &tasks, int n)
 {
     vector<int> mmap(26, 0);

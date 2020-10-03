@@ -4,13 +4,14 @@
 输出：2  [[1,0],[0,0],[2,0]] 和[[1,0],[2,0],[0,0]]*/
 #include <vector>
 #include <iostream>
-#include<cmath>
+#include <cassert>
+#include <cmath>
 #include <unordered_map>
 using namespace std;
 
 int distance(vector<int> &p1, vector<int> &p2)
 {
-    return pow((p1[0] - p2[0]),2) + pow((p1[1] - p2[1]),2);
+    return pow((p1[0] - p2[0]), 2) + pow((p1[1] - p2[1]), 2);
 }
 
 int numberOfBoomeranges(vector<vector<int>> &points)
@@ -30,13 +31,13 @@ int numberOfBoomeranges(vector<vector<int>> &points)
         }
         for (auto c : count)
             if (c.second >= 2)
-                ans += c.second * (c.second - 1);//排列组合，C_n^2=n*(n-1)
+                ans += c.second * (c.second - 1); //排列组合，C_n^2=n*(n-1)
     }
     return ans;
 }
 
 int main()
 {
-    int a=2^2;
-    cout<<a<<endl;
+    vector<vector<int>> vvi{{0, 0}, {1, 0}, {2, 0}};
+    assert(2 == numberOfBoomeranges(vvi));
 }

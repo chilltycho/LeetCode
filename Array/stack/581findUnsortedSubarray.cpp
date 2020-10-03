@@ -25,22 +25,22 @@ int findUnsortedSubarray_1(vector<int> &nums)
 {
     if (nums.empty() || nums.size() == 1)
         return 0;
-    int begin = 0, end=-1;
-    int len=nums.size();
-    int min=nums[len-1];//从右到左
-    int max=nums[0];//从左到右
-    for(int i=0;i<len;i++)
+    int begin = 0, end = -1;
+    int len = nums.size();
+    int min = nums[len - 1]; //从右到左
+    int max = nums[0];       //从左到右
+    for (int i = 0; i < len; i++)
     {
-        if(nums[i]<max)
-            end=i;
+        if (nums[i] < max)
+            end = i;
         else
-            max=nums[i];
-        if(nums[len-i-1]>min)
-            begin=len-i-1;
+            max = nums[i];
+        if (nums[len - i - 1] > min)
+            begin = len - i - 1;
         else
-            min=nums[len-i-1];
+            min = nums[len - i - 1];
     }
-    return end-begin+1;
+    return end - begin + 1;
 }
 
 int main()
