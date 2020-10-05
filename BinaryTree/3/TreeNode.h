@@ -16,9 +16,9 @@ public:
     TreeNode *root = nullptr;
 
 public:
-    BST(int k)
+    void insert(int key)
     {
-        root = new TreeNode(k);
+        root = insert_i(root, key);
     }
     TreeNode *insert_i(TreeNode *node, int key)
     {
@@ -41,13 +41,24 @@ public:
             root = insert_i(root, c);
     }
 };
-
-void print(TreeNode *root)
+void refac(TreeNode *root)
+{
+    if (root != nullptr)
+    {
+        if (root->left != nullptr && root->left->val == -1)
+            root->left = nullptr;
+        if (root->right != nullptr && root->right->val == -1)
+            root->right = nullptr;
+        refac(root->left);
+        refac(root->right);
+    }
+}
+void preprint(TreeNode *root)
 {
     if (root != nullptr)
     {
         cout << root->val << ' ';
-        print(root->left);
-        print(root->right);
+        preprint(root->left);
+        preprint(root->right);
     }
 }

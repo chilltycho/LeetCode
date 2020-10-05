@@ -1,16 +1,8 @@
 /*给定二叉树，返回任意二叉搜索子树的最大键值和。
 二叉树：任意节点左子树小于此节点键值，任意节点右子树大于此节点键值。*/
-#include <iostream>
+#include "TreeNode.h"
+#include <climits>
 using namespace std;
-
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : left(nullptr), right(nullptr), val(x) {}
-};
-
 /*二叉树的BST子树最大节点和=max(左子树的BST子树最大节点和，右子树..,二叉树的节点和（当前二叉树为BST）
 二叉树是BST=左子树是BST，右子树是BST，根节点值>左子树最大值，根节点值<右子树最小值
 二叉树最大值=max(根节点值，左子树最大值，右子树最大值）
@@ -62,36 +54,8 @@ int maxSumBST(TreeNode *root)
 
 int main()
 {
-    #if 0
-    TreeNode r(1);
-    TreeNode n41(4);
-    TreeNode n3(3);
-    TreeNode n21(2);
-    TreeNode n42(4);
-    TreeNode n22(2);
-    TreeNode n5(5);
-    TreeNode n43(4);
-    TreeNode n6(6);
-
-    r.left = &n41;
-    n41.left = &n21;
-    n41.right = &n42;
-    r.right = &n3;
-    n3.left = &n22;
-    n3.right = &n5;
-    n5.left = &n43;
-    n5.right = &n6;
-    #endif
-    TreeNode r(9);
-    TreeNode n4(4);
-    TreeNode n10(10);
-    TreeNode n6(6);
-    TreeNode n11(11);
-    
-    r.left=&n4;
-    r.right=&n10;
-    n10.left=&n6;
-    n10.right=&n11;
-
-    cout << maxSumBST(&r);
+    vector<int> vi{1, 4, 3, 2, 4, 2, 5, -1, -1, -1, -1, -1, -1, 4, 6};
+    BST tree(vi);
+    refac(tree.root);
+    preprint(tree.root);
 }

@@ -1,6 +1,23 @@
-//给定二叉树,找到该树中两指定节点最近公共祖先
+/*给定二叉树,找到该树中两指定节点最近公共祖先.
+root是p,q的最近公共祖先的情况:
+1.p和q在root的子树中,且分裂在root的异侧
+2.p=root,q在root的左或右子树中
+3.q=root,p在root的左或右子树中*/
 #include "TreeNode.h"
 using namespace std;
+/*
+终止条件:
+1.当越过叶节点,直接返回null
+2.当root等于p,q直接返回root
+递归:
+1.开启递归左子节点,返回值记为left
+2.开启递归右子节点,返回值记为right
+返回值:
+1.left和right同时为空,root的左右子树中都不包含p,q返回null
+2.left和right同时不为空,返回root
+3.left为空,right不为空,直接返回right
+4.left不为空,right不为空,返回left
+*/
 TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
 {
     if (root == nullptr || p == root || q == root)
