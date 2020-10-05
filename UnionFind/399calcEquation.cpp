@@ -4,7 +4,6 @@
 #include <cassert>
 #include <unordered_map>
 using namespace std;
-#if 1
 class UnionFind
 {
 public:
@@ -95,7 +94,6 @@ vector<double> calcEquation(vector<vector<string>> &equations, vector<double> &v
     }
     return res;
 }
-#endif
 
 int main()
 {
@@ -104,9 +102,5 @@ int main()
     vector<double> values{2.0, 3.0};
     vector<vector<string>> queries{{"a", "c"}, {"b", "a"}, {"a", "e"}, {"a", "a"}, {"x", "x"}};
     vector<double> res{6.0, 0.5, -1.0, 1.0, -1.0};
-    //    assert(res == calcEquation(equations, values, queries));
-    auto res1 = calcEquation(equations, values, queries);
-    for (auto c : res1)
-        cout << c << ' ';
-    cout << endl;
+    assert(res == calcEquation(equations, values, queries));
 }
