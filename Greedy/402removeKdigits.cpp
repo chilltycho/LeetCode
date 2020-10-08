@@ -39,4 +39,5 @@ int main()
 {
     cout << removeKdigits("1432219", 3) << endl; //1219,移除4,3,2
     cout << removeKdigits("10200", 1) << endl;   //200,移除1
+    string s{"1234"};
 }
