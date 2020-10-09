@@ -14,7 +14,7 @@ void dfs(int u)
     {
         int v = e.first;       //目标点
         int w = e.second;      //从源节点传递到目标节点的时间
-        if (dp[u] + w < dp[v]) //有较短路径从u到v
+        if (dp[u] + w < dp[v]) //有较短路径从u到v,Dijkstra松弛操作
         {
             dp[v] = dp[u] + w;
             dfs(v);
@@ -27,7 +27,7 @@ int networkDelayTime(vector<vector<int>> &times, int N, int K)
     graph.resize(N + 1);
     dp.resize(N + 1, 101); //K最大100
     int cost = 0;
-    for (auto time : times) //建立邻接表
+    for (auto time : times) //建立邻接表,有向图
         graph[time[0]].emplace_back(time[1], time[2]);
     dp[K] = 0; //K到K时间为0
     dfs(K);    //计算从第K个网络节点开始到各节点最短时间

@@ -4,19 +4,19 @@
 #include <iostream>
 #include <queue>
 using namespace std;
-//Dijkstra
+//Dijkstra O((V+E)logV)
 double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succProb,
                       int start, int end)
 {
-    vector<vector<pair<double, int>>> graph(n);
+    vector<vector<pair<double, int>>> graph(n);//建立邻接表,无向图
     for (int i = 0; i < edges.size(); i++)
     {
         auto e = edges[i];
         graph[e[0]].emplace_back(succProb[i], e[1]);
         graph[e[1]].emplace_back(succProb[i], e[0]);
     }
-    priority_queue<pair<double, int>> que;
-    vector<double> prob(n, 0);
+    priority_queue<pair<double, int>> que;//优先队列
+    vector<double> prob(n, 0);//从start到图各节点概率
     que.emplace(1, start);
     prob[start] = 1;
     while (!que.empty())
@@ -27,11 +27,11 @@ double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succPro
         que.pop();
         if (pr < prob[node])
             continue;
-        for (const auto next : graph[node])
+        for (const auto next : graph[node])//遍历下个节点
         {
             auto prNext = next.first;
             auto nodeNext = next.second;
-            if (prob[nodeNext] < prob[node] * prNext)
+            if (prob[nodeNext] < prob[node] * prNext)//松弛
             {
                 prob[nodeNext] = prob[node] * prNext;
                 que.emplace(prob[nodeNext], nodeNext);
