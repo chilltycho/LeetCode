@@ -22,7 +22,7 @@ int swimIntWater(vector<vector<int>> &grid)
     }
     int N = grid.size();
     int res = 0;
-    priority_queue<T> pq;
+    priority_queue<T> pq;//最小堆
     pq.push(T(grid[0][0], 0, 0));
     vector<vector<int>> seen(N, vector<int>(N, 0));
     seen[0][0] = 1;

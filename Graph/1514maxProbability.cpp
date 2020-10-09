@@ -7,38 +7,45 @@ using namespace std;
 //Dijkstra O((V+E)logV)
 double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succProb,
                       int start, int end)
-{
-    vector<vector<pair<double, int>>> graph(n);//建立邻接表,无向图
+{ //邻接表 起点:权值 终点
+    vector<vector<pair<double, int>>> graph(n);
     for (int i = 0; i < edges.size(); i++)
     {
         auto e = edges[i];
         graph[e[0]].emplace_back(succProb[i], e[1]);
         graph[e[1]].emplace_back(succProb[i], e[0]);
     }
-    priority_queue<pair<double, int>> que;//优先队列
-    vector<double> prob(n, 0);//从start到图各节点概率
+    //最大堆 权值,终点
+    priority_queue<pair<double, int>> que;
+    vector<double> prob(n, 0); //从start到图各节点概率
     que.emplace(1, start);
-    prob[start] = 1;
+    prob[start] = 1; //起点到起点概率为1
+    vector<bool> isvis(n, false);
     while (!que.empty())
     {
         auto temp = que.top();
         auto pr = temp.first;
         auto node = temp.second;
         que.pop();
-        if (pr < prob[node])
+        if (isvis[node])
             continue;
-        for (const auto next : graph[node])//遍历下个节点
+        isvis[node] = true;
+        if (node == end)
+            return pr;
+        for (const auto next : graph[node]) //遍历下个节点
         {
             auto prNext = next.first;
             auto nodeNext = next.second;
-            if (prob[nodeNext] < prob[node] * prNext)//松弛
+            if (isvis[nodeNext])
+                continue;
+            if (prob[nodeNext] < prob[node] * prNext) //松弛
             {
                 prob[nodeNext] = prob[node] * prNext;
                 que.emplace(prob[nodeNext], nodeNext);
             }
         }
     }
-    return prob[end];
+    return 0;
 }
 
 int main()

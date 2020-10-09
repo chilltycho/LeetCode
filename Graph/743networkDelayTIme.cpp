@@ -5,6 +5,7 @@ times[i]=(u,v,w),其中u是源节点,v是目标节点,w是从源节点到目标�
 #include <iostream>
 #include <cassert>
 #include <queue>
+#include <unordered_map>
 using namespace std;
 vector<vector<pair<int, int>>> graph;
 vector<int> dp; //传输时间
@@ -59,8 +60,46 @@ int networkDelayTime_bell(vector<vector<int>> &times, int N, int K)
     return maxwait == INT8_MAX ? -1 : maxwait;
 }
 
+int networkDelayTime_DijPQ(vector<vector<int>> &times, int N, int K)
+{
+    vector<bool> visited(N + 1, false);
+    vector<int> dist(N + 1, INT8_MAX);
+    //邻接表,起点:权值,终点
+    unordered_map<int, vector<pair<int, int>>> graph;
+    for (const auto &t : times)
+        graph[t[0]].emplace_back(t[2], t[1]);
+    //最小堆
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    pq.push({0, K});
+    dist[K] = 0;
+    while (!pq.empty())
+    {
+        auto cur = pq.top();
+        auto cur_weight = cur.first;
+        auto cur_end = cur.second;
+        pq.pop();
+        if (visited[cur_end])
+            continue;
+        visited[cur_end] = true;
+        for (const auto &next : graph[cur_end])
+        {
+            auto next_end = next.second;
+            auto next_weight = next.first;
+            if (dist[next_end] > next_weight + cur_weight)
+            {
+                dist[next_end] = next_weight + cur_weight;
+                pq.push({dist[next_end], next_end});
+            }
+        }
+    }
+    int ans = 0;
+    for (int i = 1; i < dist.size(); i++)
+        ans = max(dist[i], ans);
+    return ans == INT8_MAX ? -1 : ans;
+}
+
 int main()
 {
     vector<vector<int>> times{{2, 1, 1}, {2, 3, 1}, {3, 4, 1}};
-    cout << networkDelayTime(times, 4, 2);
+    cout << networkDelayTime_DijPQ(times, 4, 2);
 }
