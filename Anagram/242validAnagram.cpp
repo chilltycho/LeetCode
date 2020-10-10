@@ -3,31 +3,25 @@
 #include <unordered_map>
 #include <cassert>
 using namespace std;
-
-bool isAnagram(string s, string t)
+//只包含小写字母
+bool isAnagram_1(string s, string t)
 {
-    if (s.size() == t.size())
-    {
-        unordered_map<char, int> counter;
-        for (auto c : s)
-        {
-            counter[c]++;
-        }
-        for (auto a : t)
-        {
-            if (counter[a] == 0)
-                return false;
-            else
-                counter[a]--;
-        }
-        return true;
-    }
-    else
+    if (s.size() != t.size())
         return false;
+    int Smap[26]{0};
+    for (int i = 0; i < s.size(); i++)
+        Smap[s[i] - 'a']++;
+    for (int i = 0; i < t.size(); i++)
+    {
+        if (Smap[t[i] - 'a'] == 0)
+            return false;
+        Smap[t[i] - 'a']--;
+    }
+    return true;
 }
 
 int main()
 {
-    assert(isAnagram("anagram", "nagaram"));
-    assert(!isAnagram("rat", "car"));
+    assert(isAnagram_1("anagram", "nagaram"));
+    assert(!isAnagram_1("rat", "car"));
 }

@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <unordered_map>
 using namespace std;
 //暴力法，不重复遍历三元组
 vector<vector<int>> threeSum_brute(vector<int> &nums)
@@ -32,6 +33,7 @@ vector<vector<int>> threeSum_brute(vector<int> &nums)
     }
     return res;
 }
+
 /*暴力法优化，固定前两重循环元素a,b则只有唯一元素a+b+c=0，二重循环往后枚举b'，则a+b+c'=0时，有c'<c。
 * 故可从小到大枚举b，从大到小枚举c，第二重，第三重循环实际为并列关系*/
 vector<vector<int>> threeSum(vector<int> &nums)
@@ -41,21 +43,21 @@ vector<vector<int>> threeSum(vector<int> &nums)
     if (len < 3)
         return res;
     sort(nums.begin(), nums.end());
-    for (int i = 0; i < len - 2; i++)
+    for (int first = 0; first < len - 2; first++)
     {
         //第一个元素就大于0
-        if (nums[i] > 0)
+        if (nums[first] > 0)
             break;
-        if (i > 0 && nums[i] == nums[i - 1])
+        if (first > 0 && nums[first] == nums[first - 1])
             continue; //不允许方案重复
-        int second = i + 1;
+        int second = first + 1;
         int third = len - 1;
         while (second < third)
         {
-            int sum = nums[i] + nums[second] + nums[third];
+            int sum = nums[first] + nums[second] + nums[third];
             if (sum == 0)
             {
-                res.push_back(vector<int>{nums[i], nums[second], nums[third]});
+                res.push_back(vector<int>{nums[first], nums[second], nums[third]});
                 while (second < third && nums[second + 1] == nums[second]) //第二个元素不能重复
                     second++;
                 while (second < third && nums[third - 1] == nums[third]) //第三个元素不能重复
@@ -87,7 +89,7 @@ int main()
         cout << endl;
     }
     cout << endl;
-    vector<int> nums1{0, 0, 0, 0};
+    vector<int> nums1{1, 2, -2, -1};
     auto res1 = threeSum(nums1);
     for (auto c : res1)
     {

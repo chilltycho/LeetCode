@@ -33,17 +33,14 @@ int findLHS(vector<int> &nums) //超时
 
 int findLHS_1(vector<int> &nums)
 {
-    unordered_map<int, int> um; //元素，出现次数
-    for (auto c : nums)
+    unordered_map<int, int> um; //值,次数
+    for (const auto &c : nums)
+        um[c]++;
+    int res = 0;
+    for (const auto &c : nums)
     {
-        ++um[c];
-    }
-    int res = 0, temp = 0;
-    for (auto c : um)
-    {
-        if (um.count(c.first + 1))
-            temp = um[c.first + 1] + c.second; //两个数出现次数相加
-        res = max(temp, res);
+        if (um[c + 1] > 0)
+            res = max(res, um[c + 1] + um[c]);
     }
     return res;
 }
