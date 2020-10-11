@@ -5,33 +5,16 @@ using namespace std;
 
 int removeElement(vector<int> &nums, int val)
 {
-    int i = 0;
-    int n = nums.size();
-    while (i < n)
+    //[0,index]为有效元素
+    int index = -1;//初始时无元素
+    for(int i=0;i<nums.size();i++)
     {
-        if (nums[i] == val)
+        if(nums[i]!=val)
         {
-            nums[i] = nums[n - 1];
-            n--;
-        }
-        else
-            i++;
-    }
-    return n;
-}
-
-int removeElement_1(vector<int> &nums, int val)
-{
-    int ans = 0;
-    for (const auto c : nums)
-    {
-        if (c != val)
-        {
-            nums[ans] = c;
-            ans++;
+            nums[++index]=nums[i];
         }
     }
-    return ans;
+    return index+1;
 }
 
 int main()

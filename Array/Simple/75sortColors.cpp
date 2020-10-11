@@ -31,20 +31,18 @@ void sortColors(vector<int> &nums)
 //用p0 p2 cur分别追踪0的最右边界，2的最左边界和当前考虑的元素
 void sortColors_1(vector<int> &nums)
 {
-    int p0 = 0, cur = 0;
-    int p2 = nums.size() - 1;
-    int temp;
-    while (cur <= p2)
+    int p0 = -1;//维护0集合
+    int cur = 0;
+    int p2 = nums.size();//维护2集合
+    while (cur < p2)
     {
         if (nums[cur] == 0)
         {
-            nums[cur++] = nums[p0];
-            nums[p0++] = 0;
+            swap(nums[++p0], nums[cur++]);
         }
-        else if (nums[cur] == 2)
+        else if (nums[cur] == 2)//2时不能cur++,nums[--p2]可能为0
         {
-            nums[cur] = nums[p2];
-            nums[p2--] = 2;
+            swap(nums[--p2], nums[cur]);
         }
         else
             cur++;
@@ -53,7 +51,7 @@ void sortColors_1(vector<int> &nums)
 
 int main()
 {
-    vector<int> vi{2, 0, 2, 1, 1, 0};
+    vector<int> vi{1, 2, 0};
     sortColors_1(vi);
     for (auto c : vi)
         cout << c << ' ';

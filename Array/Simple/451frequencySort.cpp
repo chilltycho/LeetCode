@@ -29,7 +29,7 @@ string frequencySort_priorqueue(string s)
     unordered_map<char, int> ump;
     for (const auto &c : s)
         ump[c]++;
-    priority_queue<pair<int, int>> pq;
+    priority_queue<pair<int, int>> pq;//默认最大堆
     for (const auto &m : ump)
         pq.push({m.second, m.first});
     string res;

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include<set>
 using namespace std;
 
 bool containsDuplicate(vector<int> &nums)
@@ -15,6 +16,19 @@ bool containsDuplicate(vector<int> &nums)
     }
     return false;
 }
+
+bool containsDuplicate_1(vector<int>& nums)
+{
+    set<int> mi;
+    for(auto const &c:nums)
+    {
+        if(mi.count(c))
+            return true;
+        mi.insert(c);
+    }
+    return false;
+}
+
 int main()
 {
     vector<int> a{3, 2, 1, 4, 5, 6, 0};

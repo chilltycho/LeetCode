@@ -41,7 +41,7 @@ void rotate(vector<vector<int>> &matrix)
     }
 }
 
-void rotate_1(vector<vector<int>> &matrix) //先旋转四个角元素，然后第而个元素
+void rotate_1(vector<vector<int>> &matrix) //先旋转四个角元素，然后第二个元素
 {
     int n = matrix.size();
     for (int i = 0; i < (n + 1) / 2; i++)

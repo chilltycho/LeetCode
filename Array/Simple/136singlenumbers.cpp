@@ -1,4 +1,6 @@
 #include <iostream>
+#include<vector>
+#include<unordered_map>
 using namespace std;
 //只有一个数字出现一次，其他出现两次
 int single(int a[], int n)
@@ -9,6 +11,18 @@ int single(int a[], int n)
     return temp;
 }
 
+int single_map(vector<int>& nums)
+{
+    unordered_map<int,int> um;
+    for(const auto &c:nums)
+        um[c]++;
+    for(auto c:um)
+    {
+        if(c.second==1)
+            return c.first;
+    }
+    return -1;
+}
 int main()
 {
     int a[]{2, 0, 2, 1, 1};

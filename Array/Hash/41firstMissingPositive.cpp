@@ -36,4 +36,6 @@ int main()
 {
     vector<int> vi{1, 2, 0};
     cout << firstMissingPositive_hash(vi);
+    vector<int> vi1{4,3,2,7,8,3,2,1};
+    cout<<firstMissingPositive_hash(vi1);
 }

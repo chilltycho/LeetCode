@@ -18,10 +18,28 @@ vector<int> findDisappearedNumbers(vector<int> &nums)
     return res;
 }
 
+vector<int> findDisappearedNumbers_hash(vector<int> &nums)
+{
+    for (size_t i = 0; i < nums.size(); i++)
+    {
+        while (nums[i] > 0 && nums[i] != nums[nums[i] - 1])
+        {
+            swap(nums[i], nums[nums[i] - 1]);
+        }
+    }
+    vector<int> res;
+    for (size_t i = 0; i < nums.size(); i++)
+    {
+        if (nums[i] != i + 1)
+            res.push_back(i + 1);
+    }
+    return res;
+}
+
 int main()
 {
-    vector<int> vi{1,1};
-    auto res = findDisappearedNumbers(vi);
+    vector<int> vi{1, 1};
+    auto res = findDisappearedNumbers_hash(vi);
     for (auto c : res)
         cout << c << ' ';
 }

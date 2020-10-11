@@ -2,42 +2,25 @@
 #include <string>
 #include <cassert>
 using namespace std;
-
-bool isValid(char &c)
-{
-    if (c >= 'A' && c <= 'Z')
-    {
-        c = c - 'A' + 'a';
-        return true;
-    }
-    else if ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
-        return true;
-    else
-        return false;
-}
 bool isPalindrome(string s)
 {
-
-    int left = 0;
-    int right = s.size() - 1;
+    size_t left = 0;
+    size_t right = s.size() - 1;
     while (left < right)
     {
-        if (!isValid(s[left]))
+        while (left < right && !isalnum(s[left]))
+            ++left;
+        while (left < right && !isalnum(s[right]))
+            --right;
+        if (left < right)
         {
-            left++;
-            continue;
-        }
-        if (!isValid(s[right]))
-        {
-            right--;
-            continue;
-        }
-        if (s[left] != s[right])
-            return false;
-        else
-        {
-            left++;
-            right--;
+            if (tolower(s[left]) != tolower(s[right]))
+                return false;
+            else
+            {
+                ++left;
+                --right;
+            }
         }
     }
     return true;

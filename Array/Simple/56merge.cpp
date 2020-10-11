@@ -9,12 +9,15 @@ vector<vector<int>> merge(vector<vector<int>> &intervals)
 {
     if (intervals.size() == 0)
         return {};
+    if (intervals.size() == 1)
+        return intervals;
     sort(intervals.begin(), intervals.end());
-    vector<vector<int>> merged;
-    for (int i = 0; i < intervals.size(); i++)
+    vector<vector<int>> merged;//合法的集合
+    merged.push_back(intervals[0]);
+    for (int i = 1; i < intervals.size(); i++)
     {
         int L = intervals[i][0], R = intervals[i][1];
-        if (!merged.size() || merged.back()[1] < L)//最后一个元素
+        if (merged.back()[1] < L) //最后一个元素
             merged.push_back({L, R});
         else
             merged.back()[1] = max(merged.back()[1], R);

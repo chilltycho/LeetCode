@@ -4,27 +4,19 @@
 #include<iostream>
 using namespace std;
 //剩下的数组一定连续，和最小
-int windowSum(vector<int> &nums, int l, int r)
-{
-    int res = 0;
-    for (int i = l; i <= r; i++)
-        res += nums[i];
-    return res;
-}
-
 int maxScore(vector<int> &cardPoints, int k)
 {
     int len = cardPoints.size();
     int allSum = 0;
     for (int i = 0; i < len; i++)
-        allSum += cardPoints[i];
+        allSum += cardPoints[i];//整体数组之和
     if (k == len)
         return allSum;
 
     int windowSize = len - k;
     int sum = 0;
     for (int i = 0; i < windowSize; ++i)
-        sum += cardPoints[i];
+        sum += cardPoints[i];//第一个窗口之和
     int ans = sum;
     for (int i = 0; i < k; ++i)
     {

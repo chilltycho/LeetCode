@@ -5,30 +5,25 @@
 #include <algorithm>
 using namespace std;
 
-int minSubArrayLen(int s, vector<int> &nums)
+int minSubArrayLen_mm(int s, vector<int> &nums)
 {
     if (nums.empty())
         return 0;
-    int len = nums.size();
-    int l = 0, r = 0;
-    int sum = 0;
-    int minLen = len + 1;
-    while (r < len)
+    int windowSum = 0;
+    int min_size = nums.size() + 1;
+    for (int l = 0, r = 0; r < nums.size(); r++)
     {
-        sum += nums[r];
-        r++;
-        while (sum >= s) //找到一个窗口
+        windowSum += nums[r];
+        while (windowSum >= s)
         {
-            minLen = min(minLen, r - l);
-            sum -= nums[l];
+            min_size = min(r - l + 1, min_size);
+            windowSum -= nums[l];
             l++;
         }
     }
-
-    if (minLen == len + 1)
-        return 0;
-    return minLen;
+    return min_size == nums.size() + 1 ? 0 : min_size;
 }
+
 //返回大于等于target的下标
 int lowerBound(vector<int> &a, int l, int r, int target)
 {
@@ -84,8 +79,9 @@ int minSubArrayLen_bru(int s, vector<int> &nums)
     return ans == INT32_MAX ? 0 : ans;
 }
 
+
 int main()
 {
     vector<int> vi{2, 3, 1, 2, 4, 3};
-    assert(2 == minSubArrayLen_bru(7, vi)); //[4.3]符合条件
+    assert(2 == minSubArrayLen_mm(7, vi)); //[4.3]符合条件
 }

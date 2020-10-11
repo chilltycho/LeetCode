@@ -1,5 +1,7 @@
+/*给定数组,将数组中元素右移k个位置,k为非负数*/
 #include <iostream>
 using namespace std;
+
 void viorotate(int *a, int n, int r)
 {
     r = r % n;
@@ -52,6 +54,7 @@ void reverse(int *a, int i, int j)
         a[j - k] = temp;
     }
 }
+
 void rotate_2(int *a, int n, int r)
 {
     r = r % n;
