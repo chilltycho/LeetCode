@@ -1,6 +1,8 @@
+//给定n个非负数表示宽为1的柱子的高度,求下雨后能接多少雨水
 #include <vector>
 #include <stack>
 #include <cassert>
+#include<iostream>
 using namespace std;
 int getMax(vector<int> &height)
 {
@@ -12,6 +14,8 @@ int getMax(vector<int> &height)
 //按行求，求第i层的水
 int trap_1(vector<int> &height)
 {
+    if (height.size() < 3)
+        return 0;
     int sum = 0;
     int maxh = getMax(height);
     for (int i = 1; i <= maxh; i++) //从第1层开始
@@ -36,6 +40,8 @@ int trap_1(vector<int> &height)
 //按列求
 int trap_2(vector<int> &height)
 {
+    if (height.size() < 3)
+        return 0;
     int sum = 0;
     //两端列不会有水
     for (int i = 1; i < height.size() - 1; i++)
@@ -56,10 +62,13 @@ int trap_2(vector<int> &height)
 //提前保存每列左边最高，右边最高。动态规划
 int trap_3(vector<int> &height)
 {
+    if (height.size() < 3)
+        return 0;
+
     int len = height.size();
     int sum = 0;
     vector<int> max_left(len, 0);
-    for (int i = 1; i < len; i++)//从左到右，求左边最高
+    for (int i = 1; i < len; i++) //从左到右，求左边最高
         max_left[i] = max(max_left[i - 1], height[i - 1]);
     vector<int> max_right(len, 0);
     for (int i = len - 2; i >= 0; i--) //从右到左，求右边最高
@@ -72,9 +81,12 @@ int trap_3(vector<int> &height)
     }
     return sum;
 }
-
+//由于是从左往右遍历,故可即时更新左边最高
 int trap_31(vector<int> &height)
 {
+    if (height.size() < 3)
+        return 0;
+
     int len = height.size();
     int sum = 0;
     vector<int> max_right(len, 0);
@@ -93,26 +105,25 @@ int trap_31(vector<int> &height)
 
 int trap_4(vector<int> &height)
 {
+    if (height.size() < 3)
+        return 0;
+
     int len = height.size();
-    int sum = 0, max_left = 0, max_right = 0;
-    int left = 1;
-    int right = len - 2; //右指针
-    for (int i = 1; i < len - 1; i++)
+    int sum = 0, max_left = height[0], max_right = height[len - 1];
+    int left = 0;
+    int right = len - 1; //右指针
+    while (left <= right)
     {
-        if (height[left - 1] < height[right + 1]) //较矮的在左边
+        max_left = max(max_left, height[left]);
+        max_right = max(max_right, height[right]);
+        if (max_left < max_right)
         {
-            max_left = max(max_left, height[left - 1]);
-            int min_lr = max_left;
-            if (min_lr > height[left])
-                sum += (min_lr - height[left]);
+            sum += max_left - height[left];
             left++;
         }
         else
         {
-            max_right = max(max_right, height[right + 1]);
-            int min_lr = max_right;
-            if (min_lr > height[right])
-                sum += (min_lr - height[right]);
+            sum += max_right - height[right];
             right--;
         }
     }
@@ -121,30 +132,30 @@ int trap_4(vector<int> &height)
 /*每匹配一对括号，就计算两堵墙中的水。用栈保存每堵墙。
 当前高度小于栈顶高度，有积水，入栈
 当前高度大于栈顶高度，计算积水，入栈*/
-int trap_5(vector<int> &height)
+int trap_6(vector<int> &height)
 {
+    if (height.size() < 3)
+        return 0;
     int sum = 0;
     stack<int> si;
-    int cur = 0;
-    while (cur < height.size())
+    for (int i = 0; i < height.size(); i++)
     {
-        while (!si.empty() && height[cur] > height[si.top()])
+        while (!si.empty() && height[i] > height[si.top()])
         {
             int h = height[si.top()];
             si.pop();
             if (si.empty())
                 break;
-            int dis = cur - si.top() - 1;
-            int minh = min(height[si.top()], height[cur]);
+            int dis = i - si.top() - 1;
+            int minh = min(height[si.top()], height[i]);
             sum += dis * (minh - h);
         }
-        si.push(cur);
-        cur++;
+        si.push(i);
     }
     return sum;
 }
 int main()
 {
     vector<int> vi{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-    assert(6 == trap_5(vi));
+    cout<<trap_6(vi);
 }
