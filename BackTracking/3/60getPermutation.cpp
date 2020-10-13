@@ -12,7 +12,7 @@ void dfs(int index, int n, int k)//index为树深度
 {
     if (index == n)//刚好n个数时，即为答案
         return;
-    int cnt = factorial[n - 1 - index];//可减去的叶子
+    int cnt = factorial[n - 1 - index];//当前层可减去的叶子
     for (int i = 1; i <= n; i++)
     {
         if (used[i])//确保每个数不重复

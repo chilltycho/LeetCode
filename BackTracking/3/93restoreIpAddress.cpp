@@ -22,7 +22,7 @@ int judgeIfIpSegment(string s, int left, int right) //判断片段是否合法�
 
 void dfs(string s, int len, int split, int begin, vector<string> &path)
 {
-    if (begin == len)
+    if (begin == len)//全部遍历完成
     {
         if (split == 4) //分成4段
         {
