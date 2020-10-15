@@ -26,11 +26,9 @@ int hIndex_bi(vector<int> &citations)
     while (left < right)
     {
         int mid = left + (right - left) / 2;
-        if (citations[mid] == (len - mid))
-            return len - mid;
         if (citations[mid] < (len - mid))
             left = mid + 1;
-        else if (citations[mid] > (len - mid))
+        else 
             right = mid;
     }
     if (citations[left] >= (len - left))

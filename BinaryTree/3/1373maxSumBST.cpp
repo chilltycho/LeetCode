@@ -9,7 +9,6 @@ using namespace std;
 5个子问题：1.BST子树最大节点和 2.二叉树的节点和 3.是否是BST 4.二叉树最小值 5.二叉树最大值
 
 全局变量：最大BST子树节点和
-
 递归函数：四个返回值*/
 
 struct TreeInfo

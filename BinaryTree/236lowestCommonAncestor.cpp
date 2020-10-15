@@ -2,35 +2,24 @@
 root是p,q的最近公共祖先的情况:
 1.p和q在root的子树中,且分裂在root的异侧
 2.p=root,q在root的左或右子树中
-3.q=root,p在root的左或右子树中*/
+3.q=root,p在root的左或右子树中
+对二叉树后序遍历,遇到节点p或q时返回,当p,q在root异侧时,root为最近公共祖先,向上返回root*/
 #include "TreeNode.h"
 using namespace std;
-/*
-终止条件:
-1.当越过叶节点,直接返回null
-2.当root等于p,q直接返回root
-递归:
-1.开启递归左子节点,返回值记为left
-2.开启递归右子节点,返回值记为right
-返回值:
-1.left和right同时为空,root的左右子树中都不包含p,q返回null
-2.left和right同时不为空,返回root
-3.left为空,right不为空,直接返回right
-4.left不为空,right不为空,返回left
-*/
 TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
 {
+    //root==p||q 返回root
     if (root == nullptr || p == root || q == root)
-    {
         return root;
-    }
     auto left = lowestCommonAncestor(root->left, p, q);
     auto right = lowestCommonAncestor(root->right, p, q);
-    if (left != nullptr && right != nullptr)
-        return root;
-    if (left == nullptr)
+    if(left==nullptr)
         return right;
-    return left;
+    if(right==nullptr)
+        return left;
+    if(left!=nullptr&&right!=nullptr)
+        return root;
+    return nullptr;
 }
 
 int main()

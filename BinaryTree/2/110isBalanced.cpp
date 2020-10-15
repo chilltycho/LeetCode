@@ -1,18 +1,11 @@
 /*给定一个二叉树，判断它是否为高度平衡的二叉树。左右两个子树的高度差的绝对值不超过1*/
-#include <iostream>
+#include "../TreeNode.h"
+#include <cassert>
 using namespace std;
 
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
+bool balanced = true;
 
-bool balanced;
-
-int dfs(TreeNode *root)//求根节点到叶子深度
+int dfs(TreeNode *root) //求根节点到叶子深度
 {
     if (root == nullptr)
         return 0;
@@ -25,23 +18,46 @@ int dfs(TreeNode *root)//求根节点到叶子深度
 
 bool isBalanced(TreeNode *root)
 {
-    balanced=true;
     dfs(root);
     return balanced;
 }
+//时间O(N)最差需遍历所有节点,空间O(N)
+int dfs_down2head(TreeNode *root)
+{
+    if (root == nullptr)
+        return 0;
+    int left = dfs(root->left);
+    if (left == -1)
+        return -1;
+    int right = dfs(root->right);
+    if (right == -1)
+        return -1;
+    return abs(left - right) < 2 ? max(left, right) + 1 : -1;
+}
+bool isBalanced_down2head(TreeNode *root)
+{
+    return dfs_down2head(root) != -1;
+}
 
+int depth_head2down(TreeNode *root)
+{
+    if (root == nullptr)
+        return 0;
+    return max(depth_head2down(root->left),
+               depth_head2down(root->right)) +
+           1;
+}
+
+//时间O(NlogN)空间O(N)
+bool isBalanced_head2down(TreeNode *root)
+{
+    if (root == nullptr)
+        return true;
+    return abs(depth_head2down(root->left) - depth_head2down(root->right)) <= 1 && isBalanced_head2down(root->right) && isBalanced_head2down(root->left);
+}
 int main()
 {
-    TreeNode r(3);
-    TreeNode n9(9);
-    TreeNode n20(20);
-    TreeNode n15(15);
-    TreeNode n7(7);
-
-    r.left = &n9;
-    r.right = &n20;
-    n20.left = &n15;
-    n20.right = &n7;
-
-    cout << isBalanced(&r);
+    vector<int> vi{3, 9, 20, -1, -1, 15, 7};
+    auto t1 = vecToTree(vi);
+    assert(isBalanced(t1));
 }

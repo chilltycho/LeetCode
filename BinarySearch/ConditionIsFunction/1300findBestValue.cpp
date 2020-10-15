@@ -19,6 +19,7 @@ int calDis(vector<int> &arr, int value)
     }
     return dis;
 }
+
 int findBestValue(vector<int> &arr, int target)
 {
     int left = 1;

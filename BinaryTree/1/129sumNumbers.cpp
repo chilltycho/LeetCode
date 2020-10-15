@@ -1,20 +1,14 @@
 /*给定二叉树，每个节点存放0-9，从根到叶子节点路径1->2->3代表123，计算从根到叶子节点生成
 所有数字之和*/
-#include <iostream>
 #include <queue>
+#include "../TreeNode.h"
 using namespace std;
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
-int helper(TreeNode *root, int i) //dfs
+
+int helper(TreeNode *root, int temp) //dfs
 {
     if (root == nullptr)
         return 0;
-    int temp = i * 10 + root->val;                       //temp不能作为全局变量
+    temp = temp * 10 + root->val;                       //temp不能作为全局变量
     if (root->left == nullptr && root->right == nullptr) //到达叶子节点时返回
         return temp;
     return helper(root->left, temp) + helper(root->right, temp);
@@ -61,17 +55,7 @@ int sumNumbers_1(TreeNode *root) //bfs
 
 int main()
 {
-    TreeNode n9(9);
-    TreeNode n20(20);
-    TreeNode n5(5);
-    TreeNode n1(1);
-    TreeNode n0(0);
-
-    TreeNode p(4);
-    p.left = &n9;
-    p.right = &n0;
-    n9.left = &n5;
-    n9.right = &n1;
-
-    cout << sumNumbers(&p);
+    vector<int> vi{4, 9, 0, 5, 1};
+    auto t1 = vecToTree(vi);
+    cout << sumNumbers(t1);
 }

@@ -16,7 +16,7 @@ bool search(vector<int> &nums, int target)
         int mid = left + (right - left) / 2;
         if (nums[mid] == target)
             return true;
-        if (nums[left] == nums[mid]) //10111情况，只能遍历
+        if (nums[left] == nums[mid]) //10111情况，不能确定哪边有序,只能遍历
         {
             left++;
             continue;

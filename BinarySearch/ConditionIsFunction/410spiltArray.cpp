@@ -43,6 +43,7 @@ int splitArray(vector<int> &nums, int m)
     }
     return left;
 }
+
 /*动态规划 [将数组分割为m段，求...]
 *将dp[i][j]定义为数组前i个数分割为j段所能得到的最大连续子数组和的最小值。
 *dp[i][j]=min(max(dp[k][j-1],sub[k+1,i]))

@@ -1,14 +1,6 @@
 /*节点的坡度定义为该节点左子树的节点之和和右子树节点之和的差的绝对值。空节点的坡度是0。*/
-#include <iostream>
+#include "../TreeNode.h"
 using namespace std;
-
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), right(nullptr), left(nullptr){}
-};
 
 int titlt;
 
@@ -31,12 +23,7 @@ int findTilt(TreeNode *root)
 
 int main()
 {
-    TreeNode root(1);
-    TreeNode n2(2);
-    TreeNode n3(3);
-
-    root.left=&n2;
-    root.right=&n3;
-
-    cout<<findTilt(&root);
+    vector<int> vi{1, 2, 3};
+    auto t1 = vecToTree(vi);
+    cout << findTilt(t1) << endl;
 }

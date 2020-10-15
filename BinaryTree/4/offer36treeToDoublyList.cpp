@@ -21,40 +21,6 @@ public:
         right = _right;
     }
 };
-#if 0
-Node *head, *last; //链表表头，二叉树遍历前一个节点，也是链表尾节点
-void dfs(Node *curr)
-{
-    if (curr == nullptr)
-        return;
-    Node *ri = curr->right;
-    dfs(curr->left);
-    curr->left = nullptr;
-    curr->right = nullptr;
-    if (head == nullptr)
-        head = curr;
-    else
-    {
-        curr->left = last;
-        last->right = curr;
-    }
-    last = curr;
-    dfs(ri);
-}
-Node *treeToDoublyList(Node *root)
-{
-    head = nullptr;
-    last = nullptr;
-    dfs(root);
-    if (head != nullptr)
-    {
-        head->left = last;
-        last->right = head;
-    }
-    return head;
-}
-#endif
-
 Node *pre, *head;
 void dfs(Node *cur)
 {
@@ -77,8 +43,8 @@ Node *treeToDoublyList(Node *root)
     head = nullptr;
 
     dfs(root);
-    head->left = pre;//head前面是尾
-    pre->right = head;//尾的后面是头
+    head->left = pre;  //head前面是尾
+    pre->right = head; //尾的后面是头
     return head;
 }
 

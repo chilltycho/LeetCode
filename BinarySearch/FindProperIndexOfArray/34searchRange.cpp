@@ -17,7 +17,7 @@ int findFirstPosition(vector<int> &nums, int target)
         else
             right = mid - 1;
     }
-    if (left != nums.size()&&nums[left] == target )
+    if (left != nums.size() && nums[left] == target)
         return left;
     return -1;
 }
@@ -51,10 +51,36 @@ vector<int> searchRange(vector<int> &nums, int target)
     return vector<int>{firstPosition, lastPosition};
 }
 
+vector<int> searchRange_1(vector<int> &nums, int target)
+{
+    vector<int> res{-1, -1};
+    if (nums.empty())
+        return res;
+    int left = 0;
+    int right = nums.size() - 1;
+    while (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < target)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    if (nums[left] != target)
+        return res;
+    int i = left + 1;
+    for (; i < nums.size(); i++)
+        if (nums[i] != target)
+            break;
+    res[0] = left;
+    res[1] = i - 1;
+    return res;
+}
+
 int main()
 {
-    vector<int> nums{2,2};
-    
-    auto res=searchRange(nums,3);
-    cout<<res[0]<<res[1];
+    vector<int> nums{2, 2};
+
+    auto res = searchRange(nums, 3);
+    cout << res[0] << res[1];
 }

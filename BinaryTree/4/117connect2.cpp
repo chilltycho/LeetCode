@@ -1,5 +1,6 @@
 /*对比116为一般二叉树*/
 #include <iostream>
+#include <queue>
 using namespace std;
 struct Node
 {
@@ -39,6 +40,60 @@ Node *connect(Node *root)
 
     root->right = connect(root->right); //先递归右子树，否则左子树到右子树无法正确挂载
     root->left = connect(root->left);
+    return root;
+}
+//层序遍历
+Node *connect_bfs(Node *root)
+{
+    if (root == nullptr)
+        return root;
+    queue<Node *> mq;
+    mq.push(root);
+    while (!mq.empty())
+    {
+        int levelCount = mq.size();
+        Node *pre = nullptr;
+        for (int i = 0; i < levelCount; i++)
+        {
+            auto node = mq.front();
+            mq.pop();
+            if (pre != nullptr)
+                pre->next = node;
+            pre = node;
+            if (node->left != nullptr)
+                mq.push(node->left);
+            if (node->right != nullptr)
+                mq.push(node->right);
+        }
+    }
+    return root;
+}
+//层序遍历优化
+Node *connect_bfs1(Node *root)
+{
+    if (root == nullptr)
+        return root;
+    Node *cur = root;
+    while (cur != nullptr)
+    {
+        Node *dum = new Node(0);
+        Node *pre = dum;
+        while (cur != nullptr)
+        {
+            if (cur->left != nullptr)
+            {
+                pre->next = cur->left;
+                pre = pre->next;
+            }
+            if (cur->right != nullptr)
+            {
+                pre->next = cur->right;
+                pre = pre->next;
+            }
+            cur = cur->next;
+        }
+        cur = dum->next;
+    }
     return root;
 }
 

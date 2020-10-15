@@ -29,8 +29,7 @@ int findMin(vector<int> &nums)
     return -1; //永远不会执行
 }
 /*[3,4,5,1,2]此时a[mid]>a[left]但最小元素在右边  a[mid]>a[right]
-  [1,2,3,4,5]此时a[mid]>a[left]但最小元素在左边  a[mid]<a[right]
-*/
+  [1,2,3,4,5]此时a[mid]>a[left]但最小元素在左边  a[mid]<a[right]*/
 int findMin_1(vector<int> &nums)
 {
     int len = nums.size();

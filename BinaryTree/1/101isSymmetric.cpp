@@ -1,16 +1,9 @@
 //判断二叉树是否镜像对称
-#include <iostream>
+#include "../TreeNode.h"
 #include <queue>
+#include <cassert>
 using namespace std;
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
-
-bool isSymmetric(TreeNode *root) //层序
+bool isSymmetric(TreeNode *root) //bfs
 {
     queue<TreeNode *> mq;
     mq.push(root);
@@ -55,24 +48,7 @@ bool isSymmeric_1(TreeNode *root)
 
 int main()
 {
-    TreeNode r(1);
-    TreeNode n21(2);
-    TreeNode n22(2);
-    TreeNode n31(3);
-    TreeNode n32(3);
-    TreeNode n41(4);
-    TreeNode n42(4);
-#if 0
-    r.left=&n21;
-    r.right=&n22;
-    n21.left=&n31;
-    n21.right=&n41;
-    n22.left=&n42;
-    n22.right=&n32;
-#endif
-    r.left = &n21;
-    r.right = &n22;
-    n21.right = &n31;
-    n22.right = &n32;
-    cout << isSymmeric_1(&r);
+    vector<int> vi{1, 2, 2, 3, 4, 4, 3};
+    auto t1 = vecToTree(vi);
+    assert(isSymmetric(t1));
 }

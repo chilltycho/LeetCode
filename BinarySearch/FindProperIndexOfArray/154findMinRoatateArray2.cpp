@@ -16,7 +16,7 @@ int findMin(vector<int> &nums)
         int mid = left + (right - left) / 2;
         if (nums[mid] > nums[right])
             left = mid + 1;
-        else if (nums[mid] < nums[mid])
+        else if (nums[mid] < nums[right])
             right = mid;
         else
             right--;

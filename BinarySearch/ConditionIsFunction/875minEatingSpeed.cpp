@@ -15,6 +15,7 @@ int cal(vector<int> &piles, int sp)
     }
     return res;
 }
+
 /*吃速度越小，耗时越多，速度越大，耗时越小，单调性。*/
 int minEatingSpeed(vector<int> &piles, int H)
 {

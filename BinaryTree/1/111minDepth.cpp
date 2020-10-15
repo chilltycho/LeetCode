@@ -1,16 +1,10 @@
 //给定二叉树，找出其最小深度，最小深度是从根节点到最近叶子节点的最短路径上的节点数量
-#include <iostream>
+#include <cassert>
+#include "../TreeNode.h"
 #include <queue>
 using namespace std;
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
 
-int minDepth(TreeNode *root)//层序
+int minDepth(TreeNode *root) //层序
 {
     if (root == nullptr)
         return 0;
@@ -33,7 +27,7 @@ int minDepth(TreeNode *root)//层序
             if (node->right != nullptr)
                 mq.push(node->right);
         }
-        res++;//注意深度增加位置。
+        res++; //注意深度增加位置。
     }
     return -1;
 }
@@ -51,16 +45,7 @@ int minDepth_1(TreeNode *root)
 
 int main()
 {
-    TreeNode n9(9);
-    TreeNode n20(20);
-    TreeNode n15(15);
-    TreeNode n7(7);
-
-    TreeNode p(3);
-    p.left = &n9;
-    p.right = &n20;
-    n20.left = &n15;
-    n20.right = &n7;
-
-    cout << minDepth_1(&p);
+    vector<int> vi{3, 9, 20, -1, -1, 15, 7};
+    auto t1 = vecToTree(vi);
+    assert(2 == minDepth(t1));
 }

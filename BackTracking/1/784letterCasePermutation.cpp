@@ -3,34 +3,48 @@
 输入："3z4" 输出：["3z4","3Z4"]*/
 #include <vector>
 #include <iostream>
+#include <cctype>
 using namespace std;
-
 vector<string> res;
-void dfs(string s, int i)
+//使用异或转换字母大小写,大写字母与对应小写字母ASCII差为32,2^5
+//若是小写,减去32,若是大写,加上32.合并为对字符的异或操作
+void dfs(string S, int index)
 {
-    for(;i<s.size();i++)
+    if (S.size() == index)
     {
-        if(s[i]>='a'&&s[i]<='z')
-        {
-            s[i]=s[i]-'a'+'A';
-            dfs(s,i+1);
-            s[i]=s[i]-'A'+'a';
-        }
-        if(s[i]>='A'&&s[i]<='Z')
-        {
-            s[i]=s[i]-'A'+'a';
-            dfs(s,i+1);
-            s[i]=s[i]-'a'+'A';
-        }
+        res.push_back(S);
+        return;
     }
-    res.push_back(s);
+    //未修改时
+    dfs(S, index + 1);
+    //修改当前字母时
+    if (isalpha(S[index]))
+    {
+        S[index] = S[index] ^ 32;
+        dfs(S, index + 1);
+    }
 }
-
 vector<string> letterCasePermutation(string S)
 {
-    string temp = "";
     dfs(S, 0);
     return res;
+}
+
+vector<string> letterCasePermutation_ite(string S)
+{
+    vector<string> ans{S};
+    for(int i=0;i<S.size();i++)
+    {
+        if(isalpha(S[i]))
+        {
+            for(int j=ans.size()-1;j>=0;j--)
+            {
+                ans.push_back(ans[j]);
+                ans[j][i]^=32;
+            }
+        }
+    }
+    return ans;
 }
 
 int main()

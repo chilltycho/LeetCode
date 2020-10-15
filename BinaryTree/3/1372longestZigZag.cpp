@@ -1,16 +1,8 @@
 /*二叉树中交错路径：选择二叉树中任意节点和一个方向（左或右），若前进方向为右，则移动到右子节点，
 改变前进方向，直到无法继续移动*/
-#include <iostream>
-#include <utility>
+#include"../TreeNode.h"
+#include<cassert>
 using namespace std;
-
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
 
 /*1.子问题：二叉树最长之字形路径=max(左子树的最长之字形路径，右子树的最长之字形路径，二叉树的最长之字形根路径)
 二叉树的最长之字形根路径=max(1+左子树的最长右之根路径，1+右子树的最长左之根路径)
@@ -20,6 +12,7 @@ struct TreeNode
 判断主要子问题是否要抽取成全局变量：需要将每次计算结果汇总
 3.有几个子问题，递归函数就返回几个值。第一个为全局变量，故需返回两个。*/
 int res;
+
 pair<int, int> dfs(TreeNode *root)
 {
     if (root == nullptr)
@@ -43,7 +36,7 @@ int longestZigZag(TreeNode *root)
 
 void dfs_1(TreeNode* root,bool dir,int len)
 {
-    if(!root)
+    if(root==nullptr)
         return;
     res=max(res,len);
     if(dir)//当前节点为父节点右孩子
@@ -68,20 +61,7 @@ int longestZigZag_1(TreeNode* root)
 
 int main()
 {
-    TreeNode r(1);
-    TreeNode n1(1);
-    TreeNode n2(1);
-    TreeNode n3(1);
-    TreeNode n4(1);
-    TreeNode n5(1);
-    TreeNode n6(1);
-
-    r.left = &n1;
-    r.right = &n2;
-    n1.right = &n3;
-    n3.left = &n4;
-    n3.right = &n5;
-    n4.right = &n6;
-
-    cout << longestZigZag(&r);
+    vector<int> vi{1,-1,1,1,1,-1,-1,1,1,-1,1,-1,-1,-1,1,-1,1};
+    auto t1=vecToTree(vi);
+    assert(3==longestZigZag(t1));
 }
