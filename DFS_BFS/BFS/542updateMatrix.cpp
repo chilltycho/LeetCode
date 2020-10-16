@@ -10,6 +10,7 @@ bool inArea(vector<vector<int>> &matrix, int r, int c)
     int col = matrix[0].size();
     return 0 <= r && r < row && 0 <= c && c < col;
 }
+
 void updateMatrix(vector<vector<int>> &matrix)
 {
     int row = matrix.size();
@@ -18,7 +19,7 @@ void updateMatrix(vector<vector<int>> &matrix)
     for (int i = 0; i < row; i++)
         for (int j = 0; j < col; j++)
             if (matrix[i][j] == 0)
-                mq.push_back({i, j});//以0为起点
+                mq.push_back({i, j}); //以0为起点
     vector<vector<int>> moves{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
     int dis = -1;
     while (!mq.empty())
@@ -43,21 +44,21 @@ void updateMatrix(vector<vector<int>> &matrix)
         }
         dis -= 1;
     }
-    for(int i=0;i<row;i++)
-        for(int j=0;j<col;j++)
-            matrix[i][j]=-matrix[i][j];
+    for (int i = 0; i < row; i++)
+        for (int j = 0; j < col; j++)
+            matrix[i][j] = -matrix[i][j];
 }
 
 int main()
 {
-    vector<vector<int>> vii1{{0,0,0},{0,1,0},{0,0,0}};
-    vector<vector<int>> vii2{{0,0,0},{0,1,0},{1,1,1}};
-    vector<vector<int>> vii3{{0,1,1},{1,1,1},{1,1,1}};
+    vector<vector<int>> vii1{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+    vector<vector<int>> vii2{{0, 0, 0}, {0, 1, 0}, {1, 1, 1}};
+    vector<vector<int>> vii3{{0, 1, 1}, {1, 1, 1}, {1, 1, 1}};
     updateMatrix(vii3);
-    for(auto c:vii3)
+    for (auto c : vii3)
     {
-        for(auto cc:c)
-            cout<<cc<<' ';
-        cout<<endl;
+        for (auto cc : c)
+            cout << cc << ' ';
+        cout << endl;
     }
 }

@@ -60,5 +60,5 @@ int main()
     vector<vector<int>> vii{{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
     vector<vector<int>> vii1{{2, 1, 1}, {0, 1, 1}, {1, 0, 1}};
     vector<vector<int>> vii2{{0, 2}};
-    cout << orangeRotting(vii2);
+    cout << orangeRotting(vii);
 }

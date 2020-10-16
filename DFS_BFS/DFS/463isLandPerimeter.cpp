@@ -1,10 +1,11 @@
+//给定包含0和1的二维地图,1表示陆地,0表示水域,求岛屿周长
 #include <iostream>
 #include <vector>
 using namespace std;
 
 int dfs(vector<vector<int>> &grid, int r, int c)
-{
-    if (!(0 <= r && r < grid.size() && 0 <= c && c < grid[0].size())) //边界+1
+{ //边界+1
+    if (!(0 <= r && r < grid.size() && 0 <= c && c < grid[0].size()))
         return 1;
     if (grid[r][c] == 0) //相邻0加一
         return 1;
@@ -49,6 +50,12 @@ int islandPerimeter_1(vector<vector<int>> &grid)
 int main()
 {
     vector<vector<int>> vii{{0, 1, 0, 0}, {1, 1, 1, 0}, {0, 1, 0, 0}, {1, 1, 0, 0}};
-    //cout << islandPerimeter(vii) << endl;
-    cout << islandPerimeter_1(vii) << endl;
+    cout << islandPerimeter(vii) << endl;
+    for (const auto &c : vii)
+    {
+        for (const auto &cc : c)
+            cout << cc << ' ';
+        cout << endl;
+    }
+    //cout << islandPerimeter_1(vii) << endl;
 }

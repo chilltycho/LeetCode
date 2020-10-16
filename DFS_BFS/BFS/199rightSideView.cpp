@@ -34,9 +34,9 @@ vector<int> rightSideView(TreeNode *root)
     }
     return res;
 }
-
+//深度优先搜索:根->右->左,每层访问第一个节点一定在最右边
 vector<int> res;
-void dfs(TreeNode *root, int depth)//深度优先搜索:根->右->左。深度==数组长度时
+void dfs(TreeNode *root, int depth)
 {
     if (root == nullptr)
         return;

@@ -1,5 +1,6 @@
 #include<stack>
 #include<iostream>
+#include<climits>
 using namespace std;
 
 class MinStack

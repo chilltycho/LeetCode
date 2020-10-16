@@ -41,10 +41,10 @@ int binarySearch_3(vector<int> &nums, int l, int r, int target)
     while (l < r)
     {
         int mid = l + (r - l) / 2;
-        if (nums[mid] > target)
-            r = mid - 1;
+        if (nums[mid] < target)
+            l = mid + 1;
         else
-            l = mid;
+            r = mid;
     }
     return l;
 }
@@ -52,5 +52,5 @@ int binarySearch_3(vector<int> &nums, int l, int r, int target)
 int main()
 {
     vector<int> nums{-1, 0, 3, 5, 9, 12};
-    cout << binarySearch_3(nums, 0, nums.size() - 1, 4);
+    cout << binarySearch_3(nums, 0, nums.size() - 1, -1);
 }

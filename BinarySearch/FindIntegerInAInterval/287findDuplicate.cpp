@@ -32,22 +32,22 @@ int findDuplicate(vector<int> &nums)
 陷入循环1,2,3,4,5,[6,7,8,9],[6,7,8,9]
 设置快指针f(每次走两步),慢指针s(每次走一步),fs相遇时,s在环中前进距离为n-m.在让s
 前进m步,则s回到环入口.*/
-int findDuplicate_fs(vector<int>& nums)
+int findDuplicate_fs(vector<int> &nums)
 {
-    int fast=0,slow=0;
-    while(true)
+    int fast = 0, slow = 0;
+    while (true)
     {
-        fast=nums[nums[fast]];
-        slow=nums[slow];
-        if(fast==slow)
+        fast = nums[nums[fast]];
+        slow = nums[slow];
+        if (fast == slow)
             break;
     }
-    int finder=0;//用于寻找环起点
-    while(true)
+    int finder = 0; //用于寻找环起点
+    while (true)
     {
-        finder=nums[finder];
-        slow=nums[slow];
-        if(slow==finder)
+        finder = nums[finder];
+        slow = nums[slow];
+        if (slow == finder)
             break;
     }
     return slow;

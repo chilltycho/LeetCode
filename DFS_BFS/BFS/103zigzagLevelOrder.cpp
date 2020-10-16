@@ -1,16 +1,7 @@
-#include <iostream>
-#include <vector>
+#include "../TreeNode.h"
 #include <deque>
 using namespace std;
 //层序，第一层左向右，第二层右向左...
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
-
 vector<vector<int>> zigzagLevelOrder(TreeNode *root)
 {
     deque<TreeNode *> mq;
@@ -57,16 +48,9 @@ vector<vector<int>> zigzagLevelOrder(TreeNode *root)
 
 int main()
 {
-    TreeNode root(3);
-    TreeNode nine(9);
-    TreeNode twenty(20);
-    TreeNode seven(7);
-    TreeNode fifteen(15);
-    root.left = &nine;
-    root.right = &twenty;
-    root.right->left = &fifteen;
-    root.right->right = &seven;
-    auto vii = zigzagLevelOrder(&root);
+    vector<int> vi{3, 9, 20, -1, -1, 15, 7};
+    auto root=vecToTree(vi);
+    auto vii = zigzagLevelOrder(root);
     for (auto c : vii)
     {
         for (auto cc : c)
