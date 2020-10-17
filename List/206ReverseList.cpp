@@ -1,34 +1,49 @@
+//翻转整个链表
 #include "utl.h"
+using namespace std;
 
 ListNode *reverseList(ListNode *head)
 {
-    ListNode *prev = nullptr;
-    ListNode *curr = head;
-    while (curr != nullptr)
+    ListNode *cur = nullptr;
+    ListNode *pre = head;
+    while (pre != nullptr)
     {
-        ListNode *curnext = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = curnext;
+        ListNode *t = pre->next;
+        pre->next = cur;
+        cur = pre;
+        pre = t;
     }
-    return prev;
+    return cur;
 }
 
 ListNode *reverseList_re(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
         return head;
-    ListNode *nextNode = head->next;
-    ListNode *newHead = reverseList_re(nextNode);
-    nextNode->next = head;
+    ListNode *ret = reverseList_re(head->next);
+    head->next->next = head;
     head->next = nullptr;
-    return newHead;
+    return ret;
+}
+
+ListNode *reverseList_re1(ListNode *head)
+{
+    if (head == nullptr)
+        return head;
+    ListNode *cur = head;
+    while (head->next != nullptr)
+    {
+        ListNode *t = head->next->next;
+        head->next->next = cur;
+        cur = head->next;
+        head->next = t;
+    }
+    return cur;
 }
 
 int main()
 {
     vector<int> vi{1, 2, 3, 4, 5};
-    ListNode *head = createLinkedList(vi);
-    auto res = reverseList_re(head);
-    printLinkeList(res);
+    auto root = createLinkedList(vi);
+    printLinkeList(reverseList_re1(root));
 }

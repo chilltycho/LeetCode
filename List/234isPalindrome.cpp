@@ -1,12 +1,4 @@
-#include <vector>
-#include <iostream>
-using namespace std;
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
+#include "utl.h"
 
 bool isPalindrome(ListNode *head) //1->2->2->1
 {
@@ -28,27 +20,27 @@ bool isPalindrome(ListNode *head) //1->2->2->1
     return true;
 }
 
-bool isPalindrome_1(ListNode *head)//从中间位置反转列表。
+bool isPalindrome_1(ListNode *head) //从中间位置反转列表。
 {
-    if (head==nullptr || head->next==nullptr)
+    if (head == nullptr || head->next == nullptr)
         return true;
     ListNode *slow = head, *fast = head;
-    while (fast!=nullptr && fast->next!=nullptr)
+    while (fast != nullptr && fast->next != nullptr)
     {
         slow = slow->next;
         fast = fast->next->next;
-    }//此时slow指向中心节点
+    } //此时slow指向中心节点
 
     ListNode *curNode = slow, *nextNode = slow->next;
-    while (nextNode!=nullptr)//反转链表
+    while (nextNode != nullptr) //反转链表
     {
         ListNode *tmp = nextNode->next;
         nextNode->next = curNode;
         curNode = nextNode;
         nextNode = tmp;
     }
-    slow->next = nullptr;//中心节点指向nullptr
-    
+    slow->next = nullptr; //中心节点指向nullptr
+
     while (head && curNode)
     {
         if (head->val != curNode->val)
@@ -57,4 +49,11 @@ bool isPalindrome_1(ListNode *head)//从中间位置反转列表。
         curNode = curNode->next;
     }
     return true;
+}
+
+int main()
+{
+    vector<int> vi{1, 2, 2, 1};
+    auto head = createLinkedList(vi);
+    cout << isPalindrome(head);
 }

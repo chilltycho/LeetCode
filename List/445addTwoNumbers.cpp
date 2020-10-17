@@ -1,14 +1,6 @@
-#include <iostream>
-#include <stack>
+#include"utl.h"
+#include<stack>
 using namespace std;
-
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
-
 //两非空链表代表两个非负整数，数字最高位位于链表开始位置。每个节点只存储一位数字。不能对节点反转
 ListNode *addTwoNumbers_1(ListNode *l1, ListNode *l2) //考虑先读出，再用栈
 {

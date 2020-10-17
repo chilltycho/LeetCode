@@ -1,12 +1,5 @@
-#include <iostream>
+#include "utl.h"
 using namespace std;
-
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
 
 //删除链表中所有等于val的元素，可能包含相同val
 ListNode *removeElements(ListNode *head, int val)
@@ -15,13 +8,13 @@ ListNode *removeElements(ListNode *head, int val)
     ListNode *curr = head;
     while (curr != nullptr)
     {
-        if (curr->val == val) //头节点情况
+        if (curr->val == val)
         {
-            if (prev == nullptr)
+            if (prev == nullptr) //头节点
             {
                 head = curr->next;
-                prev=nullptr;//删除头节点后，prev仍需指向null，考虑[1,1]
-                curr=curr->next;
+                prev = nullptr; //删除头节点后，prev仍需指向null，考虑[1,1]
+                curr = curr->next;
             }
             else
             {
@@ -38,28 +31,10 @@ ListNode *removeElements(ListNode *head, int val)
     return head;
 }
 
-void print(ListNode *head)
-{
-    ListNode *prev = nullptr;
-    ListNode *curr = head;
-    while (curr != nullptr)
-    {
-        cout << curr->val << ' ';
-        prev = curr;
-        curr = curr->next;
-    }
-}
 int main()
 {
-    ListNode head(1);
-    ListNode l1(1);
-    ListNode l2(2);
-    ListNode l3(3);
-    ListNode l4(4);
-    ListNode l5(5);
-    head.next = &l1;
-    //print(&head);
-
-    ListNode *newlist = removeElements(&head,1);
-    print(newlist);
+    vector<int> vi{1, 2, 6, 3, 4, 5, 6};
+    auto head = createLinkedList(vi);
+    auto res = removeElements(head, 6);
+    printLinkeList(res);
 }

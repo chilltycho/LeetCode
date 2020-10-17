@@ -1,27 +1,31 @@
+//将链表每个节点向右移动k个位置,k为非负数
 #include "utl.h"
-
+#include <cassert>
+using namespace std;
 ListNode *rotateRight(ListNode *head, int k)
 {
     if (head == nullptr || head->next == nullptr || k == 0)
         return head;
-    int size = 1;
-    auto cur = head;
-    while (cur != nullptr && cur->next != nullptr) //让cur到达尾节点
+    ListNode *p = head;
+    int len = 1;
+    while (p->next != nullptr)
     {
-        cur = cur->next;
-        size++;
+        p = p->next;
+        len++;
     }
-    int move = k % size;
-    if (move == 0)
-        return head;
+    p->next = head;//形成环
+    
+    k %= len;
+    p=head;
+    while(len!=k+1)//找断点
+    {
+        --len;
+        p=p->next;
+    }
 
-    ListNode *cut = head;
-    for (int i = 0; i < size - move - 1; ++i)
-        cut = cut->next;
-    ListNode *result = cut->next; //新头节点
-    cut->next = nullptr;
-    cur->next = head;
-    return result;
+    head = p->next;//新头
+    p->next = nullptr;
+    return head;
 }
 
 int main()

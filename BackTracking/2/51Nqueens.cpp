@@ -2,7 +2,6 @@
 #include <vector>
 using namespace std;
 //将n个皇后放置在nxn的棋盘上，使得皇后彼此之间不能相互攻击。皇后可横、竖、斜走7步
-
 vector<vector<string>> res;
 //因为是按行从上到下排列，故只考虑同列，左上和右上
 bool isValid(vector<string> &board, int row, int col)

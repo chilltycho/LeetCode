@@ -1,13 +1,6 @@
 /*在O(NlogN)时间复杂度和常数空间复杂度下，对链表进行排序*/
-#include <iostream>
+#include"utl.h"
 using namespace std;
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
-
 /*归并排序：
 对数组：
 划分：将数组平分为左右两半，O(1)时间
@@ -34,6 +27,7 @@ ListNode *split(ListNode *head)
     prev->next = nullptr;
     return slow;
 }
+
 ListNode *head, *tail;
 void append(ListNode *node)
 {
@@ -48,6 +42,7 @@ void append(ListNode *node)
         tail = node;
     }
 }
+
 ListNode *merge_1(ListNode *left, ListNode *right)
 {
     head = nullptr;

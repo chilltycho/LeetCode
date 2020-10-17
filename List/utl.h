@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
-using namespace std;
+using std::vector;
+using std::cout;
 struct ListNode
 {
     int val;
@@ -15,7 +16,7 @@ ListNode *createLinkedList(const vector<int> &arr)
         return nullptr;
     ListNode *head = new ListNode(arr[0]);
     ListNode *cur = head;
-    for (int i = 1; i < arr.size(); i++)
+    for (size_t i = 1; i < arr.size(); i++)
     {
         cur->next = new ListNode(arr[i]);
         cur = cur->next;
@@ -31,7 +32,7 @@ void printLinkeList(ListNode *head)
         cout << cur->val << ' ';
         cur = cur->next;
     }
-    cout << "nullptr " << endl;
+    cout << "nullptr " << '\n';
 }
 
 void deleteLinkedList(ListNode *head)

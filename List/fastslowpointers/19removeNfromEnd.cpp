@@ -2,13 +2,8 @@
 1->2->3->4->5 n=2
 返回 1->2->3->5*/
 #include <iostream>
+#include"../utl.h"
 using namespace std;
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
 
 ListNode *removeNthFromEnd(ListNode *head, int n)
 {
@@ -45,14 +40,8 @@ void print(ListNode *root)
 
 int main()
 {
-    ListNode root(1);
-    ListNode n2(2);
-    ListNode n3(3);
-    ListNode n4(4);
-
-    root.next = &n2;
-    n2.next = &n3;
-
-    auto res = removeNthFromEnd(&root, 3);
+    vector<int> vi{1,2,3,4,5};
+    auto root=createLinkedList(vi);
+    auto res = removeNthFromEnd(root, 3);
     print(res);
 }

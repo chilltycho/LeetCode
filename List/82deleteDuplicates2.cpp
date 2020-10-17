@@ -1,53 +1,20 @@
 #include "utl.h"
 //已经排好序的数组，删除所有含重复数字的节点
-ListNode *deleteDuplicates(ListNode *head)
-{
-    if (head == nullptr || head->next == nullptr)
-        return head;
-    ListNode *dumHead = new ListNode(INTMAX_MAX);
-    dumHead->next = head;
-    ListNode *prev = dumHead;
-    while (prev != nullptr && prev->next != nullptr)
-    {
-        ListNode *curr = prev->next;
-        if ((curr->next) == nullptr || curr->next->val != curr->val)
-            prev = curr;
-        else
-        {
-            while (curr->next && curr->next->val == curr->val)
-                curr = curr->next;
-            prev->next = curr->next;
-        }
-    }
-    return dumHead->next;
-}
-
 ListNode *deleteDuplicates_1(ListNode *head)
 {
-    if (head == nullptr || head->next == nullptr)
+    if(head==nullptr||head->next==nullptr)
         return head;
-    ListNode *dumHead = new ListNode(-1);
-    dumHead->next = head;
-    ListNode *prev = dumHead;
-    ListNode *curr = head;
-    while (curr != nullptr && curr->next != nullptr)
+    if(head->val==head->next->val)//删除头部重复节点
     {
-        if (curr->val == curr->next->val)
-        {
-            while (curr->next && curr->val == curr->next->val)
-            {
-                curr = curr->next;
-            }
-            prev->next = curr->next;
-            curr=curr->next;
-        }
-        else
-        {
-            prev = curr;
-            curr = prev->next;
-        }
+        while(head!=nullptr&&head->next!=nullptr&&head->val==head->next->val)
+            head=head->next;
+        return deleteDuplicates_1(head->next);
     }
-    return dumHead->next;
+    else
+    {
+        head->next=deleteDuplicates_1(head->next);
+        return head;
+    }
 }
 
 int main()
