@@ -4,6 +4,7 @@
 #include <cassert>
 #include <iostream>
 using namespace std;
+#if 0
 int direction[4][2]{{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
 bool inArea(int x, int y, vector<vector<char>> &board)
 {
@@ -48,13 +49,49 @@ bool exist(vector<vector<char>> &board, string word)
     }
     return false;
 }
+#endif
+
+bool helper(vector<vector<char>> &board, string word, size_t i, size_t j, size_t p)
+{
+    //是否越界或者字符不匹配
+    if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || board[i][j] != word[p])
+    {
+        return false;
+    }
+    if (p == word.size() - 1)
+    {
+        return true;
+    }
+    char tmp = board[i][j];
+    board[i][j] = '#';
+    bool res = helper(board, word, i - 1, j, p + 1) ||
+               helper(board, word, i + 1, j, p + 1) ||
+               helper(board, word, i, j - 1, p + 1) ||
+               helper(board, word, i, j + 1, p + 1);
+    board[i][j] = tmp;
+    return res;
+}
+bool exist_1(vector<vector<char>> &board, string word)
+{
+    for (size_t i = 0; i < board.size(); i++)
+    {
+        for (size_t j = 0; j < board[0].size(); j++)
+        {
+            if (helper(board, word, i, j, 0))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 int main()
 {
     vector<vector<char>> board{{'A', 'B', 'C', 'E'},
                                {'S', 'F', 'C', 'S'},
                                {'A', 'D', 'E', 'E'}};
-    assert(exist(board, "ABCCED"));
-    assert(exist(board, "SEE"));
-    assert(!exist(board, "ABCB"));
+    assert(exist_1(board, "ABCCED"));
+    assert(exist_1(board, "SEE"));
+    assert(!exist_1(board, "ABCB"));
 }
