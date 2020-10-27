@@ -29,11 +29,11 @@ bool isMatch(string s, string p)
     {
         for (size_t j = 1; j < pLen + 1; j++)
         {
-            if (s[i - 1] == p[j - 1] || p[j - 1] == '.')
+            if (s[i - 1] == p[j - 1] || p[j - 1] == '.')//最后字符匹配
                 dp[i][j] = dp[i - 1][j - 1];
-            else if (p[j - 1] == '*')
+            else if (p[j - 1] == '*')//不匹配，但有*号
             {
-                if (s[i - 1] == p[j - 2] || p[j - 2] == '.')
+                if (s[i - 1] == p[j - 2] || p[j - 2] == '.')//*号可让消失，重复1次，重复多次
                     dp[i][j] = dp[i][j - 2] || dp[i - 1][j - 2] || dp[i - 1][j];
                 else
                     dp[i][j] = dp[i][j - 2];
