@@ -3,25 +3,29 @@
 #include "../TreeNode.h"
 using namespace std;
 
-void traverse(TreeNode *root, int sum, vector<int> &path, vector<vector<int>> &res)
+vector<int> path;
+vector<vector<int>> res;
+
+    void traverse(TreeNode *root, int sum)
 {
     if (root == nullptr)
         return;
     path.push_back(root->val);
     if (root->left == nullptr && root->right == nullptr) //叶节点
         if (root->val == sum)
-            res.push_back(path);
-    int target = sum - root->val;
-    traverse(root->left, target, path, res);
-    traverse(root->right, target, path, res);
+            {
+                res.push_back(path);
+                return;
+            }
+    
+    traverse(root->left, sum-(root->val));
+    traverse(root->right, sum-(root->val));
     path.pop_back(); //回溯
 }
 
 vector<vector<int>> pathSum(TreeNode *root, int sum)
 {
-    vector<vector<int>> res;
-    vector<int> path;
-    traverse(root, sum, path, res);
+    traverse(root, sum);
     return res;
 }
 
