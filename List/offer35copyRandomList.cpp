@@ -23,8 +23,8 @@ void copyNodes(Node *head)
     Node *cur = head;
     while (cur)
     {
-        Node *copy = new Node(cur->val);
-        Node *nep = cur->next;
+        Node *copy = new Node(cur->val);//新链表
+        Node *nep = cur->next;//旧链表
         cur->next = copy;
         copy->next = nep;
         cur = copy->next;
