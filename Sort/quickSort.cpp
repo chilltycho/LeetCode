@@ -1,12 +1,6 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-void swap(vector<int> &nums, int l, int r)
-{
-    int temp = nums[l];
-    nums[l] = nums[r];
-    nums[r] = temp;
-}
 
 int partition(vector<int> &nums, int left, int right)
 {
@@ -18,10 +12,10 @@ int partition(vector<int> &nums, int left, int right)
         if (pivot > nums[i])
         {
             lt++;
-            swap(nums, i, lt);
+            swap(nums[i], nums[lt]);
         }
     }
-    swap(nums, left, lt);
+    swap(nums[left], nums[lt]);
     return lt;
 }
 void quickSort(vector<int> &nums, int left, int right)
@@ -47,11 +41,11 @@ int partition_2(vector<int> &nums, int left, int right)
             gt--;
         if (lt >= gt) //只有当lt<gt时才交换左右指针
             break;
-        swap(nums, lt, gt);
+        swap(nums[lt], nums[gt]);
         lt++;
         gt--;
     }
-    swap(nums, left, gt); //交换哨值
+    swap(nums[left],nums[gt]); //交换哨值
     return gt;
 }
 
@@ -78,7 +72,7 @@ pair<int, int> partition_3(vector<int> &nums, int left, int right)
         if (nums[i] < pivot)
         {
             lt++;
-            swap(nums, i, lt);
+            swap(nums[i], nums[lt]);
             i++;
         }
         else if (nums[i] == pivot)
@@ -86,10 +80,10 @@ pair<int, int> partition_3(vector<int> &nums, int left, int right)
         else
         {
             gt--;
-            swap(nums, i, gt);
+            swap(nums[i], nums[gt]);
         }
     }
-    swap(nums, left, lt);
+    swap(nums[left], nums[lt]);
     return make_pair(lt, gt);
 }
 
@@ -105,7 +99,7 @@ void quickSort_3ways(vector<int> &nums, int left, int right)
 int main()
 {
     vector<int> nums{3, 4, 1, 2, 5};
-    quickSort_3ways(nums, 0, nums.size() - 1);
+    quickSort(nums, 0, nums.size() - 1);
     for (auto c : nums)
         cout << c << ' ';
 }

@@ -1,5 +1,4 @@
-/*给定一个整数数组，找到一个具有最大和的连续子数组（连续子数组最少包含一个元素）
-返回其最大和。*/
+/*给定一个整数数组，找到一个具有最大和的连续子数组（连续子数组最少包含一个元素）返回其最大和。*/
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -33,23 +32,8 @@ int maxSubArray_1(vector<int> &nums)
     return newval;
 }
 
-int maxSubArray_2(vector<int> &nums)
-{
-    int size = nums.size();
-    int old = 0, newval = 0;
-    for (int i = 0; i <= size; i++)
-    {
-        if (old + nums[i] > nums[i])
-            old = old + nums[i];
-        else
-            old = nums[i];
-        newval = max(old, newval);
-    }
-    return newval;
-}
-
 int main()
 {
     vector<int> nums{-2, 1, -3, 4, -1, 2, 1, -5, 4};
-    cout << maxSubArray_2(nums);
+    cout << maxSubArray_1(nums);
 }
