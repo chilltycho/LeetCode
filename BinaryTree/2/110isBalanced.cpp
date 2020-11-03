@@ -22,18 +22,20 @@ bool isBalanced(TreeNode *root)
     return balanced;
 }
 //时间O(N)最差需遍历所有节点,空间O(N)
+//当root左/右子树深度差<=1，返回最大深度。当>1返回-1,代表不是平衡树
 int dfs_down2head(TreeNode *root)
 {
     if (root == nullptr)
         return 0;
-    int left = dfs(root->left);
+    int left = dfs_down2head(root->left);
     if (left == -1)
         return -1;
-    int right = dfs(root->right);
+    int right = dfs_down2head(root->right);
     if (right == -1)
         return -1;
     return abs(left - right) < 2 ? max(left, right) + 1 : -1;
 }
+
 bool isBalanced_down2head(TreeNode *root)
 {
     return dfs_down2head(root) != -1;
@@ -48,7 +50,7 @@ int depth_head2down(TreeNode *root)
            1;
 }
 
-//时间O(NlogN)空间O(N)
+//时间O(NlogN)空间O(N)，计算每个节点左右子树深度
 bool isBalanced_head2down(TreeNode *root)
 {
     if (root == nullptr)
