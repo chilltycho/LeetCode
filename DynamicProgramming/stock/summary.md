@@ -1,18 +1,17 @@
 股票买卖问题：
 三个状态：天数、当天允许交易最大次数、当前持有状态(1表示持有，0表示未持有)
+```C++
 dp[i][k][0 or 1] 其中0<=i<=n-1,1<=k<=K
 
 for i=[0,n)
     for 1<=k<=K
         for s 0 or 1
             dp[i][k][s]=max(buy,sell,rest) ，买入、卖出、不交易
-
 状态转移：
 dp[i][k][0]=max(dp[i-1][k][0],dp[i-1][k][1]+prices[i])
                 不交易          卖出
 dp[i][k][1]=max(dp[i-1][k][1],dp[i-1][k-1][0]-prices[i])
                 不交易          买入
-
 初始条件：
 dp[-1][k][0]=0, 未开始，利润为0
 dp[-1][k][1]=-inf 不可能
@@ -33,7 +32,6 @@ for(int i=0;i<n;i++)
     dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
     dp[i][1]=max(dp[i-1][1],-prices[i])
 return dp[n-1][0]
-
 int maxProfit(vector<int> prices)
 {
     int n=prices.size();
@@ -45,12 +43,10 @@ int maxProfit(vector<int> prices)
     }
     return dp_i_0;
 }
-
 题二：k=inf
 可认为k和k-1一样
 dp[i][0]=max(dp[i-1][0],dp[i-1][1]+prices[i])
 dp[i][1]=max(dp[i-1][1],dp[i-1][0]-prices[i])
-
 int maxProfit(vector<int> prices)
 {
     int n=prices.size();
@@ -110,7 +106,7 @@ dp[i][k][1]=max(dp[i-1][k][1],dp[i-1][k-1][0]-prices[i])
 int maxProfit(vector<int>& prices)
 {
     int max_k=2;
-    vector<vector<vector<int>>> dp(n,vector<vector<int>>(max_k+1,vector<int>(2)));
+    int dp[n][max_k][2];
     for(int i=0;i<n;i++)
     {
         for(int k=max_k;k>=1;k--)
@@ -136,3 +132,4 @@ int maxProfit(int max_k,vector<int>& prices)
         return maxProfit_k_inf(prices);
     
 }
+```C++
