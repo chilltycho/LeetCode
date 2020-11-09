@@ -13,11 +13,11 @@ TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
         return root;
     auto left = lowestCommonAncestor(root->left, p, q);
     auto right = lowestCommonAncestor(root->right, p, q);
-    if(left==nullptr)
+    if (left == nullptr)
         return right;
-    if(right==nullptr)
+    if (right == nullptr)
         return left;
-    if(left!=nullptr&&right!=nullptr)
+    if (left != nullptr && right != nullptr)
         return root;
     return nullptr;
 }
