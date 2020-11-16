@@ -1,4 +1,3 @@
-//给定含n个正整数的数组和正整数s，找出数组中满足其和>=s的长度最小的连续子数组，返回其长度。若不存在，返回0
 #include <vector>
 #include <iostream>
 #include <cassert>
