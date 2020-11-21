@@ -20,22 +20,17 @@ ListNode *removeNthFromEnd(ListNode *head, int n)
     }
     if (prev == nullptr) //删除头节点
     {
+        auto temp=head;
         head = curr->next;
+        free(temp);
     }
     else
     {
+        auto temp=curr;
         prev->next = curr->next;
+        free(temp);
     }
     return head;
-}
-
-void print(ListNode *root)
-{
-    if (root != nullptr)
-    {
-        cout << root->val << ' ';
-        print(root->next);
-    }
 }
 
 int main()
@@ -43,5 +38,6 @@ int main()
     vector<int> vi{1,2,3,4,5};
     auto root=createLinkedList(vi);
     auto res = removeNthFromEnd(root, 3);
-    print(res);
+    printLinkeList(res);
+    deleteLinkedList(res);
 }

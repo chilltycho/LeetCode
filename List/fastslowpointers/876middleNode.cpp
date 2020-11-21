@@ -21,4 +21,5 @@ int main()
     auto root=createLinkedList(vi);
     auto res = middleNode(root);
     cout << res->val;
+    deleteLinkedList(root);
 }
