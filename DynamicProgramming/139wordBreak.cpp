@@ -1,4 +1,4 @@
-//给定非空字符串s和包含非空单词列表的wordDict，在字符串中增加空格来构建句子，使句子所有单词都在词典中
+//给定非空字符串s和包含非空单词列表的wordDict，在字符串中增加空格来构建句子，使句子所有单词都在词典中,字典中无重复单词
 #include <iostream>
 #include <vector>
 #include <unordered_set>
