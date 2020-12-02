@@ -36,6 +36,7 @@ int mergeAndCount(vector<int> &nums, int left, int mid, int right, vector<int> &
     }
     return count;
 }
+
 int reversePairs_help(vector<int> &nums, int left, int right, vector<int> &temp)
 {
     if (left == right)
@@ -48,6 +49,7 @@ int reversePairs_help(vector<int> &nums, int left, int right, vector<int> &temp)
     int crossPairs = mergeAndCount(nums, left, mid, right, temp);
     return leftPairs + rightPairs + crossPairs;
 }
+
 int reversePairs(vector<int> &nums)
 {
     auto len = nums.size();
