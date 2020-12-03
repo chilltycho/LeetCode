@@ -55,6 +55,6 @@ int longestMountain_1(vector<int> &A)
 int main()
 {
     vector<int> vi{0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0};
-    vector<int> vi1{2, 1, 4, 7, 3, 2, 5};
+    vector<int> vi1{2,1,1,5,6,2,3,1};
     cout << longestMountain(vi1) << endl;
 }
