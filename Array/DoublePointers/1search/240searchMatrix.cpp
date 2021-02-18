@@ -56,7 +56,7 @@ bool searchMatrix_bi(vector<vector<int>> &matrix, int target)
     {
         if (matrix[i][0] > target)
             break;
-        if (matrix[i][matrix[i].size() - 1] >= target)
+        if (matrix[i][matrix[i].size() - 1] >= target) // 某行最后元素大于目标值，可能在该行
         {
             if (binarySearch(matrix[i], target))
                 return true;

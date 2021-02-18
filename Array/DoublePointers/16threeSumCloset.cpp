@@ -25,16 +25,16 @@ int threeSumClosest(vector<int> &nums, int target)
             if (sum > target)
             {
                 r--;
-                while(l<r&&nums[r]==nums[r+1])
+                while (l < r && nums[r] == nums[r + 1])
                     r--;
             }
             if (sum < target)
             {
                 l++;
-                while(l<r&&nums[l]==nums[l-1])
+                while (l < r && nums[l] == nums[l - 1])
                     l++;
             }
-            int ndis=abs(sum-target);
+            int ndis = abs(sum - target);
             if (ndis < dis)
             {
                 res = sum;

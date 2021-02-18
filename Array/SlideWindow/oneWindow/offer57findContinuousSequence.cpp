@@ -23,7 +23,7 @@ vector<vector<int>> findContinuousSequence(int target)
         else
         {
             vector<int> arr;
-            for (int k = 0; k < r; k++)
+            for (int k = l; k < r; k++)
                 arr.push_back(k);
             res.push_back(arr);
             sum -= l;
