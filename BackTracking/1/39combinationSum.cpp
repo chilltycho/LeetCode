@@ -29,7 +29,7 @@ void dfs(int start, int target, vector<int> &candidates)
 
 vector<vector<int>> combinationSum(vector<int> &candidates, int target)
 {
-    sort(candidates.begin(), candidates.end()); //剪枝前操作，排序
+    sort(candidates.begin(), candidates.end()); //剪枝前操作，排序提高速度。如果小的数不符合，大的也不符合
     dfs(0, target, candidates);
     return res;
 }

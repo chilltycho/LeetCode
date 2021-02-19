@@ -33,24 +33,50 @@ vector<string> letterCasePermutation(string S)
 vector<string> letterCasePermutation_ite(string S)
 {
     vector<string> ans{S};
-    for(int i=0;i<S.size();i++)
+    for (int i = 0; i < S.size(); i++)
     {
-        if(isalpha(S[i]))
+        if (isalpha(S[i]))
         {
-            for(int j=ans.size()-1;j>=0;j--)
+            for (int j = ans.size() - 1; j >= 0; j--)
             {
                 ans.push_back(ans[j]);
-                ans[j][i]^=32;
+                ans[j][i] ^= 32;
             }
         }
     }
     return ans;
 }
 
+void dfs_1(string s, int i, vector<string>& l)
+{
+    for (; i < s.size(); i++)
+    {
+        if (s[i] >= 'a' && s[i] <= 'z')
+        {
+            s[i] = s[i] - 'a' + 'A';
+            dfs_1(s, i + 1, l);
+            s[i] = s[i] - 'A' + 'a';
+        }
+        if (s[i] >= 'A' && s[i] <= 'Z')
+        {
+            s[i] = s[i] - 'A' + 'a';
+            dfs_1(s, i + 1, l);
+            s[i] = s[i] - 'a' + 'A';
+        }
+    }
+    l.push_back(s);
+}
+
+vector<string> letterCasePermutation_1(string S)
+{
+    dfs_1(S, 0, res);
+    return res;
+}
+
 int main()
 {
     string s = "ab";
-    auto res = letterCasePermutation(s);
+    auto res = letterCasePermutation_1(s);
     for (auto c : res)
         cout << c << ' ';
 }

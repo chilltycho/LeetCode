@@ -38,7 +38,7 @@ int binarySearch_2(vector<int> &nums, int left, int right, int target)
 
 int binarySearch_3(vector<int> &nums, int l, int r, int target)
 {
-    while (l < r)
+    while (l < r) //返回偏小索引
     {
         int mid = l + (r - l) / 2;
         if (nums[mid] < target)

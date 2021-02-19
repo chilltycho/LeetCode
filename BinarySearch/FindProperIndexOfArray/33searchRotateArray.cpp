@@ -5,6 +5,20 @@
 #include <cassert>
 using namespace std;
 
+int search_1(vector<int> &nums, int target)
+{
+    int l = 0, r = nums.size() - 1;
+    while (l < r)
+    {
+        int m = l + (r - l) / 2;
+        if ((nums[0] > target) ^ (nums[0] > nums[m]) ^ (target > nums[m]))
+            l = m + 1;
+        else
+            r = m;
+    }
+    return l == r && nums[l] == target ? l : -1;
+}
+
 int search(vector<int> &nums, int target)
 {
     if (nums.empty())
@@ -17,14 +31,14 @@ int search(vector<int> &nums, int target)
         int mid = left + (right - left) / 2;
         if (nums[mid] == target)
             return mid;
-        if (nums[mid] >= nums[left])//左半部分升序
+        if (nums[mid] >= nums[left]) //左半部分升序
         {
             if (target >= nums[left] && target < nums[mid])
                 right = mid - 1;
             else
                 left = mid + 1;
         }
-        else
+        else //右部分升序
         {
             if (target > nums[mid] && target <= nums[right])
                 left = mid + 1;

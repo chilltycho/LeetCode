@@ -79,8 +79,8 @@ vector<int> searchRange_1(vector<int> &nums, int target)
 
 int main()
 {
-    vector<int> nums{2, 2};
+    vector<int> nums{5, 7, 7, 8, 8, 10};
 
-    auto res = searchRange(nums, 3);
+    auto res = searchRange(nums, 8);
     cout << res[0] << res[1];
 }

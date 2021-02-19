@@ -30,7 +30,7 @@ int findBestValue(vector<int> &arr, int target)
     while (left < right)
     {
         int mid = left + (right - left) / 2;
-        if (calDis(arr, mid) < target)
+        if (calDis(arr, mid) < target) //选出来可能偏大，结果判断两次
             left = mid + 1;
         else
             right = mid;

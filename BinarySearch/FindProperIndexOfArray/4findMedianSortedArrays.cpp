@@ -5,6 +5,34 @@
 #include <cassert>
 using namespace std;
 
+/**
+ * len为合并后数组长度，若为奇数，需知道第(len+1)/2个数，需遍历int(len/2)+1次。
+ * 若为偶数，需知道第len/2和len/2+1个数，需遍历len/2+1次。
+ * 所以都需遍历len/2+1次。用left保存上次循环值，right保存当前循环值
+*/
+double findMedianSortedArrays(vector<int> &nums1, vector<int> &nums2)
+{
+    int m = nums1.size();
+    int n = nums2.size();
+    int len = m + n;
+    int ap = 0, bp = 0;
+    int left = -1, right = -1;
+    for (int i = 0; i <= len / 2; i++)
+    {
+        left = right;
+        if (ap < m && (bp >= n || nums1[ap] < nums2[bp]))
+        {
+            right = nums1[ap++];
+        }
+        else
+            right = nums2[bp++];
+    }
+    if ((len & 1) == 0)
+        return (left + right) / 2.0;
+    else
+        return right;
+}
+
 int getKth(vector<int> &nums1, int start1, int end1, vector<int> &nums2, int start2, int end2,
            int k)
 {
@@ -19,7 +47,7 @@ int getKth(vector<int> &nums1, int start1, int end1, vector<int> &nums2, int sta
         return min(nums1[start1], nums2[start2]);
     int i = start1 + min(len1, k / 2) - 1;
     int j = start2 + min(len2, k / 2) - 1;
-    if (nums1[i] > nums2[j])//排除nums2一部分
+    if (nums1[i] > nums2[j]) //排除nums2一部分
     {
         return getKth(nums1, start1, end1, nums2, j + 1, end2, k - (j - start2 + 1));
     }

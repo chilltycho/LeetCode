@@ -25,7 +25,7 @@ bool isValid(vector<string> &board, int row, int col)
     return true;
 }
 
-void dfs(vector<string> &board, int row)
+void dfs(vector<string> &board, int row) //考虑每行
 {
     if (row == board.size())
     {
