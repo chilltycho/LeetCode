@@ -1,5 +1,5 @@
 //从上到下按层打印二叉树，同一层节点按左到右顺序打印，每层打印到一行
-#include "TreeNode.h"
+#include "../TreeNode.h"
 using namespace std;
 
 void dfs(TreeNode *root, vector<vector<int>> &res, int level)
@@ -38,4 +38,18 @@ vector<vector<int>> bfs(TreeNode *root)
         res.push_back(temp);
     }
     return res;
+}
+
+int main()
+{
+    vector<int> vi{1, 2, 3, 4, 5, 6, 7};
+    auto root = vecToTree(vi);
+    vector<vector<int>> res;
+    dfs(root, res, 0);
+    for (auto c : res)
+    {
+        for (auto cc : c)
+            cout << cc << " ";
+        cout << endl;
+    }
 }

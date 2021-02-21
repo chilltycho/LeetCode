@@ -22,6 +22,33 @@ TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
     return nullptr;
 }
 
+/**
+ * 该函数功能：
+ * 1. 若p和q存在，返回公共祖先
+ * 2. 若只存在一个，返回存在的一个
+ * 3. 若p，q都不存在，返回null
+ * 递归，使用函数后可认为左右子树结果已经算出，用leftt和rightt表示
+ * 若leftt为空，最终只看rightt，若rightt为空，只看leftt。
+ * 若leftt和rightt均为空，返回空
+ * 若均为非空，说明一边一个，返回root
+*/
+TreeNode *lowestCommonAncestor_1(TreeNode *root, TreeNode *p, TreeNode *q)
+{
+    if (root == nullptr)
+        return nullptr;
+    if (root == p || root == q)
+        return root;
+    auto leftt = lowestCommonAncestor_1(root->left, p, q);
+    auto rightt = lowestCommonAncestor_1(root->right, p, q);
+    if (leftt == nullptr)
+        return rightt;
+    if (rightt == nullptr)
+        return leftt;
+    if (rightt != nullptr && leftt != nullptr)
+        return root;
+    return nullptr;
+}
+
 int main()
 {
     vector<int> nums{3, 5, 1, 6, 2, 0, 8, -1, -1, 7, 4};

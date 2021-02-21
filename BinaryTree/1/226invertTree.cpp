@@ -1,5 +1,6 @@
 //翻转二叉树
 #include <iostream>
+#include <queue>
 #include "../TreeNode.h"
 using namespace std;
 
@@ -10,6 +11,27 @@ TreeNode *invertTree(TreeNode *root)
     swap(root->left, root->right);
     invertTree(root->left);
     invertTree(root->right);
+    return root;
+}
+
+TreeNode *invertTree_bfs(TreeNode *root)
+{
+    if (root == nullptr)
+        return nullptr;
+    queue<TreeNode *> mq;
+    mq.push(root);
+    while (!mq.empty())
+    {
+        auto tmp = mq.front();
+        mq.pop();
+        auto tl = tmp->left;
+        tmp->left = tmp->right;
+        tmp->right = tl;
+        if (tmp->left != nullptr)
+            mq.push(tmp->left);
+        if (tmp->right != nullptr)
+            mq.push(tmp->right);
+    }
     return root;
 }
 

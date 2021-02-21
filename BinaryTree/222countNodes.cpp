@@ -13,15 +13,25 @@ int depth(TreeNode *root)
     }
     return dep;
 }
-
+// O(logn * logn)
 int countNodes(TreeNode *root)
 {
     if (root == nullptr)
         return 0;
     int left_dep = depth(root->left);
     int right_dep = depth(root->right);
-    if (left_dep == right_dep) //左子树满
+    if (left_dep == right_dep) //左子树满。只需计算一边
         return countNodes(root->right) + (1 << left_dep);
-    else //右子树满
+    else //左子树深度大于右子树，右子树满
         return countNodes(root->left) + (1 << right_dep);
 }
+
+//O(n)
+int countNodes(TreeNode *root)
+{
+    if (root == nullptr)
+        return 0;
+    return countNodes(root->left) + countNodes(root->right) + 1;
+}
+
+// 二分查找，总结点数=倒数第二层以上节点数+最后一层节点数

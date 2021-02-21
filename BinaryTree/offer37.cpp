@@ -26,27 +26,34 @@ string serialize(TreeNode *root)
 
 TreeNode *deserialize(string data)
 {
-    istringstream input(data);
-    string val;
-    vector<TreeNode *> res;
-    while (input >> val)
+    if (data.empty())
+        return nullptr;
+
+    stringstream ss(data);
+    int tmp;
+    ss >> tmp;
+    auto head = new TreeNode(tmp);
+    queue<TreeNode *> buffer;
+    buffer.push(head);
+    while (!buffer.empty())
     {
-        if (val == "null")
-            res.push_back(nullptr);
-        else
-            res.push_back(new TreeNode(stoi(val)));
+        auto node = buffer.front();
+        buffer.pop();
+        string str;
+        ss >> str;
+        if (str != "null")
+        {
+            node->left = new TreeNode(stoi(str));
+            buffer.push(node->left);
+        }
+        ss >> str;
+        if (str != "null")
+        {
+            node->right = new TreeNode(stoi(str));
+            buffer.push(node->right);
+        }
     }
-    int j = 1; //i每往后移动一位，j移动两位，j始终是当前i左子下标
-    for (int i = 0; j < res.size(); i++)
-    {
-        if (res[i] == nullptr)
-            continue;
-        if (j < res.size())
-            res[i]->left = res[j++];
-        if (j < res.size())
-            res[i]->right = res[j++];
-    }
-    return res[0];
+    return head;
 }
 
 //dfs

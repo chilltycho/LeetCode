@@ -7,7 +7,7 @@ using namespace std;
 **中序遍历:[[左子树的中序遍历结果],根,[右子树的中序遍历结果]]
 **思路:在中序遍历中定位到根节点,则可知道左子树和右子树节点数目,同一颗树前序
 遍历,中序遍历长度相同,可对应到前序遍历结果中,对所有左右括号定位.*/
-unordered_map<int, int> index;//键为节点值，值为其在中序遍历中位置
+unordered_map<int, int> index; //键为节点值，值为其在中序遍历中位置
 
 TreeNode *helper(const vector<int> &preorder, const vector<int> &inorder,
                  int preorder_left, int preorder_right, int inorder_left, int inorder_right)
