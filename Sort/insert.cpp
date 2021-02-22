@@ -1,33 +1,28 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-void swap(vector<int> &nums, int i, int j)
-{
-    auto temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-}
 
 void insertSort(vector<int> &nums)
 {
     auto len = nums.size();
-    for (int i = 1; i < len; i++)
+    for (size_t i = 1; i < len; i++)
     {
-        for (int j = i; j > 0; j--)
+        for (size_t j = i; j > 0; j--)
         {
             if (nums[j - 1] > nums[j])
-                swap(nums, j, j - 1);
+                swap(nums[j], nums[j - 1]);
             else
                 break;
         }
     }
 }
 
+// 对排好序的为O(N)
 void insertSort_1(vector<int> &nums)
 {
     auto len = nums.size();
     //循环不变量，将nums[i]插入区间[0,i)
-    for (int i = 1; i < len; i++)
+    for (size_t i = 1; i < len; i++)
     {
         int temp = nums[i];
         int j = i;

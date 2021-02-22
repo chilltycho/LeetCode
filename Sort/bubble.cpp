@@ -1,12 +1,9 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-void swap(vector<int> &nums, int i, int j)
-{
-    auto temp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = temp;
-}
+/**
+ * 冒泡：比较相邻，若不是递增，则交换。每次把较大地放到最后
+*/
 void bubbleSort(vector<int> &nums)
 {
     auto len = nums.size();
@@ -15,7 +12,7 @@ void bubbleSort(vector<int> &nums)
         for (int j = 0; j < i; j++)
         {
             if (nums[j] > nums[j + 1])
-                swap(nums, j, j + 1);
+                swap(nums[j], nums[j + 1]);
         }
     }
 }

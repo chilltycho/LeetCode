@@ -16,23 +16,24 @@ class Solution
 private:
     vector<int> nu;
     vector<int> backup;
+
 public:
     Solution(vector<int> &nums)
     {
-        nu=nums;
-        backup=nums;
+        nu = nums;
+        backup = nums;
     }
     vector<int> reset()
-    {   
+    {
         return backup;
     }
     vector<int> shuffle()
     {
-        int n=nu.size();
-        for(int i=0;i<n;i++)
+        int n = nu.size();
+        for (int i = 0; i < n; i++)
         {
-            int rnd=randint(i,n-1);
-            swap(nu[i],nu[rnd]);
+            int rnd = randint(i, n - 1);
+            swap(nu[i], nu[rnd]);
         }
         return nu;
     }
@@ -40,14 +41,14 @@ public:
 
 int main()
 {
-    vector<int> nums{1,2,3,4,5};
+    vector<int> nums{1, 2, 3, 4, 5};
     Solution so(nums);
-    for(const auto c:so.shuffle())
-        cout<<c<<' ';
-    cout<<endl;
-    for(const auto c:so.reset())
-        cout<<c<<' ';
-    cout<<endl;
-    for(const auto c:so.shuffle())
-        cout<<c<<' ';
+    for (const auto c : so.shuffle())
+        cout << c << ' ';
+    cout << endl;
+    for (const auto c : so.reset())
+        cout << c << ' ';
+    cout << endl;
+    for (const auto c : so.shuffle())
+        cout << c << ' ';
 }

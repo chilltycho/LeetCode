@@ -6,15 +6,19 @@ using namespace std;
 
 int partition(vector<int> &a, int l, int r)
 {
-    int x = a[r]; //x为哨值
-    int i = l - 1;
-    for (int j = l; j < r; ++j)
+    int pivot = a[l]; //基准值
+    int lt = l;       //less than
+    //循环不变量：确保[left+1,lt]<pivot, [lt+1,i]>=pivot
+    for (int i = l + 1; i <= r; i++)
     {
-        if (a[j] <= x)
-            swap(a[++i], a[j]);
+        if (pivot > a[i])
+        {
+            lt++;
+            swap(a[i], a[lt]);
+        }
     }
-    swap(a[i + 1], a[r]);
-    return i + 1;
+    swap(a[l], a[lt]);
+    return lt;
 }
 
 int randomPartition(vector<int> &a, int l, int r)
@@ -46,5 +50,5 @@ int findKthLargest(vector<int> &nums, int k)
 int main()
 {
     vector<int> vi{3, 2, 1, 5, 6, 4};
-    cout << findKthLargest(vi, 2);
+    cout << findKthLargest(vi, 1);
 }

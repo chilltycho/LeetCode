@@ -2,7 +2,12 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-//单调递减队列，最大元素总在头部
+/**
+ * 设当前滑动窗口下标i，j。i<j，i对应元素不大于j。窗口向右移动时，只要i
+ * 还在窗口中，j一定也在窗口中。因此nums[i]一定不是窗口最大值，可删除
+ * 使用队列存储所有还没被移出的下标，下标按从小到大存储，对应值严格单调
+ * 递减。
+*/
 vector<int> maxSlidingWindow(vector<int> &nums, int k)
 {
     if (nums.empty() || k == 0)

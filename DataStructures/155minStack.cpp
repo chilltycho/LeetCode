@@ -1,7 +1,7 @@
 //最小栈
-#include<stack>
-#include<iostream>
-#include<climits>
+#include <stack>
+#include <iostream>
+#include <climits>
 using namespace std;
 
 class MinStack
@@ -9,6 +9,7 @@ class MinStack
 private:
     stack<int> datastack;
     stack<int> minstack;
+
 public:
     MinStack()
     {
@@ -17,7 +18,7 @@ public:
     void push(int x)
     {
         datastack.push(x);
-        minstack.push(min(minstack.top(),x));
+        minstack.push(min(minstack.top(), x));
     }
     void pop()
     {

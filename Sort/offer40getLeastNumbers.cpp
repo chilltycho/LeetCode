@@ -29,18 +29,19 @@ vector<int> getLeastNumbers(vector<int> &arr, int k)
 //快排思想
 int partition(vector<int> &nums, int l, int r)
 {
-    int pivot = nums[r];
-    int i = l - 1;
-    for (int j = l; j <= r - 1; j++)
+    int pivot = nums[l]; //基准值
+    int lt = l;          //less than
+    //循环不变量：确保[left+1,lt]<pivot, [lt+1,i]>=pivot
+    for (int i = l + 1; i <= r; i++)
     {
-        if (nums[j] <= pivot)
+        if (pivot > nums[i])
         {
-            i++;
-            swap(nums[i], nums[j]);
+            lt++;
+            swap(nums[i], nums[lt]);
         }
     }
-    swap(nums[i + 1], nums[r]);
-    return i + 1;
+    swap(nums[l], nums[lt]);
+    return lt;
 }
 
 void select(vector<int> &arr, int l, int r, int k)

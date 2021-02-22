@@ -18,6 +18,7 @@ int partition(vector<int> &nums, int left, int right)
     swap(nums[left], nums[lt]);
     return lt;
 }
+
 void quickSort(vector<int> &nums, int left, int right)
 {
     if (left >= right)
@@ -45,7 +46,7 @@ int partition_2(vector<int> &nums, int left, int right)
         lt++;
         gt--;
     }
-    swap(nums[left],nums[gt]); //交换哨值
+    swap(nums[left], nums[gt]); //交换哨值
     return gt;
 }
 
@@ -99,7 +100,52 @@ void quickSort_3ways(vector<int> &nums, int left, int right)
 int main()
 {
     vector<int> nums{3, 4, 1, 2, 5};
-    quickSort(nums, 0, nums.size() - 1);
+    quickSort_2ways(nums, 0, nums.size() - 1);
     for (auto c : nums)
         cout << c << ' ';
 }
+
+/**
+ * 编程珠玑
+*/
+// 对全相等，O(n^2)
+void qsort1(vector<int> &x, int l, int u)
+{
+    if (l >= u)
+        return;
+    int m = l; // l为棋子
+    for (int i = l + 1; i++; i <= u)
+    {
+        if (x[i] < x[l])
+            swap(x[++m], x[i]);
+    }
+    swap(x[l], x[m]);
+    qsort1(x, l, m - 1);
+    qsort1(x, m + 1, u);
+}
+
+void qsort3(vector<int> &x, int l, int u)
+{
+    if (l >= u)
+        return;
+    int t = x[l];
+    int i = l, j = u + 1;
+    while (true)
+    {
+        do
+            i++;
+        while (i <= u && x[i] < t);
+
+        do
+            j--;
+        while (x[j] > t);
+
+        if (i > j)
+            break;
+        swap(x[i], x[j]);
+    }
+    swap(x[l], x[j]);
+    qsort3(x, l, j - 1);
+    qsort3(x, j + 1, u);
+}
+
