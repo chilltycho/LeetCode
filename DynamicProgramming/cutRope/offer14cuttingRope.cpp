@@ -3,7 +3,7 @@
 #include <vector>
 #include <iostream>
 using namespace std;
-
+//拆分出的第一个整数,剩余i-j可拆(dp[i-j]),可不拆(i-j)
 int cuttingRope(int n)
 {
     vector<int> dp(n + 1, 0);
@@ -11,30 +11,31 @@ int cuttingRope(int n)
     dp[2] = 1;
     for (int i = 2; i <= n; i++)
     {
-        for (int j = 1; j < i; j++) //拆分出的第一个整数,剩余i-j可拆(dp[i-j]),可不拆(i-j)
+        for (int j = 1; j < i; j++) 
         {
             dp[i] = max(dp[i], max(j * (i - j), j * dp[i - j]));
         }
     }
     return dp[n];
 }
+
 int cuttingRope(int n)
 {
-    if(n==2)
+    if (n == 2)
         return 1;
-    if(n==3)
+    if (n == 3)
         return 2;
-    if(n==4)
+    if (n == 4)
         return 4;
-    long res=1;
-    while(n>4)
+    long res = 1;
+    while (n > 4)
     {
-        res*=3;
-        if(res>=1000000007)
-            res-=1000000007;
-        n-=3;
+        res *= 3;
+        if (res >= 1000000007)
+            res -= 1000000007;
+        n -= 3;
     }
-    return (res*n)%1000000007;
+    return (res * n) % 1000000007;
 }
 
 int main()

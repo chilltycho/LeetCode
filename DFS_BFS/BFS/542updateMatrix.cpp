@@ -11,6 +11,7 @@ bool inArea(vector<vector<int>> &matrix, int r, int c)
     return 0 <= r && r < row && 0 <= c && c < col;
 }
 
+// 每个点入队出队一次，复杂度O(n*m)
 void updateMatrix(vector<vector<int>> &matrix)
 {
     int row = matrix.size();

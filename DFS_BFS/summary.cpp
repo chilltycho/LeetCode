@@ -7,6 +7,7 @@ struct TreeNode
 {
     TreeNode *left;
     TreeNode *right;
+    int val;
 };
 
 void dfs(TreeNode *root) //对于树
@@ -63,13 +64,13 @@ void bfs(TreeNode *root)
     }
 }
 
-void leverlorderBfs(TreeNode *root)//层序
+void leverlorderBfs(TreeNode *root) //层序
 {
     queue<TreeNode *> mq;
     mq.push(root);
     while (!mq.empty())
     {
-        int size = mq.size();//注意该语句位置，放入for循环会一直变化
+        int size = mq.size(); //注意该语句位置，放入for循环会一直变化
         for (int i = 0; i < size; i++)
         {
             auto node = mq.front();
@@ -80,6 +81,17 @@ void leverlorderBfs(TreeNode *root)//层序
                 mq.push(node->right);
         }
     }
+}
+
+void levelorderDfs(TreeNode *root, vector<vector<int>> &res, int level)
+{
+    if (root == nullptr)
+        return;
+    if (res.size() <= level)
+        res.push_back(vector<int>{});
+    res[level].push_back(root->val);
+    levelorderDfs(root->left, res, level + 1);
+    levelorderDfs(root->right, res, level + 1);
 }
 
 //bfs用于最短路径
@@ -121,11 +133,13 @@ void grid_bfs(vector<vector<int>> &grid, int r, int c)
         }
     }
 }
+
 vector<vector<int>> moves{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 bool inArea(vector<vector<int>> &grid, int r, int c)
 {
     return 0 <= r && r < grid.size() && 0 <= c && c < grid[0].size();
 }
+
 void grid_bfs(vector<vector<int>> &grid, int r, int c)
 {
     queue<vector<int>> mq;

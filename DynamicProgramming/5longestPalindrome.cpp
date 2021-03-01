@@ -10,8 +10,8 @@ using namespace std;
     如果里面子串是回文，整体不是回文
 
 dp[i][j]表示子串s[i,j]是否为回文 dp[i][j]=(s[i]==s[j])&&dp[i+1][j-1]
-边界条件[i+1,j-1]不构成区间，即长度小于2。
-*/
+边界条件[i+1,j-1]不构成区间，即长度小于2。*/
+// 时间复杂度O(n^2) 空间复杂度O(n^2)
 string longestPalindrome(string s)
 {
     if (s.size() < 2)
@@ -50,6 +50,7 @@ string longestPalindrome(string s)
 /*中心扩散法：遍历每个索引，以索引为中心，利用对称特点，往外扩散，看能扩散多远。
 奇数回文串‘中心’是一个具体字符，如'aba'中心是'b'
 偶数回文串‘中心’是空隙，'abba'*/
+// 时间复杂度O(n^2) 空间复杂度O(1)
 string centerSpred(string s, int left, int right) //若传入重合索引，长度为奇数。若传入相邻索引，长度为偶数
 {
     auto size = s.size();
@@ -66,6 +67,7 @@ string centerSpred(string s, int left, int right) //若传入重合索引，长�
     }
     return s.substr(i + 1, j - i - 1);
 }
+
 string longestPalindrome_cen(string s)
 {
     auto size = s.size();

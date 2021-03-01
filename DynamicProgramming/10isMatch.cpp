@@ -10,7 +10,7 @@ f[i][j]:s(0,i-1)和p(0,j-1)是否匹配.
 从右往左,*前肯定有字符*/
 bool isMatch(string s, string p)
 {
-    if (p[0] == '*')//应确保*前有字符
+    if (p[0] == '*') //应确保*前有字符
         return false;
     if (s.empty() && p.empty())
         return true;
@@ -19,8 +19,8 @@ bool isMatch(string s, string p)
     auto sLen = s.size();
     auto pLen = p.size();
     vector<vector<bool>> dp(sLen + 1, vector<bool>(pLen + 1, false));
-    dp[0][0] = true;//两个空字符串
-    for (size_t j = 1; j < pLen + 1; j++)//s为空,p不为空
+    dp[0][0] = true;                      //两个空字符串
+    for (size_t j = 1; j < pLen + 1; j++) //s为空,p不为空
         if (p[j - 1] == '*')
             dp[0][j] = dp[0][j - 2];
 
@@ -28,11 +28,11 @@ bool isMatch(string s, string p)
     {
         for (size_t j = 1; j < pLen + 1; j++)
         {
-            if (s[i - 1] == p[j - 1] || p[j - 1] == '.')//最后字符匹配
+            if (s[i - 1] == p[j - 1] || p[j - 1] == '.') //最后字符匹配
                 dp[i][j] = dp[i - 1][j - 1];
-            else if (p[j - 1] == '*')//不匹配，但有*号
+            else if (p[j - 1] == '*') //不匹配，但有*号
             {
-                if (s[i - 1] == p[j - 2] || p[j - 2] == '.')//*号可让消失，重复1次，重复多次
+                if (s[i - 1] == p[j - 2] || p[j - 2] == '.') //*号可让消失，重复1次，重复多次
                     dp[i][j] = dp[i][j - 2] || dp[i - 1][j - 2] || dp[i - 1][j];
                 else
                     dp[i][j] = dp[i][j - 2];

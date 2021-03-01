@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <climits>
 using namespace std;
 /*给定整数数组nums,找出数组中乘积最大的连续子数组，返回子数组对应乘积，[2,3,-2,4]：6*/
 
@@ -8,8 +9,7 @@ using namespace std;
 
 fmin(i)表示以第i个元素结尾的乘积最小子数组的乘积
 fmax[i]=max(fmax[i-1]*ai,fmin[i-1]*ai,ai)
-fmin[i]=min(fmax[i-1]*ai,fmin[i-1]*ai,ai)
-*/
+fmin[i]=min(fmax[i-1]*ai,fmin[i-1]*ai,ai)*/
 int maxProduct(vector<int> &nums)
 {
     if (nums.empty())
@@ -26,6 +26,7 @@ int maxProduct(vector<int> &nums)
     }
     return res;
 }
+
 //优化空间，第i个状态仅和第i-1个状态相关。
 int maxProduct_1(vector<int> &nums)
 {

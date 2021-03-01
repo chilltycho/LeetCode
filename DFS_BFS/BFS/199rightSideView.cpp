@@ -10,6 +10,7 @@ struct TreeNode
     TreeNode *right;
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 };
+
 vector<int> rightSideView(TreeNode *root)
 {
     vector<int> res;
@@ -34,6 +35,7 @@ vector<int> rightSideView(TreeNode *root)
     }
     return res;
 }
+
 //深度优先搜索:根->右->左,每层访问第一个节点一定在最右边
 vector<int> res;
 void dfs(TreeNode *root, int depth)

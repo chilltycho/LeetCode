@@ -139,3 +139,7 @@ int main()
     string s = "abcde", t = "ace";
     cout << longestCommonSubsequences_space(s, t) << endl;
 }
+
+/**
+ * 无后效性：
+*/

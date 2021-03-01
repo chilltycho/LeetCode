@@ -1,3 +1,7 @@
+/**
+ * 给定包含非负整数mxn网格grid，找出一条从左上角到右下角的路径，
+ * 使得路径上数字总和最小。每次只能向下或向右移动一步
+*/
 #include <vector>
 #include <iostream>
 using namespace std;

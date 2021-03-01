@@ -2,6 +2,7 @@
 可从+或-中选择一个符号添加在前面。返回可使最终数组和为目标数S的所有添加符号的方法数*/
 #include <vector>
 #include <cassert>
+#include <cmath>
 using namespace std;
 int count = 0;
 void calcu(vector<int> &nums, int i, int sum, int S) //dfs递归
@@ -86,7 +87,7 @@ int findTargetSumWays_dp2(vector<int> &nums, int S)
     auto len = (sum + S) / 2; //目标容量
     vector<vector<int>> dp(nums.size() + 1, vector<int>(len + 1, 0));
     dp[0][0] = 1;
-    dp[0][nums[0]]=1;
+    dp[0][nums[0]] = 1;
     for (int i = 1; i <= nums.size(); i++)
     {
         for (int j = 0; j <= len; j++)

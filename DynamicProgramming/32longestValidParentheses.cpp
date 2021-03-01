@@ -3,7 +3,10 @@
 #include <vector>
 #include <climits>
 using namespace std;
-//动态规划，以下标i结尾的合法括号长度
+/**动态规划，以下标i结尾的合法括号长度
+ * dp[i] = dp[i-2] + 2
+ * dp[i] = dp[i-1] + dp[i-dp[i-1]-2] + 2
+*/
 int longestValidParenttheses(string s)
 {
     int res = 0;
@@ -20,4 +23,35 @@ int longestValidParenttheses(string s)
         }
     }
     return res;
+}
+
+int longestValidParentheses_1(string s)
+{
+    if (s.empty())
+        return 0;
+    int l = 0, res = 0;
+    for (auto c : s)
+    {
+        if (c == '(')
+            l++;
+        else
+        {
+            if (l > 0)
+            {
+                --l;
+                res++;
+            }
+            else
+            {
+                l = 0;
+            }
+        }
+    }
+    return res * 2;
+}
+
+int main()
+{
+    string s{"()(()"};
+    cout << longestValidParentheses_1(s) << endl;
 }

@@ -48,5 +48,7 @@ bool isScramble(string s1, string s2)
 
 int main()
 {
-
+    string s1{"great"};
+    string s2{"rgeat"};
+    cout << isScramble(s1, s2) << endl;
 }

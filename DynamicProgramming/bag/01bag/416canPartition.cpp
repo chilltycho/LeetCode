@@ -6,7 +6,7 @@ using namespace std;
 //转换0-1背包问题，挑选一些数，使得和为整个数组元素和的一半(和一定为偶)。
 bool canPartition(vector<int> &nums)
 {
-    auto len = nums.size();
+    int len = nums.size();
     if (len == 0)
         return false;
     int sum = 0;
@@ -52,7 +52,7 @@ bool canPartition_sp(vector<int> &nums)
     int target = sum / 2;
     vector<bool> dp(target + 1, false);
     dp[0] = true; //设为true对状态转移无影响
-    for (int i = 1; i < len; i++)
+    for (size_t i = 1; i < len; i++)
     {
         for (int j = target; nums[i] <= j; j--) //0-1背包问题，故逆序
         {
@@ -68,7 +68,7 @@ bool find_bru(vector<int> &nums, int target, int index)
 {
     if (target == 0)
         return true;
-    for (int i = index; i < nums.size(); i++)
+    for (size_t i = index; i < nums.size(); i++)
     {
         if (target - nums[i] < 0)
             return false;

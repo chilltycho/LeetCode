@@ -39,8 +39,5 @@ void merge(vector<int> &x, int l, int r)
 
 int main()
 {
-    vector<int> vi{2, 3, 4, 1, 6, 5};
-    merge(vi, 0, vi.size() - 1);
-    for (auto c : vi)
-        cout << c << endl;
+    
 }

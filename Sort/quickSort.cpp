@@ -148,4 +148,3 @@ void qsort3(vector<int> &x, int l, int u)
     qsort3(x, l, j - 1);
     qsort3(x, j + 1, u);
 }
-

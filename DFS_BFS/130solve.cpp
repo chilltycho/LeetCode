@@ -14,6 +14,7 @@ void dfs(vector<vector<char>> &grid, int r, int c)
     dfs(grid, r, c - 1);
     dfs(grid, r, c + 1);
 }
+
 void solve(vector<vector<char>> &board)
 {
     int row = board.size();
@@ -76,6 +77,7 @@ void bfs(vector<vector<char>> &board, int r, int c)
         }
     }
 }
+
 void solve_1(vector<vector<char>> &board)
 {
     int row = board.size();
@@ -103,6 +105,7 @@ void solve_1(vector<vector<char>> &board)
         }
     }
 }
+
 int main()
 {
     vector<vector<char>> vvc{{'X', 'X', 'X', 'X'}, {'X', 'O', 'O', 'X'}, {'X', 'X', 'O', 'X'}, {'X', 'O', 'X', 'X'}};
