@@ -15,10 +15,14 @@ int maxProfit(vector<int> &prices)
     dp[0][2][1] = -prices[0];
     for (int i = 1; i < n; i++)
     {
+        // 第二次未持有     不交易            第二次持有   + prices[i]
         dp[i][2][0] = max(dp[i - 1][2][0], dp[i - 1][2][1] + prices[i]);
+        // 第二次持有       不交易            第一次未持有 - prices[i]   
         dp[i][2][1] = max(dp[i - 1][2][1], dp[i - 1][1][0] - prices[i]);
+        // 第一次未持有     不交易             第一次持有  + prices[i]
         dp[i][1][0] = max(dp[i - 1][1][0], dp[i - 1][1][1] + prices[i]);
         //dp[i][0][0]=0
+        // 第一次持有       不交易             第0次未持有 - prices[i]
         dp[i][1][1] = max(dp[i - 1][1][1], dp[i - 1][0][0] - prices[i]);
     }
     return dp[n - 1][2][0];

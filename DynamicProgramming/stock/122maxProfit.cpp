@@ -20,17 +20,17 @@ int maxProfit(vector<int> &prices)
     return dp[n - 1][0];
 }
 
-int maxProfit_1(vector<int>& prices)
+int maxProfit_1(vector<int> &prices)
 {
-    if(prices.empty())
+    if (prices.empty())
         return 0;
-    size_t n=prices.size();
-    int dp1=-prices[0],dp0=0,temp=0;
-    for(int i=1;i<n;i++)
+    size_t n = prices.size();
+    int dp1 = -prices[0], dp0 = 0, temp = 0;
+    for (int i = 1; i < n; i++)
     {
-        temp=dp0;
-        dp0=max(dp0,dp1+prices[i]);
-        dp1=max(dp1,temp-prices[i]);
+        temp = dp0;
+        dp0 = max(dp0, dp1 + prices[i]);
+        dp1 = max(dp1, temp - prices[i]);
     }
     return dp0;
 }

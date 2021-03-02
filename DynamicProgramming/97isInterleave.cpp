@@ -2,7 +2,9 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-//dp[i][j]表示s1前i个字符和s2前j个字符能否组成s3前i+j个字符
+/**dp[i][j]表示s1前i个字符和s2前j个字符能否组成s3前i+j个字符
+ * 
+*/
 bool isInterleave(string s1, string s2, string s3)
 {
     vector<vector<bool>> dp(s1.size() + 1, vector<bool>(s2.size() + 1));
