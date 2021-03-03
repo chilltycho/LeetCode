@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+// 将数组中技术放到前面，不改变相对顺序
 vector<int> reOrderArray(vector<int> &array)
 {
     vector<int> od;
