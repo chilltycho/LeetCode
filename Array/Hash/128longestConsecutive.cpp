@@ -31,7 +31,9 @@ int longestConsecutive_bru(vector<int> &nums)
     }
     return res;
 }
-
+/**
+ * 要枚举的数一定不存在x-1，否则应该从x-1开始。O(N)
+*/
 int longestConsecutive_set(vector<int> &nums)
 {
     int len = nums.size();
@@ -43,16 +45,16 @@ int longestConsecutive_set(vector<int> &nums)
     int res = 0;
     for (auto num : si)
     {
-        if(si.find(num-1)==si.end())
+        if (si.find(num - 1) == si.end())
         {
-            int currentNum=num;
-            int longestLen=1;
-            while(si.find(currentNum+1)!=si.end())
+            int currentNum = num;
+            int longestLen = 1;
+            while (si.find(currentNum + 1) != si.end())
             {
                 currentNum++;
                 longestLen++;
             }
-            res=max(longestLen,res);
+            res = max(longestLen, res);
         }
     }
     return res;

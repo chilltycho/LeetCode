@@ -35,7 +35,7 @@ public:
     }
     int mfind(int p)
     {
-        while (p != parent[p])
+        while (p != parent[p]) // 隔代压缩
         {
             parent[p] = parent[parent[p]];
             p = parent[p];

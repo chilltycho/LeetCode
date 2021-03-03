@@ -70,7 +70,7 @@ int networkDelayTime_DijPQ(vector<vector<int>> &times, int N, int K)
         graph[t[0]].emplace_back(t[2], t[1]);
     //最小堆
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    pq.push({0, K});
+    pq.push({0, K}); // 权值，起点
     dist[K] = 0;
     while (!pq.empty())
     {
@@ -78,13 +78,16 @@ int networkDelayTime_DijPQ(vector<vector<int>> &times, int N, int K)
         auto cur_weight = cur.first;
         auto cur_end = cur.second;
         pq.pop();
+
         if (visited[cur_end])
             continue;
         visited[cur_end] = true;
+        
         for (const auto &next : graph[cur_end])
         {
             auto next_end = next.second;
             auto next_weight = next.first;
+            // 更新到这个邻居最短距离
             if (dist[next_end] > next_weight + cur_weight)
             {
                 dist[next_end] = next_weight + cur_weight;

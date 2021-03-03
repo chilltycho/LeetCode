@@ -6,14 +6,16 @@ using namespace std;
 bool *visited;
 int *m;
 int result = 0;
+
 void dfs(int i, int *m)
 {
-    if (i == 0 || visited[i])
+    if (i == 0 || visited[i]) // 到达根节点或到达已收集过的点
         return;
     result++;
     visited[i] = true;
     dfs(m[i], m);
 }
+
 //从子结点往父节点走,走的永远是需要的路线,以0为根节点.
 int minTime(int n, vector<vector<int>> &edges, vector<bool> &hasApple)
 {
@@ -24,15 +26,15 @@ int minTime(int n, vector<vector<int>> &edges, vector<bool> &hasApple)
     for (int i = 0; i < n; i++)
         m[i] = INT8_MIN;
     m[0] = 0;
-    for (auto edge : edges)//构建树,由于无向,保证连接到已有节点下
+    for (auto edge : edges) //构建树,由于无向,保证连接到已有节点下
     {
         if (m[edge[1]] == INT8_MIN)
             m[edge[1]] = edge[0];
         else
             m[edge[0]] = edge[1];
     }
-    for(int i=0;i<n;i++)
-        cout<<m[i]<<' ';
+    for (int i = 0; i < n; i++)
+        cout << m[i] << ' ';
     for (int i = 1; i < hasApple.size(); i++)
     {
         if (hasApple[i])

@@ -7,28 +7,32 @@
 using namespace std;
 static const int N = 1010;
 int p[N];
-unordered_map<string, int> email2id;
-vector<vector<string>> res;
+
 int find(int a)
 {
     if (p[a] != a)
         p[a] = find(p[a]);
     return p[a];
 }
+
 vector<vector<string>> accountsMerge(vector<vector<string>> &accounts)
 {
     int n = accounts.size();
     for (int i = 0; i < n; i++) //n个账户
         p[i] = i;
+    unordered_map<string, int> email2id;
+    vector<vector<string>> res;
+
     for (int i = 0; i < n; i++)
         for (int j = 1; j < accounts[i].size(); j++) //遍历邮箱
         {
             string email = accounts[i][j];
             if (email2id.count(email))
-                p[find(email2id[email])] = p[i];//若两账户邮箱相同,则建立UF连接 
+                p[find(email2id[email])] = p[i]; //若两账户邮箱相同,则建立UF连接
             else
-                email2id[email] = i;//每个邮箱对应一个id
+                email2id[email] = i; //每个邮箱对应一个id
         }
+
     unordered_map<int, set<string>> id2email;
     for (int i = 0; i < n; i++)
     {
@@ -39,9 +43,9 @@ vector<vector<string>> accountsMerge(vector<vector<string>> &accounts)
     for (auto &p : id2email)
     {
         vector<string> ans;
-        ans.push_back(accounts[p.first][0]);//压入姓名
+        ans.push_back(accounts[p.first][0]); //压入姓名
         for (string email : p.second)
-            ans.push_back(email);//压入邮箱
+            ans.push_back(email); //压入邮箱
         res.push_back(ans);
     }
     return res;

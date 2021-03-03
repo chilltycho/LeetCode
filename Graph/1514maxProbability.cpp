@@ -18,7 +18,7 @@ double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succPro
     //最大堆 权值,终点
     priority_queue<pair<double, int>> que;
     vector<double> prob(n, 0); //从start到图各节点概率
-    que.emplace(1, start);
+    que.emplace(1, start); // 概率，终点
     prob[start] = 1; //起点到起点概率为1
     vector<bool> isvis(n, false);
     while (!que.empty())
@@ -29,6 +29,7 @@ double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succPro
         que.pop();
         if (isvis[node])
             continue;
+            
         isvis[node] = true;
         if (node == end)
             return pr;
