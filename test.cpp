@@ -39,5 +39,8 @@ void merge(vector<int> &x, int l, int r)
 
 int main()
 {
-    
+    vector<vector<int>> res;
+    res.push_back(vector<int>{});
+    cout << res.size() << endl;
+    cout << res[0].size() << endl;
 }
