@@ -26,7 +26,7 @@ vector<int> getLeastNumbers(vector<int> &arr, int k)
     return res;
 }
 
-//快排思想
+//快排思想 O(N)
 int partition(vector<int> &nums, int l, int r)
 {
     int pivot = nums[l]; //基准值
