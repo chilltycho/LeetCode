@@ -1,3 +1,4 @@
+// 和为s连续正数序列
 #include <vector>
 #include <iostream>
 using namespace std;

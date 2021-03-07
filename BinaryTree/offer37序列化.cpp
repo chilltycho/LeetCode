@@ -61,7 +61,7 @@ string serialize_dfs(TreeNode *root)
 {
     if (root == nullptr)
         return "#";
-    return root->val + "," + serialize(root->left) + "," + serialize(root->right);
+    return root->val + "," + serialize_dfs(root->left) + "," + serialize(root->right);
 }
 
 TreeNode *dfs(queue<string> mq)

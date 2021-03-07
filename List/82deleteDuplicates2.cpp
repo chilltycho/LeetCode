@@ -2,19 +2,47 @@
 //已经排好序的数组，删除所有含重复数字的节点
 ListNode *deleteDuplicates_1(ListNode *head)
 {
-    if(head==nullptr||head->next==nullptr)
+    if (head == nullptr || head->next == nullptr)
         return head;
-    if(head->val==head->next->val)//删除头部重复节点
+    if (head->val == head->next->val) //删除头部重复节点
     {
-        while(head!=nullptr&&head->next!=nullptr&&head->val==head->next->val)
-            head=head->next;
+        while (head != nullptr && head->next != nullptr && head->val == head->next->val)
+            head = head->next;
         return deleteDuplicates_1(head->next);
     }
     else
     {
-        head->next=deleteDuplicates_1(head->next);
+        head->next = deleteDuplicates_1(head->next);
         return head;
     }
+}
+
+ListNode *deleteDuplicates1(ListNode *head)
+{
+    if (head == nullptr || head->next == nullptr)
+        return head;
+
+    ListNode phead(-1);
+    phead.next = head;
+
+    ListNode *pre = &phead;
+    ListNode *cur = head;
+    while (cur && cur->next)
+    {
+        if (pre->next->val != cur->next->val)
+        {
+            pre = pre->next;
+            cur = cur->next;
+        }
+        else
+        {
+            while (cur && cur->next && pre->next->val == cur->next->val)
+                cur = cur->next;
+            pre->next = cur->next;
+            cur = cur->next;
+        }
+    }
+    return phead.next;
 }
 
 int main()
