@@ -5,8 +5,10 @@ using namespace std;
 void insertSort(vector<int> &nums)
 {
     auto len = nums.size();
+    // 共需n-1次
     for (size_t i = 1; i < len; i++)
     {
+        // 新牌为nums[j]
         for (size_t j = i; j > 0; j--)
         {
             if (nums[j - 1] > nums[j])
