@@ -6,18 +6,14 @@ using namespace std;
 //对任意位置y,只要存在位置x,x+nums[x]>=y,则位置y可到达
 bool canJump(vector<int> &nums)
 {
-    int n = nums.size();
-    int arrive_most = 0;
-    for (int i = 0; i < n; i++)
+    int k = 0;// 最远距离
+    for (int i = 0; i < nums.size(); i++)
     {
-        if (i <= arrive_most)//保证能到达第i个位置
-        {
-            arrive_most = max(arrive_most, i + nums[i]);
-            if (arrive_most >= n - 1)
-                return true;
-        }
+        if (i > k)// 不能到达i
+            return false;
+        k = max(k, i + nums[i]);
     }
-    return false;
+    return true;
 }
 
 int main()
