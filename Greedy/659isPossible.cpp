@@ -72,11 +72,11 @@ bool isPossible_greedy(vector<int> &nums)
         }
         else
         {
-            if (dp1 + dp2 > cnt)//x不够用
+            if (dp1 + dp2 > cnt) //x不够用
                 return false;
             int left = cnt - dp1 - dp2;
             int keep = min(dp3, left);
-            dp3 = keep + dp2;//更新为以x结尾的子序列数目
+            dp3 = keep + dp2; //更新为以x结尾的子序列数目
             dp2 = dp1;
             dp1 = left - keep;
         }
@@ -84,8 +84,39 @@ bool isPossible_greedy(vector<int> &nums)
     return dp1 == 0 && dp2 == 0;
 }
 
+bool isPossible(vector<int> &nums)
+{
+    // nc存储数字出现次数，tail存储以数字i结尾的合法序列
+    unordered_map<int, int> nc, tail;
+    for (auto n : nums)
+        nc[n]++;
+    for (auto n : nums)
+    {
+        if (nc[n] == 0)// 不存在
+            continue;
+        else if (nc[n] > 0 && tail[n - 1] > 0)
+        {
+            // 拼接到tail[n-1]后
+            nc[n]--;
+            tail[n - 1]--;
+            tail[n]++;
+        }
+        else if (nc[n] > 0 && nc[n + 1] > 0 && nc[n + 2] > 0)
+        {
+            // 组成新的tai
+            nc[n]--;
+            nc[n + 1]--;
+            nc[n + 2]--;
+            tail[n + 2]++;
+        }
+        else
+            return false;
+    }
+    return true;
+}
+
 int main()
 {
-    vector<int> vi{1,2,3,3,4,5};
-    cout<<isPossible_greedy(vi);
+    vector<int> vi{1, 2, 3, 3, 4, 5};
+    cout << isPossible_greedy(vi);
 }
