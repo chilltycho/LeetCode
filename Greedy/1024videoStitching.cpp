@@ -33,10 +33,10 @@ int videoStitching(vector<vector<int>> &clips, int T)
             maxn[it[0]] = max(maxn[it[0]], it[1]);
     for (int i = 0; i < T; i++)
     {
-        last = max(last, maxn[i]);
+        last = max(last, maxn[i]);// 当前能到达最远距离
         if (i == last)
             return -1;
-        if (i == pre)
+        if (i == pre)// 越过一个子区间
         {
             ret++;
             pre = last;

@@ -1,8 +1,12 @@
 //给定链表，两辆交换相邻节点。1->2->3->4变为2->1->4->3
 #include "utl.h"
+/*
+如果链表中至少两个节点，在两两交换链表中节点后，原始链表头结点变为新链表第二个节点
+原始链表第二个节点变为新链表头结点。其余节点可递归实现。
+*/
 ListNode *swapPairs(ListNode *head)
 {
-    if (head == nullptr || head->next == nullptr)
+    if (head == nullptr || head->next == nullptr)// 只有一个节点或空，返回
         return head;
     ListNode *newHead = head->next;
     head->next = swapPairs(newHead->next);
