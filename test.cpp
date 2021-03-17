@@ -2,71 +2,85 @@
 #include <unordered_map>
 #include <iostream>
 using namespace std;
-class Base
+
+struct ListNode
 {
-public:
-    Base() {}
-    virtual void fun1()
-    {
-        cout << "Base::fun1()" << endl;
-    }
-    virtual void fun2()
-    {
-        cout << "Base::fun2()" << endl;
-    }
-    virtual void fun3(){ cout << "Base::fun3()" << endl; }
-    ~Base() {}
+    int val;
+    ListNode *next;
+    ListNode(int x = 3) : val(x), next(nullptr) {}
 };
 
-class Derived : public Base
+ListNode *reverse(ListNode *head, int &sz)
 {
-public:
-    Derived() {}
-    void fun1()
-    {
-        cout << "Derived::fun1()" << endl;
-    }
-    void fun2()
-    {
-        cout << "Derived::fun2()" << endl;
-    }
-    ~Derived() {}
-};
-
-typedef void (*Fun)();
-
-Fun getAddr(void *obj, unsigned int offset)
+    if (head == nullptr || head->next == nullptr)
+        return head;
+    auto newh = reverse(head->next, ++sz);
+    head->next->next = head;
+    head->next = nullptr;
+    return newh;
+}
+// s1>s2
+void addList(ListNode *l1, ListNode *l2)
 {
-    cout << "===========" << endl;
-    // 64位操作系统，占8字节。通过*(unsigned long*)obj取出前8个字节，即vptr指针
-    void *vptr_addr = (void *)*(unsigned long *)obj;
-    printf("vptr_addr:%p\n", vptr_addr);
-
-    //通过vptr指针访问virtual table, 虚表中每个元素（虚函数指针）在64位下8个字节，
-    void *func_addr = (void *)*((unsigned long *)vptr_addr + offset);
-    printf("func_addr:%p\n", func_addr);
-    return (Fun)func_addr;
+    int carry = 0;
+    while (l2)
+    {
+        int sum = l1->val + l2->val + carry;
+        l1->val = (sum) % 10;
+        carry = sum / 10;
+        l1 = l1->next;
+        l2 = l2->next;
+    }
+    while (l1->next)
+    {
+        int sum = l1->val + carry;
+        l1->val = sum % 10;
+        carry = sum / 10;
+        l1 = l1->next;
+    }
+    if (carry)
+    {
+        l1->next = new ListNode(carry);
+    }
 }
 
+ListNode *addInList(ListNode *head1, ListNode *head2)
+{
+    // write code here
+    if (head1 == nullptr)
+        return head2;
+    if (head2 == nullptr)
+        return head1;
+    int sz1 = 1, sz2 = 1;
+    auto new1 = reverse(head1, sz1);
+    auto new2 = reverse(head2, sz2);
+    if (sz1 > sz2)
+    {
+        addList(new1, new2);
+        reverse(new1, sz1);
+        return new1;
+    }
+    else
+    {
+        addList(new2, new1);
+        reverse(new2, sz2);
+        return new2;
+    }
+}
 int main()
 {
-    Base ptr;
-    Derived d;
-    Base *pt = new Derived();
-    Base &pp = ptr;
-    Base &p = d;
-    cout << "基类对象直接调用" << endl;
-    ptr.fun1();
-    cout << "基类对象调用基类实例" << endl;
-    pp.fun1();
-    cout << "基类指针指向派生类实例并调用虚函数" << endl;
-    pt->fun1();
-    cout << "基类引用指向派生类实例并调用虚函数" << endl;
-    p.fun1();
-
-    Fun f1 = getAddr(pt, 0); //手动查找vptr 和 vtable
-    (*f1)();
-    Fun f2 = getAddr(pt, 2);
-    (*f2)();
-    delete pt;
+    ListNode a9(9);
+    ListNode a3(3);
+    ListNode a7(7);
+    ListNode a6(6);
+    ListNode a33(3);
+    a9.next = &a3;
+    a3.next = &a7;
+    a6.next = &a33;
+    auto l = addInList(&a9, &a6);
+    while (l)
+    {
+        cout << l->val << ' ';
+        l = l->next;
+    }
 }
