@@ -33,12 +33,24 @@ rand2() + rand2() = ? ==> [2,4]
 rand7()-1) × 7 + rand7()  ==> rand49()
 ----------------------------
 */
+#include <random>
+#include <iostream>
+using namespace std;
+int rand7()
+{
+   return rand() % 7 + 1;
+}
+
 int rand10()
 {
-    while (true)
-    {
-        int num = (rand7() - 1) * 7 + rand7();
-        if (num <= 40)
-            return num % 10 + 1; //拒绝采样
-    }
+   while (true)
+   {
+      int num = (rand7() - 1) * 7 + rand7();
+      if (num <= 40)
+         return num % 10 + 1; //拒绝采样
+   }
+}
+
+int main()
+{
 }
