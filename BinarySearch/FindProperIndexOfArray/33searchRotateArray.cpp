@@ -51,7 +51,7 @@ int search(vector<int> &nums, int target)
 
 int main()
 {
-    vector<int> nums{4, 5, 6, 7, 0, 1, 2};
-    assert(4 == search(nums, 0));
-    assert(-1 == search(nums, 3));
+    vector<int> nums{3,1};
+    assert(1 == search(nums, 1));
+    //assert(-1 == search(nums, 3));
 }
