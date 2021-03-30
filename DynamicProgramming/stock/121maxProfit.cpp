@@ -25,8 +25,8 @@ int maxProfit_1(vector<int> &prices)
     int dp1 = -prices[0];
     for (int i = 1; i < n; i++)
     {
-        dp0 = max(dp0, dp1 + prices[i - 1]);
-        dp1 = max(dp1, -prices[i - 1]);
+        dp0 = max(dp0, dp1 + prices[i]);
+        dp1 = max(dp1, -prices[i]);
     }
     return dp0;
 }

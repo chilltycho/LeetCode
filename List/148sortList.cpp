@@ -1,5 +1,5 @@
 /*在O(NlogN)时间复杂度和常数空间复杂度下，对链表进行排序*/
-#include"utl.h"
+#include "utl.h"
 using namespace std;
 /*归并排序：
 对数组：
@@ -41,33 +41,31 @@ void append(ListNode *node)
     }
 }
 
-ListNode *merge_1(ListNode *left, ListNode *right)
+ListNode *merge_1(ListNode *l, ListNode *r)
 {
     head = nullptr;
     tail = nullptr;
-    ListNode *q1 = left;
-    ListNode *q2 = right;
-    while (q1 != nullptr || q2 != nullptr)
+    while (l || r)
     {
-        if (q1 == nullptr)
+        if (l == nullptr)
         {
-            append(q2);
-            q2 = q2->next;
+            append(r);
+            r = r->next;
         }
-        else if (q2 == nullptr)
+        else if (r == nullptr)
         {
-            append(q1);
-            q1 = q1->next;
+            append(l);
+            l = l->next;
         }
-        else if (q1->val < q2->val)
+        else if (l->val > r->val)
         {
-            append(q1);
-            q1 = q1->next;
+            append(r);
+            r = r->next;
         }
         else
         {
-            append(q2);
-            q2 = q2->next;
+            append(l);
+            l = l->next;
         }
     }
     return head;

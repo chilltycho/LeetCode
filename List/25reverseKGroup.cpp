@@ -30,3 +30,30 @@ ListNode *reverseKGroup(ListNode *head, int k)
     a->next = reverseKGroup(b, k);
     return newHead;
 }
+
+ListNode* reverse(ListNode* l,ListNode* r)
+    {
+        if(l==r)
+            return l;
+        auto node=reverse(l->next,r);
+        l->next->next=l;
+        l->next=nullptr;
+        return node;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+            if (head == nullptr)
+        return head;
+    auto a = head;
+    auto b = head;
+    for (int i = 1; i < k; i++)
+    {
+        b = b->next;
+        if (b == nullptr)
+            return head;
+        
+    }
+    auto nb = b->next;
+    auto newHead = reverse(a, b);
+    a->next = reverseKGroup(nb, k);
+    return newHead;
+    }
