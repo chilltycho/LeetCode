@@ -14,8 +14,8 @@ class LRUCache
 {
 private:
     size_t cap = 0;
-    list<pair<int, int>> cache;
-    unordered_map<int, list<pair<int, int>>::iterator> mp;
+    list<pair<int, int>> cache; // 键-值
+    unordered_map<int, list<pair<int, int>>::iterator> mp; // 键，在链表中位置
 
 public:
     LRUCache(int capacity)
