@@ -15,6 +15,20 @@ using namespace std;
   [8,5,2],
   [9,6,3]
 ]旋转90度
+
+[
+    [1 ,2 ,3 ,4 ],
+    [5 ,6 ,7 ,8 ],
+    [9 ,10,11,12],
+    [13,14,15,16]
+]
+
+[
+    [13,9 ,5,1],
+    [14,10,6,2],
+    [15,11,7,3],
+    [16,12,8,4]
+]
 */
 
 void rotate(vector<vector<int>> &matrix)
@@ -48,10 +62,10 @@ void rotate_1(vector<vector<int>> &matrix) //先旋转四个角元素，然后�
     {
         for (int j = 0; j < n / 2; j++)
         {
-            int temp = matrix[n - 1 - j][i];
-            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - j - 1];
-            matrix[n - 1 - i][n - j - 1] = matrix[j][n - 1 - i];
-            matrix[j][n - 1 - i] = matrix[i][j];
+            int temp = matrix[n - 1 - j][i];       // 左下角
+            matrix[n - 1 - j][i] = matrix[n - 1 - i][n - j - 1]; // 左下角=右下角
+            matrix[n - 1 - i][n - j - 1] = matrix[j][n - 1 - i]; // 右下角=右上角
+            matrix[j][n - 1 - i] = matrix[i][j]; // 右上角=左上角
             matrix[i][j] = temp;
         }
     }
