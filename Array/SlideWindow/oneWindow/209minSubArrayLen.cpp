@@ -3,7 +3,7 @@
 #include <cassert>
 #include <algorithm>
 using namespace std;
-
+// 给定含n个正整数的数组和一个正整数target，找出数组中满足其和>=target的长度最小的连续子数组，返回其长度。
 int minSubArrayLen_mm(int s, vector<int> &nums)
 {
     if (nums.empty())
@@ -45,7 +45,7 @@ int minSubArrayLen_1(int s, vector<int> &nums)
     int minLen = len + 1;
     vector<int> sums(len + 1, 0);
     for (int i = 1; i <= len; i++)
-        sums[i] = sums[i - 1] + nums[i - 1];
+        sums[i] = sums[i - 1] + nums[i - 1]; // 前缀和
     for (int i = 1; i <= len; i++)
     {
         int target = s + sums[i - 1];

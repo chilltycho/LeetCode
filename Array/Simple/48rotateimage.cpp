@@ -58,9 +58,9 @@ void rotate(vector<vector<int>> &matrix)
 void rotate_1(vector<vector<int>> &matrix) //先旋转四个角元素，然后第二个元素
 {
     int n = matrix.size();
-    for (int i = 0; i < (n + 1) / 2; i++)
+    for (int i = 0; i < (n + 1) / 2; i++)// 列
     {
-        for (int j = 0; j < n / 2; j++)
+        for (int j = 0; j < n / 2; j++) // 行
         {
             int temp = matrix[n - 1 - j][i];       // 左下角
             matrix[n - 1 - j][i] = matrix[n - 1 - i][n - j - 1]; // 左下角=右下角

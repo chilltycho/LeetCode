@@ -5,30 +5,25 @@ using namespace std;
 
 vector<vector<int>> findContinuousSequence(int target)
 {
-    int l = 1, r = 1, sum = 0;
+    int len = target / 2 + 1;
     vector<vector<int>> res;
-    while (l <= target / 2)
+    int sum = 0;
+    for (int l = 1, r = 1; r <= len; ++r)
     {
-        //右边界右移
-        if (sum < target)
-        {
-            sum += r;
-            r++;
-        }
-        //左边界右移
-        else if (sum > target)
+        sum += r;
+        while (sum > target)
         {
             sum -= l;
-            l++;
+            ++l;
         }
-        else
+        if (sum == target)
         {
-            vector<int> arr;
-            for (int k = l; k < r; k++)
-                arr.push_back(k);
-            res.push_back(arr);
+            vector<int> tmp;
+            for (int i = l; i <= r; ++i)
+                tmp.push_back(i);
+            res.push_back(tmp);
             sum -= l;
-            l++;
+            ++l;
         }
     }
     return res;
@@ -36,5 +31,5 @@ vector<vector<int>> findContinuousSequence(int target)
 
 int main()
 {
-    
+    auto res = findContinuousSequence(9);
 }

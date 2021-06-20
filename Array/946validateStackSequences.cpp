@@ -9,17 +9,38 @@ using namespace std;
 bool validateStackSequences(vector<int> &pushed, vector<int> &popped)
 {
     stack<int> si;
-    int i=0;
-    for(const auto& num:pushed)
+    int i = 0;
+    for (const auto &num : pushed)
     {
         si.push(num);
-        while(!si.empty()&&si.top()==popped[i])
+        while (!si.empty() && si.top() == popped[i])
         {
             si.pop();
             i++;
         }
     }
     return si.empty();
+}
+
+bool validate(vector<int> &pushed, vector<int> &popped)
+{
+    int n = pushed.size();
+    int s = 0;
+    for (int i = 0, j = 0; j < n;)
+    {
+        // 栈顶元素不是当前popped序列所处理的那个或栈空，从pushed序列取元素入栈
+        while (i < n && (s == 0 || pushed[s - 1] != popped[j]))
+            pushed[s++] = pushed[i++];
+        // 出栈序列用完了都得不到出栈序列元素
+        if (i == n && pushed[s - 1] != popped[j])
+            return false;
+        while (j < n && s > 0 && pushed[s - 1] == popped[j])
+        {
+            --s;
+            ++j;
+        }
+    }
+    return true;
 }
 
 int main()

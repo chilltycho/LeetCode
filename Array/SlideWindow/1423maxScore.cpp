@@ -10,6 +10,7 @@ int maxScore(vector<int> &cardPoints, int k)
     int allSum = 0;
     for (int i = 0; i < len; i++)
         allSum += cardPoints[i];//整体数组之和
+    // allSum = accumulate(cardPoints.begin(),cardPoints.end(),0);
     if (k == len)
         return allSum;
 
@@ -17,6 +18,7 @@ int maxScore(vector<int> &cardPoints, int k)
     int sum = 0;
     for (int i = 0; i < windowSize; ++i)
         sum += cardPoints[i];//第一个窗口之和
+    // sum = accumulate(cardPoints.begin(), cardPoints.begin()+k,0);
     int ans = sum;
     for (int i = 0; i < k; ++i)
     {

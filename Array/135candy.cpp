@@ -1,56 +1,31 @@
 //N个孩子站一条直线，每个孩子至少一颗糖。相邻孩子，评分高的必须获得更多的糖果
 #include <vector>
 using namespace std;
-/*当ratings[i-1]<ratings[i]时，i号学生糖果数比i-1号多
-当ratings[i]>ratings[i+1]时，i号比i+1号多*/
+/* 假设学生A和B左右相邻
+左规则：rB>rA时，B比A多
+右规则：rA>rB时，A比B多
+先从左到右，所有学生一颗糖，满足左规则。
+再从右到左，满足右规则。
+结果取最大的
+*/
 int candy(vector<int> &ratings)
 {
-    int n = ratings.size();
-    vector<int> left(n);
-    for (int i = 0; i < n; i++)
+    vector<int> left(ratings.size(),1);
+    auto right = left;
+    int len = ratings.size();
+    for(int i=1;i<len;i++) // 从左往右，和左边的比
     {
-        if (i > 0 && ratings[i] > ratings[i - 1])
-            left[i] = left[i - 1] + 1;
-        else
-            left[i] = 1;
+        if(ratings[i]>ratings[i-1])
+            left[i]=left[i-1]+1;
     }
-    int right = 0, ret = 0;
-    for (int i = n - 1; i >= 0; i--)
+    int res=left[len-1];
+    for(int i=len-2;i>=0;i--) // 从右往左，和右边的比
     {
-        if (i < n - 1 && ratings[i] > ratings[i + 1])
-            right++;
-        else
-            right = 1;
-        ret += max(left[i], right);
+        if(ratings[i]>ratings[i+1])
+            right[i]=right[i+1]+1;
+        res+=max(right[i],left[i]);
     }
-    return ret;
-}
-//从左到右枚举，记前一个同学糖果数量为pre，若当前同学比上一个同学评分高，pre+1
-//否则在一个递减数列中，直接给当前同学一颗糖果，把当前所在递减序列中所有同学再多分配一颗糖果
-int candy_1(vector<int> &ratings)
-{
-    int n = ratings.size();
-    int ret = 1;
-    int inc = 1, dec = 0, pre = 1;
-    for (int i = 1; i < n; i++)
-    {
-        if (ratings[i] >= ratings[i - 1])
-        {
-            dec = 0;
-            pre = ratings[i] == ratings[i - 1] ? 1 : pre + 1;
-            ret += pre;
-            inc = pre;
-        }
-        else
-        {
-            dec++;
-            if (dec == inc)
-                dec++;
-            ret += dec;
-            pre = 1;
-        }
-    }
-    return ret;
+    return res;
 }
 int main()
 {

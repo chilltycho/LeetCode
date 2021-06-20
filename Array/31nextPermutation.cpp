@@ -13,10 +13,10 @@ void nextPermutation(vector<int> &nums)
         return;
     int i = nums.size() - 2;
     while (i >= 0 && nums[i] >= nums[i + 1])
-        i--; //小数,降序前第一个数
+        i--; //小数,降序前第一个数，123465中4
     if (i >= 0)
     {
-        int j = nums.size() - 1; //大数
+        int j = nums.size() - 1; //大数，123465中5
         while (j >= 0 && nums[i] >= nums[j])
             j--;
         swap(nums[i], nums[j]);
