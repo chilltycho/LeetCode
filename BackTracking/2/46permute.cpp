@@ -47,21 +47,23 @@ vector<vector<int>> permute(vector<int> &nums)
 }
 
 //法2
-void dfs(vector<int> &nums, int len, int depth, 
-            vector<int> &path, bool *used, vector<vector<int>> &res)
+vector<int> path;
+vector<vector<int>> res;
+vector<bool> used;
+void dfs(vector<int> &nums)
 {
-    if (depth == len)
+    if (path.size() == nums.size())
     {
         res.push_back(path);
         return;
     }
-    for (int i = 0; i < len; i++)
+    for (int i = 0; i < nums.size(); i++)
     {
         if (!used[i])
         {
             path.push_back(nums[i]);
             used[i] = true;
-            dfs(nums, len, depth + 1, path, used, res);
+            dfs(nums);
             used[i] = false;
             path.pop_back();
         }
@@ -69,20 +71,14 @@ void dfs(vector<int> &nums, int len, int depth,
 }
 vector<vector<int>> permute_1(vector<int> &nums)
 {
-    int len = nums.size();
-    vector<vector<int>> res;
-    if (len == 0)
-        return res;
-    bool* used=new bool[len]{false};
-    vector<int> path;
-    dfs(nums, len, 0, path, used, res);
-    delete [] used;
+    used = vector<bool>(nums.size(), false);
+    dfs(nums);
     return res;
 }
 
 int main()
 {
-    vector<int> vi{1, 2,3};
+    vector<int> vi{1, 2, 3};
     auto res = permute_1(vi);
     for (auto c : res)
     {

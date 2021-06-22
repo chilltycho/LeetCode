@@ -7,28 +7,24 @@ using namespace std;
 
 vector<vector<int>> res;
 vector<int> path;
-void dfs(int k, int target, vector<int> &candidates, int start)
+void dfs(int target, int k, int start)
 {
     if (target == 0 && path.size() == k)
     {
         res.push_back(path);
         return;
     }
-    for (int i = start; i < candidates.size() && k >= path.size() && target - candidates[i] >= 0; i++)
+    for (int i = start; i <= 9 && k >= path.size() && target - i >= 0; i++)
     {
-        path.push_back(candidates[i]);
-        dfs(k, target - candidates[i], candidates, i + 1);
+        path.push_back(i);
+        dfs(target - i, k, i + 1);
         path.pop_back();
     }
 }
+
 vector<vector<int>> combinationSum3(int k, int n)
 {
-    if (k > n)
-        return res;
-    vector<int> candidates;
-    for (int i = 1; i <= n && i <= 9; i++)
-        candidates.push_back(i);
-    dfs(k, n, candidates, 0);
+    dfs(n, k, 1);
     return res;
 }
 

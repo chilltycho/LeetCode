@@ -22,20 +22,18 @@ int judgeIfIpSegment(string s, int left, int right) //判断片段是否合法�
 
 void dfs(string s, int len, int split, int begin, vector<string> &path)
 {
-    if (begin == len)//全部遍历完成
+    if (begin == len && split == 4) //全部遍历完成
     {
-        if (split == 4) //分成4段
+        string tempres = "";
+        for (int i = 0; i < 4; i++)
         {
-            string tempres = "";
-            for (int i = 0; i < 4; i++)
-            {
-                tempres += path[i] + ".";
-            }
-            tempres.pop_back();
-            res.push_back(tempres);
+            tempres += path[i] + ".";
         }
+        tempres.pop_back(); // 弹出最后一个.号
+        res.push_back(tempres);
         return;
     }
+    // 剪枝，长度不够分或者太长。
     if (len - begin < (4 - split) || len - begin > 3 * (4 - split)) //len-begin为剩余长度，看剩下的够不够
         return;
     for (int i = 0; i < 3; i++) //每个节点可截取1、2、3位
