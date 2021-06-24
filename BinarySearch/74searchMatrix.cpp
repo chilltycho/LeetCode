@@ -4,22 +4,17 @@ using namespace std;
 
 bool searchMatrix(vector<vector<int>> &matrix, int target)
 {
-    int r = matrix.size();
-    int c = matrix[0].size();
-    int le = 0, ri = r * c - 1;
-    while (le <= ri)
+    size_t row = matrix.size();
+    size_t col = matrix[0].size();
+    size_t l = 0, r = row * col - 1; // 将矩阵看作数组
+    while (l < r)
     {
-        auto piIdx = le + (ri - le) / 2;
-        auto pele = matrix[piIdx / c][piIdx % c];
-        if (target == pele)
-            return true;
+        auto m = l + (r - l) / 2;
+        auto p = matrix[m / col][m % col]; // 当前位置
+        if (p < target)
+            l = m + 1;
         else
-        {
-            if (target < pele)
-                ri = piIdx - 1;
-            else
-                le = piIdx + 1;
-        }
+            r = m;
     }
-    return false;
+    return matrix[l / col][l % col] == target;
 }

@@ -10,7 +10,7 @@ bool backtrack(vector<int> &list, string S, int length, int index, long long sum
     long long curr = 0;
     for (int i = index; i < length; i++)
     {
-        if (i > index && S[index] == '0') //一个数不能以0开始
+        if (i > index && S[index] == '0') //两位以上数字不能以0开始
             break;
         curr = curr * 10 + S[i] - '0';
         if (curr > INT_MAX)

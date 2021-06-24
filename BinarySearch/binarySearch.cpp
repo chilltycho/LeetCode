@@ -1,56 +1,39 @@
 #include <vector>
+#include <algorithm>
 #include <iostream>
 using namespace std;
-int binarySearch(vector<int> &nums, int target)
+
+int m_lowerbound(vector<int> &nums, int target)
 {
-    int len = nums.size();
-    if (len == 0)
-        return -1; //未找到
-    int left = 0;
-    int right = len - 1;
-    while (left <= right) //注意一个元素情况
+    size_t l = 0, r = nums.size();
+    while (l < r)
     {
-        int mid = left + (right - left) / 2;
-        if (nums[mid] == target)
-            return mid;
-        else if (nums[mid] > target)
-            right = mid - 1;
+        auto m = l + (r - l) / 2;
+        if (nums[m] < target)
+            l = m + 1;
         else
-            left = mid + 1;
+            r = m;
     }
-    return -1;
+    return l; // l和r一样
 }
 
-int binarySearch_2(vector<int> &nums, int left, int right, int target)
+int m_upperbound(vector<int> &nums, int target)
 {
-    if (left < right)
+    size_t l = 0, r = nums.size();
+    while (l < r)
     {
-        int mid = left + (right - left) / 2;
-        if (nums[mid] == target)
-            return mid;
-        else if (nums[mid] < target)
-            return binarySearch_2(nums, mid + 1, right, target);
+        auto m = l + (r - l) / 2;
+        if (nums[m] <= target)
+            l = m + 1;
         else
-            return binarySearch_2(nums, left, mid - 1, target);
-    }
-    return -1;
-}
-
-int binarySearch_3(vector<int> &nums, int l, int r, int target)
-{
-    while (l < r) //返回偏小索引
-    {
-        int mid = l + (r - l) / 2;
-        if (nums[mid] < target)
-            l = mid + 1;
-        else
-            r = mid;
+            r = m;
     }
     return l;
 }
 
 int main()
 {
-    vector<int> nums{-1, 0, 3, 5, 9, 12};
-    cout << binarySearch_3(nums, 0, nums.size() - 1, -1);
+    vector<int> vs{0, 1, 2, 3, 3, 5, 6};
+    cout << lower_bound(vs.begin(), vs.end(), 3) - vs.begin() << endl;
+    cout << upper_bound(vs.begin(), vs.end(), 3) - vs.begin() << endl;
 }

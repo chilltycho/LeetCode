@@ -47,7 +47,7 @@ int main()
 {
     vector<int> vi{1, 2, 3, 4, 5};
     vector<int> res{1, 2, 3, 4};
-    assert(res == findClosestElements(vi, 4, 3));
+    assert(res == findClosestElements_bi(vi, 4, 3));
 
     vector<int> vi1{1, 2, 3, 4, 5};
     vector<int> res1{1, 2, 3, 4};
