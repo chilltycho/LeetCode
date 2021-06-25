@@ -8,22 +8,21 @@ int mySqrt_bi(int x)
 {
     if (x == 0 || x == 1)
         return x;
-    int left = 1;
-    int right = x / 2;
-    while (left <= right)
+    int l = 1, r = x / 2; //区间[l,r]
+    while (l < r)
     {
-        int mid = left + (right - left) / 2;
-        int cur = x / mid;
-        if (cur > mid)
-            left = mid + 1;
-        else if (cur < mid)
-            right = mid - 1;
+        int m = l + (r - l) / 2;
+        if (m > x / m)
+            r = m - 1;
         else
-            return mid;
+            l = m;
     }
-    return right;
+    return l;
 }
-
+/*
+不断用(x, f(x))切线来逼近x^2-a=0的根。x-f(x)/(2x)比x更接近解。代入f(x)=x^2-a
+得到x-(x^2-a)/(2x)，即(x+a/x)/2
+*/
 int mySqrt_newton(int x)
 {
     if (x == 0 || x == 1)
