@@ -2,7 +2,7 @@
 #include "../TreeNode.h"
 using namespace std;
 
-int res;
+int res = INT_MIN;
 //返回经过root的单边分支最大和，max(root,root+left,root+right)
 int dfs(TreeNode *root)
 {
@@ -14,22 +14,8 @@ int dfs(TreeNode *root)
     return root->val + max(leftsum, rightsum);      //返回经过root的单边最大分支给上游
 }
 
-int maxValue=INT16_MIN;
-int maxPathSumHelper(TreeNode* root)
-{
-    if(root==nullptr)
-        return 0;
-    int left=maxPathSumHelper(root->left);//左子节点的值
-    int right=maxPathSumHelper(root->right);//右子节点的值
-    int cur=root->val+max(0,left)+max(0,right);//当前节点+左节点+右节点
-    int res=root->val+max(0,max(left,right));//当前节点+一边或不加的结果
-    maxValue=max(maxValue,max(cur,res));
-    return res;
-}
-
 int maxPathSum(TreeNode *root)
 {
-    res = 0;
     dfs(root);
     return res;
 }

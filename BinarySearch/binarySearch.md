@@ -31,3 +31,66 @@ int lower_bound(vector<int>& array, int first, int last, int value)
 * upper_bound(value)：找`x > value`下界，若为last则不存在
 * lower_bound(value) - 1：`x <= value`上界，若为first-1则不存在
 * upper_bound(value) - 1: `x <= value`上界，若为first-1则不存在
+
+## liweiweihttps://leetcode-cn.com/problems/search-insert-position/solution/te-bie-hao-yong-de-er-fen-cha-fa-fa-mo-ban-python-/
+```C++
+int binarysearch(vector<int>& nums, int target) // 左闭右闭
+{
+    size_t l =0, r= nums.size() -1;
+    while(l<=r) // [l...r]里查找target，单个元素仍然进入
+    {
+      auto m = l + (r - l) / 2;
+      if(nums[m] == target)
+        return m;
+      else if(nums[m] > target)
+        r = m - 1;
+      else
+        l = m + 1;
+    }
+    return -1;
+}
+```
+### 把待搜索区间分为两部分
+* 一定不存在目标的区间：下一轮搜索时，不用考虑
+* 可能存在目标的区间：下一轮搜索时，需考虑
+将容易考虑的放入if，如找第一个大于等于target元素的小标。
+```C++
+if(nums[m] < target) // 小于target一边肯定不要
+  l = m + 1;  // 下轮搜索[m+1, r]
+else
+  r = m;      // if的反面区间[l,m]
+```
+
+## 两种主要写法
+如果只有一个元素怎么办？直接不进入`while(l<r)`，返回l
+```C++
+int b(vector<int> &a, int target)
+{
+  int l=0, r = len-1;
+  while(l <= r) //[l...r]
+  {
+    int m = l + (r - l) / 2;
+    if(a[m]==target)
+      return m;
+    if(a[m] < target)
+      l = m + 1;
+    else
+      r = m - 1; // 必须的，不然根本不存在target时会死循环
+  }
+  return -1;
+}
+
+int b(vector<int> &vi, int ta)
+{
+  int l=0, r=len;
+  while(l < r)
+  {
+    int m = l + (r - l)/2;
+    if (a[m] < ta)
+      l = m + 1;
+    else
+      r = m;
+  }
+  return l;
+}
+```

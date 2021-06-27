@@ -19,22 +19,18 @@ int hIndex(vector<int> &citations) //暴力法，升序排列
 int hIndex_bi(vector<int> &citations)
 {
     int len = citations.size();
-    if (len == 0)
-        return 0;
-    int left = 0;
-    int right = len - 1;
-    while (left < right)
+    int l = 0, r = len;
+    while (l < r)
     {
-        int mid = left + (right - left) / 2;
-        if (citations[mid] < (len - mid))
-            left = mid + 1;
-        else 
-            right = mid;
+        int m = l + (r - l) / 2;
+        if (citations[m] < len - m)
+            l = m + 1;
+        else
+            r = m;
     }
-    if (citations[left] >= (len - left))
-        return len - left;
-    else
+    if (l == len)
         return 0;
+    return len - l;
 }
 
 int main()

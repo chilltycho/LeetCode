@@ -1,4 +1,4 @@
-/*给定两大小为m和n的升序数组nums1和nums2,找出两个中位数*/
+/*给定两大小为m和n的升序数组nums1和nums2,找出中位数*/
 #include <vector>
 #include <iostream>
 #include <algorithm>

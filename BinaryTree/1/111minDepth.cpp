@@ -34,13 +34,15 @@ int minDepth(TreeNode *root) //层序
 
 int minDepth_1(TreeNode *root)
 {
-    if (root == nullptr)
+    if(root==nullptr)
         return 0;
-    if (root->left == nullptr) //处理[1,2]的情况，此时最小深度为2。区分叶节点
-        return 1 + minDepth_1(root->right);
-    if (root->right == nullptr)
-        return 1 + minDepth_1(root->left);
-    return min(1 + minDepth_1(root->left), 1 + minDepth_1(root->right));
+    if(root->left==nullptr && root->right==nullptr) // 叶子节点
+        return 1; 
+    if(root->left==nullptr)
+        return 1+minDepth_1(root->right);
+    if(root->right==nullptr)
+        return 1+minDepth_1(root->left);
+    return 1+min(minDepth_1(root->left),minDepth_1(root->right));
 }
 
 int main()

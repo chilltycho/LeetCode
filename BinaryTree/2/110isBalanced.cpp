@@ -3,23 +3,18 @@
 #include <cassert>
 using namespace std;
 
-bool balanced = true;
-
-int dfs(TreeNode *root) //求根节点到叶子深度
+int height(TreeNode *root)
 {
     if (root == nullptr)
         return 0;
-    int lefth = dfs(root->left);
-    int righth = dfs(root->right);
-    if (abs(lefth - righth) > 1)
-        balanced = false;
-    return 1 + max(lefth, righth);
+    return max(height(root->left), height(root->right)) + 1;
 }
-
+// O(n^2), n时二叉树节点个数，
 bool isBalanced(TreeNode *root)
 {
-    dfs(root);
-    return balanced;
+    if (root == nullptr)
+        return true;
+    return abs(height(root->left) - height(root->right)) <= 1 && isBalanced(root->left) && isBalanced(root->right);
 }
 //时间O(N)最差需遍历所有节点,空间O(N)
 //当root左/右子树深度差<=1，返回最大深度。当>1返回-1,代表不是平衡树

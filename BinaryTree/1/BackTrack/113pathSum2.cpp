@@ -15,7 +15,7 @@ void traverse(TreeNode *root, int sum)
         if (root->val == sum)
         {
             res.push_back(path);
-            return;
+            //return; // 不接return，path应将最后一个元素弹出
         }
 
     traverse(root->left, sum - (root->val));

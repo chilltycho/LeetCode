@@ -4,7 +4,7 @@ using namespace std;
 
 /*二叉树最长路径=max(左子树最长路径，右子树最长路径，左子树深度+右子树深度）*/
 int diameter = 0;
-
+// 注意是边的数量
 int dfs(TreeNode *root)
 {
     if (root == nullptr)

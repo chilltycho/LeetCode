@@ -26,12 +26,12 @@ int search(vector<int> &nums, int target)
     int len = nums.size();
     int left = 0;
     int right = len - 1;
-    while (left <= right)
+    while (left <= right) // 单个元素时=仍进入
     {
         int mid = left + (right - left) / 2;
         if (nums[mid] == target)
             return mid;
-        if (nums[mid] >= nums[left]) //左半部分升序
+        if (nums[mid] >= nums[left]) //左半部分升序，考虑一个元素情况，需要=
         {
             if (target >= nums[left] && target < nums[mid])
                 right = mid - 1;
