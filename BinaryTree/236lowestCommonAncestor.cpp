@@ -17,7 +17,7 @@ TreeNode *lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
         return right;
     if (right == nullptr)
         return left;
-    if (left != nullptr && right != nullptr)
+    if (left != nullptr && right != nullptr)// 可去掉
         return root;
     return nullptr;
 }

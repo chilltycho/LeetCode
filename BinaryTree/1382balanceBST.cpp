@@ -6,17 +6,17 @@ void inOrder(TreeNode *node, vector<int> &res)
     if (node == nullptr)
         return;
     inOrder(node->left, res);
-    res.push_back(node->val);//中序保证数组升序
+    res.push_back(node->val); //中序保证数组升序
     inOrder(node->right, res);
 }
 
 TreeNode *buildBalanceBST(vector<int> &res, int left, int right)
 {
-    if (left > right)//列表为空
+    if (left > right) //列表为空
         return nullptr;
-    if (left == right)//列表长度为1,构成叶子节点
+    if (left == right) //列表长度为1,构成叶子节点
         return new TreeNode(res[left]);
-    int mid = left + (right - left) / 2;//每次选取中间节点作为根节点
+    int mid = left + (right - left) / 2; //每次选取中间节点作为根节点
     auto root = new TreeNode(res[mid]);
     auto leftSubTree = buildBalanceBST(res, left, mid - 1);
     auto rightSubTree = buildBalanceBST(res, mid + 1, right);

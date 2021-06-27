@@ -18,7 +18,7 @@ vector<TreeNode *> helper(int start, int end)
         vector<TreeNode *> left = helper(start, i - 1);
         //获取所有可行右子树集合
         vector<TreeNode *> right = helper(i + 1, end);
-        //从左子树集合选出一颗右子树，从右子树集合选出一颗右子树，拼接到根节点
+        //从左子树集合选出一颗左子树，从右子树集合选出一颗右子树，拼接到根节点
         for (TreeNode *l : left)
         {
             for (TreeNode *r : right)

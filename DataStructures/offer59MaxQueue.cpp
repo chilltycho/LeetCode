@@ -1,3 +1,5 @@
+/*实现队列并实现函数`max_value`得到队列里最大值，要求max_value, push_back,pop_front均摊时间
+复杂度都是O(1)。*/
 #include <queue>
 #include <deque>
 #include <iostream>

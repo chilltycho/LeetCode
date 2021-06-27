@@ -65,6 +65,3 @@ void recoverTree_1(TreeNode *root)
     }
     swap(x->val, y->val);
 }
-
-
-
