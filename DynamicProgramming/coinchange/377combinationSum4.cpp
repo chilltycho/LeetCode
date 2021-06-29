@@ -10,7 +10,7 @@ int combinationSum4(vector<int> &nums, int target) //看成换硬币问题，求
         return 1;
     vector<unsigned> dp(target + 1, 0);
     dp[0] = 1;
-    for (int i = 1; i <= target; i++)
+    for (int i = 1; i <= target; i++) // 先金额
     {
         for (auto c : nums)
         {

@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 #include <iostream>
+#include<numeric>
 using namespace std;
 //转换0-1背包问题，挑选一些数，使得和为整个数组元素和的一半(和一定为偶)。
 bool canPartition(vector<int> &nums)
@@ -9,9 +10,7 @@ bool canPartition(vector<int> &nums)
     int len = nums.size();
     if (len == 0)
         return false;
-    int sum = 0;
-    for (auto num : nums)
-        sum += num;
+    int sum = accumulate(nums.begin(),nums.end(),0);
     if ((sum & 1) == 1)
         return false;
     int target = sum / 2;

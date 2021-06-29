@@ -4,14 +4,15 @@
 #include <cassert>
 #include<numeric>
 #include <cmath>
+#include<iostream>
 using namespace std;
-int count = 0;
+static int res = 0;
 void calcu(vector<int> &nums, int i, int sum, int S) //dfs递归
 {
     if (i == nums.size()) //树深度
     {
         if (sum == S)
-            count++;
+            ++res;
     }
     else
     {
@@ -22,7 +23,7 @@ void calcu(vector<int> &nums, int i, int sum, int S) //dfs递归
 int findTargetSumWays_vilo(vector<int> &nums, int S)
 {
     calcu(nums, 0, 0, S);
-    return count;
+    return res;
 }
 int findTargetSumWays_dp(vector<int> &nums, int S)
 {
@@ -77,10 +78,10 @@ int findTargetSumWays_dp2(vector<int> &nums, int S)
     if ((sum + S) % 2 == 1) //背包容量x应为整数
         return 0;
     auto len = (sum + S) / 2; //目标容量
-    vector<vector<int>> dp(nums.size() + 1, vector<int>(len + 1, 0));
+    vector<vector<int>> dp(nums.size(), vector<int>(len+1, 0));
     dp[0][0] = 1;
     dp[0][nums[0]] = 1;
-    for (int i = 1; i <= nums.size(); i++)
+    for (int i = 1; i < nums.size(); i++)
     {
         for (int j = 0; j <= len; j++)
         {
@@ -90,12 +91,13 @@ int findTargetSumWays_dp2(vector<int> &nums, int S)
                 dp[i][j] = dp[i - 1][j];
         }
     }
-    return dp[nums.size()][len];
+    return dp[nums.size()-1][len];
 }
 
 int main()
 {
-    vector<int> nums{1, 1, 1, 1, 1};
-    int S = 3;
-    assert(5 == findTargetSumWays_dp2(nums, S));
+    vector<int> nums{1000};
+    int S = -1000;
+    //assert(5 == findTargetSumWays_dp2(nums, S));
+    cout<<findTargetSumWays_dp2(nums,S)<<endl;
 }

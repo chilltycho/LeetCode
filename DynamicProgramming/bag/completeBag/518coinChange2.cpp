@@ -3,7 +3,6 @@
 #include <cassert>
 #include <iostream>
 using namespace std;
-
 int change(int amount, vector<int> &coins)
 {
     if (amount == 0)
@@ -26,7 +25,9 @@ int change(int amount, vector<int> &coins)
                 if (k >= coins[i - 1])
                     dp[i][k] += dp[i][k - coins[i - 1]];
             }
+            cout<<dp[i][k]<<' ';
         }
+        cout<<endl;
     }
     return dp[m][amount];
 }
@@ -47,5 +48,5 @@ int main()
 {
     int amount = 5;
     vector<int> coins{1, 2, 5};
-    cout << change(amount, coins) << endl;
+    cout << change_1(amount, coins) << endl;
 }
