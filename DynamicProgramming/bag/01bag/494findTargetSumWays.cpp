@@ -2,6 +2,7 @@
 可从+或-中选择一个符号添加在前面。返回可使最终数组和为目标数S的所有添加符号的方法数*/
 #include <vector>
 #include <cassert>
+#include<numeric>
 #include <cmath>
 using namespace std;
 int count = 0;
@@ -23,12 +24,9 @@ int findTargetSumWays_vilo(vector<int> &nums, int S)
     calcu(nums, 0, 0, S);
     return count;
 }
-
 int findTargetSumWays_dp(vector<int> &nums, int S)
 {
-    int sum = 0;
-    for (auto c : nums)
-        sum += c;
+    int sum = accumulate(nums.begin(),nums.end(),0);
     if (abs(S) > sum)
         return 0; //注意是非负整数数组
     auto len = nums.size();
@@ -52,14 +50,10 @@ int findTargetSumWays_dp(vector<int> &nums, int S)
     }
     return dp[len - 1][sum + S];
 }
-/*所有符号为正的数总和设为背包容量x，符号为负的设为背包容量y。给定数组中，有多少方法使背包装满
-令sum为数组总和，x+y=sum。则x-y=S。x=(S+sum)/2。
-问题转换为给定一数组和容量为x的背包，求有多少方式让背包装满。*/
+// 假定所有符号为+的数之和为x，为-的数之和为y。想要的S=x-y, 而x+y=sum。x=(S+sum)/2, 即选出几个数，另其和为target。
 int findTargetSumWays_dp1(vector<int> &nums, int S)
 {
-    int sum = 0;
-    for (auto c : nums)
-        sum += c;
+    int sum = accumulate(nums.begin(),nums.end(),0);
     if (abs(S) > sum)
         return 0;
     if ((sum + S) % 2 == 1) //背包容量x应为整数
@@ -77,9 +71,7 @@ int findTargetSumWays_dp1(vector<int> &nums, int S)
 
 int findTargetSumWays_dp2(vector<int> &nums, int S)
 {
-    int sum = 0;
-    for (auto c : nums)
-        sum += c;
+    int sum = accumulate(nums.begin(),nums.end(),0);
     if (abs(S) > sum)
         return 0;
     if ((sum + S) % 2 == 1) //背包容量x应为整数
