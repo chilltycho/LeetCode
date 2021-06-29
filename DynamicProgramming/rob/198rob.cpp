@@ -1,3 +1,4 @@
+// 不能偷相邻的房间
 #include <iostream>
 #include <vector>
 using namespace std;

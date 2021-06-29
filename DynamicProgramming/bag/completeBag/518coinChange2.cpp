@@ -25,9 +25,7 @@ int change(int amount, vector<int> &coins)
                 if (k >= coins[i - 1])
                     dp[i][k] += dp[i][k - coins[i - 1]];
             }
-            cout<<dp[i][k]<<' ';
         }
-        cout<<endl;
     }
     return dp[m][amount];
 }
