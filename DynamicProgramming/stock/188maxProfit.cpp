@@ -24,7 +24,7 @@ int maxProfit(int k, vector<int> &prices)
     if (prices.empty())
         return 0;
     int n = prices.size();
-    if (k >= n / 2) //相当于可无限次交易
+    if (k >= n / 2) //相当于可无限次交易，可不进行该特例
         return maxProfit_mul(prices);
     int dp[n][k + 1][2];
     memset(dp, 0, sizeof(dp));

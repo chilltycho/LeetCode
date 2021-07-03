@@ -18,7 +18,9 @@ bool isPalindrome(string s, int l, int r)
 /*dp[i]:表示前缀s[0:i]分割回文子串所需最小分割次数。
 dp[i] = 0 if s[0:i]回文。
 s[0:i]不是回文，尝试分割，枚举分割边界j, s[j+1,i]不是回文，尝试下一边界，s[j+1,i]是回文。dp[i]=dp[j]+1
-dp[i]=min(dp[j]+1 for j in range(i) if s[j+1,i]是回文。*/
+dp[i]=min(dp[j]+1 for j in range(i) if s[j+1,i]是回文。
+如果s[0:i]回文，dp[i]=0
+如果s[0:i]不是回文，由于求最小分割数，从最左边开始s[j,i]看是否为回文。*/
 int minCut(string s)
 {
     int len = s.size();
@@ -45,7 +47,7 @@ int minCut(string s)
 }
 
 //优化，先判断子串是否为回文
-int minCut_1()
+int minCut_1(string s)
 {
     int len = s.size();
     if (len < 2)
@@ -54,7 +56,7 @@ int minCut_1()
     for (int i = 0; i < len; i++)
         dp[i] = i;
 
-    vector<vector<bool>> isPali(len, vector<bool>(len));
+    vector<vector<bool>> isPali(len, vector<bool>(len,false));
     for (int r = 0; r < len; r++)
     {
         for (int l = 0; l <= r; l++)
