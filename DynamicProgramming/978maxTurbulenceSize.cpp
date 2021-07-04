@@ -5,38 +5,22 @@
 #include <cassert>
 using namespace std;
 
-//定义两个自问题：1.最后一段上升f(k) 2.最后一段下降g(k)
+//定义两个子问题：1.最后一段上升f(k) 2.最后一段下降g(k)
 int maxTurbulenceSize(vector<int> &A)
 {
-    if (A.empty())
-        return 0;
-    const auto size = A.size();
-    int f[size + 1], g[size + 1];
-    f[0] = 0;
-    g[0] = 0;
-    f[1] = 1;
-    g[1] = 1;
-    int res = 1;
-    for (int i = 2; i <= size; i++)
-    {
-        if (A[i - 1] > A[i - 2]) //最后一段上升
+        auto arr = A;
+        int sz = arr.size();
+        vector<int> l(sz, 1), r(sz, 1);// l为>, r为<
+        int res = 1;
+        for (int i = 1; i < sz; ++i)
         {
-            f[i] = g[i - 1] + 1;
-            g[i] = 1;
+            if (arr[i] > arr[i - 1])
+                r[i] = l[i - 1] + 1;
+            else if (arr[i] < arr[i - 1])
+                l[i] = r[i - 1] + 1;
+            res = max(res, max(l[i], r[i]));
         }
-        else if (A[i - 1] < A[i - 2]) //最后一段下降
-        {
-            g[i] = f[i - 1] + 1;
-            f[i] = 1;
-        }
-        else
-        {
-            f[i] = 1;
-            g[i] = 1;
-        }
-        res = max(max(res, f[i]), g[i]);
-    }
-    return res;
+        return res;
 }
 
 int main()
