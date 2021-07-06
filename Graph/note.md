@@ -25,7 +25,7 @@ void Dijkstra(vector<vector<int>> times,int start)
         minHeap.pop();
         auto weight = temp[0];
         auto node = temp[1];
-        for(const auto& next:graph[node])
+        for(const auto& next:graph[node]) // 下个节点
         {
             minHeap.emplace(weight+next.second,next.first);
         }

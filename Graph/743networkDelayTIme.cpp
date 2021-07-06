@@ -96,7 +96,7 @@ int networkDelayTime_DijPQ(vector<vector<int>> &times, int N, int K)
         }
     }
     int ans = 0;
-    for (int i = 1; i < dist.size(); i++)
+    for (int i = 1; i < dist.size(); i++) // 标记从1开始
         ans = max(dist[i], ans);
     return ans == INT8_MAX ? -1 : ans;
 }
