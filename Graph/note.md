@@ -31,4 +31,24 @@ void Dijkstra(vector<vector<int>> times,int start)
         }
     }
 }
+
+// 通过N次迭代，找到从源点到终点不超过N条边构成的最短路路径。
+void bellman-ford(vector<vector<int>> &times, int N, int K)
+{
+    vector<int> dist(N + 1, INT8_MAX);
+    dist[K] = 0;
+    for (int i = 0; i < N; i++)
+    {
+        for (const auto &e : times)
+        {
+            int u = e[0], v = e[1], w = e[2];
+            if (dist[u] != INT8_MAX && dist[v] > dist[u] + w)
+                dist[v] = dist[u] + w;
+        }
+    }
+    int maxwait = 0;
+    for (int i = 1; i <= N; i++)
+        maxwait = max(maxwait, dist[i]);
+    return maxwait == INT8_MAX ? -1 : maxwait;
+}
 ```
