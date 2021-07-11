@@ -5,6 +5,8 @@ using namespace std;
 //bfs
 string serialize(TreeNode *root)
 {
+    if(root==nullptr)
+        return {};
     ostringstream out;
     queue<TreeNode *> mq;
     mq.push(root);

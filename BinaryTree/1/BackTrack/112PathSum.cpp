@@ -1,6 +1,6 @@
 /*给定二叉树和目标和，判断树中是否存在根节点到叶节点路径，节点和为目标和*/
 #include <queue>
-#include "../TreeNode.h"
+#include "../../TreeNode.h"
 #include <cassert>
 using namespace std;
 
