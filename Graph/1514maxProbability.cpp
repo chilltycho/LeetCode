@@ -18,8 +18,8 @@ double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succPro
     //最大堆 权值,终点
     priority_queue<pair<double, int>> que;
     vector<double> prob(n, 0); //从start到图各节点概率
-    que.emplace(1, start); // 概率，终点
-    prob[start] = 1; //起点到起点概率为1
+    que.emplace(1, start);     // 概率，终点
+    prob[start] = 1;           //起点到起点概率为1
     vector<bool> isvis(n, false);
     while (!que.empty())
     {
@@ -29,7 +29,7 @@ double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succPro
         que.pop();
         if (isvis[node])
             continue;
-            
+
         isvis[node] = true;
         if (node == end)
             return pr;
@@ -47,6 +47,33 @@ double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succPro
         }
     }
     return 0;
+}
+// bellman
+double maxProbability(int n, vector<vector<int>> &edges, vector<double> &succProb,
+                      int start, int end)
+{
+    vector<double> dp(n, 0);
+    dp[start] = 1;
+    while (true)
+    {
+        bool k = false;
+        for (int j = 0; j < edges.size(); ++j)
+        {
+            if (dp[edges[j][0]] * succProb[j] > dp[edges[j][1]])
+            {
+                dp[edges[j][1]] = dp[edges[j][0]] * succProb[j];
+                k = true;
+            }
+            if (dp[edges[j][1]] * succProb[j] > dp[edges[j][0]])
+            {
+                dp[edges[j][0]] = dp[edges[j][1]] * succProb[j];
+                k = true;
+            }
+        }
+        if (!k)
+            break;
+    }
+    return dp[end];
 }
 
 int main()

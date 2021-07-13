@@ -1,5 +1,6 @@
 const int MAXN = 1000;
 int fa[MAXN]; // 保存每个元素父节点
+int rank[MAXN];
 
 void init(int n)
 {
