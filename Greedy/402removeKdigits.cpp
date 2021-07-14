@@ -2,6 +2,29 @@
 #include <iostream>
 #include <queue>
 using namespace std;
+
+string removeKdigits_1(string num, int k)
+{
+    int n = num.size();
+    string vec = "";
+    int res = n - k; // 剩余位数
+    if (res == 0)
+        return "0";
+    for (auto c : num)
+    {
+        // 还可删除位&&仍有位可删除&&当前位c比左侧小，删除左侧元素
+        while (k != 0 && !vec.empty() && vec[vec.size() - 1] > c)
+        {
+            vec.pop_back();
+            --k;
+        }
+        vec.push_back(c);
+    }
+    vec = vec.substr(0, res); // 若递增，只取前res位
+    while (*vec.begin() == '0' && vec.size() != 1) // 前缀0
+        vec.erase(vec.begin());
+    return vec;
+}
 //从左至右迭代,移除大的数,若没有移除完则直接去除后面的.但对单调增序列失效,需移除末尾的数字获得最小数
 string removeKdigits(string num, int k)
 {

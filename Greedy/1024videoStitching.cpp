@@ -25,7 +25,7 @@ int videoStitching(vector<vector<int>> &clips, int T)
 //贪心，对所有左端点相同的子区间，右端点越远越有利
 int videoStitching(vector<vector<int>> &clips, int T)
 {
-    vector<int> maxn(T);
+    vector<int> maxn(T,0);
     int last = 0, ret = 0, pre = 0;
     //记录以左端点的子区间中最远的右端点
     for (auto &it : clips)

@@ -13,16 +13,15 @@ using namespace std;
 */
 int lengofLIS(vector<int> &nums)
 {
+    int res=1;
     vector<int> dp(nums.size(), 1); //初始化为1，因为对每个元素最短上升子序列为其本身，也就是1，注意dp数组长度
     for (int i = 0; i < nums.size(); i++)
     {
         for (int j = 0; j < i; j++)
             if (nums[i] > nums[j])
                 dp[i] = max(dp[i], dp[j] + 1);
+        res=max(res,dp[i]);
     }
-    int res = 0;
-    for (int i = 0; i < dp.size(); i++)
-        res = max(res, dp[i]);
     return res;
 }
 
