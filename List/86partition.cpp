@@ -85,6 +85,6 @@ int main()
 {
     vector<int> vi{1, 4, 3, 2, 5, 2};
     auto head = createLinkedList(vi);
-    auto res = partition_1(head, 0);
+    auto res = partition_1(head, 3);
     printLinkeList(res);
 }

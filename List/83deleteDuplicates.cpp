@@ -21,10 +21,21 @@ ListNode *deleteDuplicates(ListNode *head)
     return head;
 }
 
+ListNode *deleteDuplicates_re(ListNode *head)
+{
+    if(head==nullptr||head->next==nullptr)
+        return head;
+    if(head->val==head->next->val)
+        head->next=deleteDuplicates_re(head->next->next);
+    else
+        head->next=deleteDuplicates_re(head->next);
+    return head;
+}
+
 int main()
 {
     vector<int> vi{1, 1, 2};
     auto head = createLinkedList(vi);
-    auto res = deleteDuplicates(head);
+    auto res = deleteDuplicates_re(head);
     printLinkeList(res);
 }

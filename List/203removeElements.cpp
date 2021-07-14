@@ -13,7 +13,7 @@ ListNode *removeElements(ListNode *head, int val)
             if (prev == nullptr) //头节点
             {
                 head = curr->next;
-                prev = nullptr; //删除头节点后，prev仍需指向null，考虑[1,1]
+                //prev = nullptr; //删除头节点后，prev仍需指向null，考虑[1,1]
                 curr = curr->next;
             }
             else
@@ -33,8 +33,8 @@ ListNode *removeElements(ListNode *head, int val)
 
 int main()
 {
-    vector<int> vi{1, 2, 6, 3, 4, 5, 6};
+    vector<int> vi{1, 1, 1};
     auto head = createLinkedList(vi);
-    auto res = removeElements(head, 6);
+    auto res = removeElements(head, 1);
     printLinkeList(res);
 }

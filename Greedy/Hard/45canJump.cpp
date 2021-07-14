@@ -1,3 +1,4 @@
+// 假定一定能到达终点，求跳跃所需步数
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -9,11 +10,17 @@ int jump(vector<int> &nums)
     for (int i = 0; i < nums.size() - 1; ++i)
     {
         tom = max(i + nums[i], tom);
-        if (i == end)
+        if (i == end) // 到达某点能到的最远点，步数加1
         {
-            end = tom;
+            cout<<"i: "<<i<<endl;
+            end = tom;  // 更改新一步能到最远点
             ++res;
         }
     }
     return res;
+}
+int main()
+{
+    vector<int> nums{2,3,1,1,4};
+    cout<<jump(nums)<<endl;
 }
