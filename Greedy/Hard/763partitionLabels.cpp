@@ -35,6 +35,26 @@ vector<int> partitionLabels(string s)
     return ans;
 }
 
+vector<int> partitionLables_1(string s)
+{
+    int last[26];
+    int sz = s.size();
+    for (int i = 0; i < sz; ++i)
+        last[s[i] - 'a'] = i;
+    vector<int> res;
+    int start = 0, end = 0;
+    for (int i = 0; i < sz; ++i)
+    {
+        end = max(end, last[s[i] - 'a']);
+        if (i == end)
+        {
+            res.push_back(end - start + 1);
+            start = end + 1;
+        }
+    }
+    return res;
+}
+
 int main()
 {
     auto res = partitionLabels("ababcbacadefegdehijhklij");

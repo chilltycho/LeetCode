@@ -59,14 +59,14 @@ bool isPossible_greedy(vector<int> &nums)
         int x = nums[i];
         while (i < n && nums[i] == x)
             i++;
-        int cnt = i - start;
-        if (start > 0 && x != nums[start - 1] + 1)
+        int cnt = i - start; // cnt个x
+        if (start > 0 && x != nums[start - 1] + 1) // 不连续，不能直接添到末尾
         {
-            if (dp1 + dp2 > 0)
+            if (dp1 + dp2 > 0) // 已有长度1和2的序列
                 return false;
             else
             {
-                dp1 = cnt;
+                dp1 = cnt; // 创建新序列，创建cnt个
                 dp2 = dp3 = 0;
             }
         }
@@ -74,8 +74,8 @@ bool isPossible_greedy(vector<int> &nums)
         {
             if (dp1 + dp2 > cnt) //x不够用
                 return false;
-            int left = cnt - dp1 - dp2;
-            int keep = min(dp3, left);
+            int left = cnt - dp1 - dp2; // 剩余的x
+            int keep = min(dp3, left);  // dp3能跟的x数量
             dp3 = keep + dp2; //更新为以x结尾的子序列数目
             dp2 = dp1;
             dp1 = left - keep;
@@ -84,7 +84,7 @@ bool isPossible_greedy(vector<int> &nums)
     return dp1 == 0 && dp2 == 0;
 }
 
-bool isPossible(vector<int> &nums)
+bool isPossible_1(vector<int> &nums)
 {
     // nc存储数字出现次数，tail存储以数字i结尾的合法序列
     unordered_map<int, int> nc, tail;
@@ -94,14 +94,14 @@ bool isPossible(vector<int> &nums)
     {
         if (nc[n] == 0)// 不存在
             continue;
-        else if (nc[n] > 0 && tail[n - 1] > 0)
+        else if (nc[n] > 0 && tail[n - 1] > 0) // 优先拼接
         {
             // 拼接到tail[n-1]后
             nc[n]--;
             tail[n - 1]--;
             tail[n]++;
         }
-        else if (nc[n] > 0 && nc[n + 1] > 0 && nc[n + 2] > 0)
+        else if (nc[n] > 0 && nc[n + 1] > 0 && nc[n + 2] > 0) // 随后组成新队列
         {
             // 组成新的tai
             nc[n]--;
@@ -117,6 +117,6 @@ bool isPossible(vector<int> &nums)
 
 int main()
 {
-    vector<int> vi{1, 2, 3, 3, 4, 5};
+    vector<int> vi{1, 2, 3, 6, 7, 8};
     cout << isPossible_greedy(vi);
 }

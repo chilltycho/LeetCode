@@ -13,7 +13,7 @@ string removeKdigits_1(string num, int k)
     for (auto c : num)
     {
         // 还可删除位&&仍有位可删除&&当前位c比左侧小，删除左侧元素
-        while (k != 0 && !vec.empty() && vec[vec.size() - 1] > c)
+        while (k != 0 && !vec.empty() && vec.back() > c)
         {
             vec.pop_back();
             --k;
@@ -60,7 +60,7 @@ string removeKdigits(string num, int k)
 
 int main()
 {
-    cout << removeKdigits("1432219", 3) << endl; //1219,移除4,3,2
-    cout << removeKdigits("10200", 1) << endl;   //200,移除1
+    cout << removeKdigits_1("1432219", 3) << endl; //1219,移除4,3,2
+    cout << removeKdigits_1("10200", 1) << endl;   //200,移除1
     string s{"1234"};
 }
