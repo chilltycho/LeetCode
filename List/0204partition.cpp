@@ -16,3 +16,11 @@ ListNode* partition(ListNode* head,int x)
     }
     return head;
 }
+
+int main()
+{
+    vector<int> vi{3,3,2,2,1,4};
+    auto head=createLinkedList(vi);
+    auto res =partition(head,2);
+    printLinkeList(res);
+}

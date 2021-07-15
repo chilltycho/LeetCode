@@ -4,16 +4,16 @@ using namespace std;
 
 ListNode *reverseList(ListNode *head)
 {
-    ListNode *cur = nullptr;
-    ListNode *pre = head;
-    while (pre != nullptr)
+    ListNode *pre = nullptr;
+    ListNode *cur = head;
+    while (cur != nullptr)
     {
-        ListNode *t = pre->next;
-        pre->next = cur;
-        cur = pre;
-        pre = t;
+        auto t = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = t;
     }
-    return cur;
+    return pre;
 }
 
 ListNode *reverseList_re(ListNode *head)
@@ -45,5 +45,5 @@ int main()
 {
     vector<int> vi{1, 2, 3, 4, 5};
     auto root = createLinkedList(vi);
-    printLinkeList(reverseList_re1(root));
+    printLinkeList(reverseList(root));
 }
