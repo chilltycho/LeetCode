@@ -4,31 +4,24 @@ ListNode *deleteDuplicates(ListNode *head)
 {
     if (head == nullptr || head->next == nullptr)
         return head;
-    auto cur = head;
-    while (cur->next != nullptr)
+    auto cur = head->next;
+    auto pre = head;
+    while (cur)
     {
-        if (cur->val == cur->next->val)
+        if (pre->val == cur->val)
         {
-            auto temp = cur->next;
-            cur->next = temp->next;
-            temp->next = nullptr;
+            while (cur && pre->val == cur->val)
+            {
+                cur = cur->next;
+            }
+            pre->next = cur;
         }
         else
         {
+            pre = cur;
             cur = cur->next;
         }
     }
-    return head;
-}
-
-ListNode *deleteDuplicates_re(ListNode *head)
-{
-    if(head==nullptr||head->next==nullptr)
-        return head;
-    if(head->val==head->next->val)
-        head->next=deleteDuplicates_re(head->next->next);
-    else
-        head->next=deleteDuplicates_re(head->next);
     return head;
 }
 

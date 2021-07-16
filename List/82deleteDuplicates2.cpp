@@ -29,14 +29,14 @@ ListNode *deleteDuplicates1(ListNode *head)
     ListNode *cur = head;
     while (cur && cur->next)
     {
-        if (pre->next->val != cur->next->val)
+        if (cur->val != cur->next->val)
         {
             pre = pre->next;
             cur = cur->next;
         }
         else
         {
-            while (cur && cur->next && pre->next->val == cur->next->val)
+            while (cur && cur->next && cur->val == cur->next->val)
                 cur = cur->next;
             pre->next = cur->next;
             cur = cur->next;

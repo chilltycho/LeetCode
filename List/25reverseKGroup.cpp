@@ -15,16 +15,6 @@ ListNode *reverse(ListNode *a, ListNode *b)
     return pre;
 }
 
-ListNode *reverse_re(ListNode *l, ListNode *r)
-{
-    if (l == r)
-        return l;
-    auto node = reverse(l->next, r);
-    l->next->next = l;
-    l->next = nullptr;
-    return node;
-}
-
 ListNode *reverseKGroup_1(ListNode *head, int k)
 {
     if (head == nullptr)
@@ -37,7 +27,7 @@ ListNode *reverseKGroup_1(ListNode *head, int k)
             return head;
         b = b->next;
     }
-    auto newHead = reverse_re(a, b);
+    auto newHead = reverse(a, b);
     a->next = reverseKGroup_1(b, k);
     return newHead;
 }
@@ -62,8 +52,8 @@ ListNode *reverseKGroup(ListNode *head, int k)
 
 int main()
 {
-    vector<int> vi{1, 2, 3, 4, 5, 6, 7, 8, 9};
+    vector<int> vi{1, 2, 3, 4, 5};
     auto root = createLinkedList(vi);
-    auto res = reverseKGroup_1(root, 3);
+    auto res = reverseKGroup_1(root, 2);
     printLinkeList(res);
 }
