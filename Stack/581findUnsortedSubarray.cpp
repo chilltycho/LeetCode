@@ -20,22 +20,22 @@ int findUnsortedSubarray(vector<int> &nums)
     }
     return r - l < 0 ? 0 : r - l + 1;
 }
-
+// 左段（升序），中段（乱序），右段（升序）
 int findUnsortedSubarray_1(vector<int> &nums)
 {
     if (nums.empty() || nums.size() == 1)
         return 0;
-    int begin = 0, end = -1;
+    int begin = 0, end = -1; // 中段的左右边界
     int len = nums.size();
     int min = nums[len - 1]; //从右到左
     int max = nums[0];       //从左到右
     for (int i = 0; i < len; i++)
     {
-        if (nums[i] < max)
+        if (nums[i] < max) // 左段升序结束
             end = i;
         else
             max = nums[i];
-        if (nums[len - i - 1] > min)
+        if (nums[len - i - 1] > min)// 右端降序结束
             begin = len - i - 1;
         else
             min = nums[len - i - 1];
@@ -46,5 +46,5 @@ int findUnsortedSubarray_1(vector<int> &nums)
 int main()
 {
     vector<int> vi{2, 6, 4, 8, 10, 9, 15};
-    assert(5 == findUnsortedSubarray(vi));
+    assert(5 == findUnsortedSubarray_1(vi));
 }

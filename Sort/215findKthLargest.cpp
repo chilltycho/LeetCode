@@ -3,7 +3,7 @@
 #include <cassert>
 #include <algorithm>
 using namespace std;
-
+// O(N)
 int partition(vector<int> &a, int l, int r)
 {
     int pivot = a[l]; //基准值

@@ -20,13 +20,13 @@ bool isPalindrome(ListNode *head) //1->2->2->1
     return true;
 }
 
-ListNode* reverse_re(ListNode* root)
+ListNode *reverse_re(ListNode *root)
 {
-    if(root==nullptr||root->next==nullptr)
+    if (root == nullptr || root->next == nullptr)
         return root;
     auto res = reverse_re(root->next);
-    root->next->next=root;
-    root->next=nullptr;
+    root->next->next = root;
+    root->next = nullptr;
     return res;
 }
 
@@ -64,7 +64,7 @@ bool isPalindrome_1(ListNode *head) //从中间位置反转列表。
 
 int main()
 {
-    vector<int> vi{1, 2, 3,2, 1};
+    vector<int> vi{1, 2, 3, 2, 1};
     auto head = createLinkedList(vi);
     cout << isPalindrome(head);
 }

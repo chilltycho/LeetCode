@@ -100,13 +100,14 @@ bool isNumber(string s)
     for (int i = 0; i < len; i++)
     {
         CharType typ = toCharType(s[i]);
+        // 不存在从st状态接typ转换为另一状态
         if (transfer[st].find(typ) == transfer[st].end())
         {
             return false;
         }
         else
         {
-            st = transfer[st][typ];
+            st = transfer[st][typ];// 后一状态
         }
     }
     return st == STATE_INTEGER || 
@@ -114,4 +115,9 @@ bool isNumber(string s)
            st == STATE_FRACTION || 
            st == STATE_EXP_NUMBER || 
            st == STATE_END;
+}
+
+int main()
+{
+    
 }

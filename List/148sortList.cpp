@@ -11,141 +11,49 @@ using namespace std;
 递归：与数组排序一样
 合并：只需要用顺序遍历，O(n)*/
 //1.链表切分：寻找链表中点，删除中点左侧指针，将链表断开
-ListNode *split(ListNode *head)
+ListNode *findMid(ListNode *head)
 {
-    ListNode *fast = head;
-    ListNode *slow = head;
-    ListNode *prev = nullptr;
-    while (fast != nullptr && fast->next != nullptr)
+    auto s = head, f = head;
+    ListNode *pre = nullptr;
+    while (f && f->next)
     {
-        prev = slow;
-        slow = slow->next;
-        fast = fast->next->next;
+        pre = s;
+        s = s->next;
+        f = f->next->next;
     }
-    prev->next = nullptr;
-    return slow;
+    pre->next = nullptr;
+    return s;
 }
-
-ListNode *head, *tail;
-void append(ListNode *node)
+ListNode *merge2Lists(ListNode *l1, ListNode *l2)
 {
-    if (head == nullptr)
+    if (!l1)
+        return l2;
+    if (!l2)
+        return l1;
+    if (l1->val < l2->val)
     {
-        head = node;
-        tail = node;
+        l1->next = merge2Lists(l1->next, l2);
+        return l1;
     }
     else
     {
-        tail->next = node;
-        tail = node;
+        l2->next = merge2Lists(l1, l2->next);
+        return l2;
     }
 }
-
-ListNode *merge_1(ListNode *l, ListNode *r)
+ListNode *mergeSort(ListNode *head)
 {
-    head = nullptr;
-    tail = nullptr;
-    while (l || r)
-    {
-        if (l == nullptr)
-        {
-            append(r);
-            r = r->next;
-        }
-        else if (r == nullptr)
-        {
-            append(l);
-            l = l->next;
-        }
-        else if (l->val > r->val)
-        {
-            append(r);
-            r = r->next;
-        }
-        else
-        {
-            append(l);
-            l = l->next;
-        }
-    }
-    return head;
-}
-
-ListNode *sortList_1(ListNode *head)
-{
-    if (head == nullptr || head->next == nullptr)
+    if (!head || !(head->next))
         return head;
-    ListNode *mid = split(head);
-    ListNode *left = sortList_1(head);
-    ListNode *right = sortList_1(mid);
-    return merge_1(left, right);
-}
-
-//由于只能常数空间复杂度，故不能递归
-//自顶向上归并排序：先两两归并，再四四归并...
-ListNode *cut(ListNode *head, int n) //将链表l切掉前n个节点，返回后半部分链表头
-{
-    auto p = head;
-    while (--n && p)
-        p = p->next;
-    if (!p)
-        return nullptr;
-    auto ne = p->next;
-    p->next = nullptr;
-    return ne;
-}
-
-ListNode *merge(ListNode *l1, ListNode *l2)
-{
-    ListNode dummyHead(0);
-    auto p = &dummyHead;
-    while (l1 && l2)
-    {
-        if (l1->val < l2->val)
-        {
-            p->next = l1;
-            p = l1;
-            l1 = l1->next;
-        }
-        else
-        {
-            p->next = l2;
-            p = l2;
-            l2 = l2->next;
-        }
-    }
-    p->next = l1 ? l1 : l2;
-    return dummyHead.next;
+    auto m = findMid(head);
+    auto l1 = mergeSort(head);
+    auto l2 = mergeSort(m);
+    return merge2Lists(l1, l2);
 }
 
 ListNode *sortList(ListNode *head)
 {
-    ListNode dummyHead(0);
-    dummyHead.next = head;
-    auto p = head;
-    int length = 0;
-    while (p)
-    {
-        ++length;
-        p = p->next;
-    } //计算链表长度
-
-    for (int size = 1; size < length; size <<= 1) //有哑节点，故从1开始
-    {
-        auto cur = dummyHead.next;
-        auto tail = &dummyHead;
-
-        while (cur)
-        {
-            auto left = cur;
-            auto right = cut(left, size);
-            cur = cut(right, size);
-            tail->next = merge(left, right);
-            while (tail->next)
-                tail = tail->next;
-        }
-    }
-    return dummyHead.next;
+    return mergeSort(head);
 }
 
 void print(ListNode *root)
@@ -170,6 +78,6 @@ int main()
     n3.next = &n1;
     n1.next = &n4;
 
-    auto res = sortList_1(&root);
+    auto res = sortList(&root);
     print(res);
 }

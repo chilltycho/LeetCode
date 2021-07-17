@@ -2,18 +2,16 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+// 递增单调栈
 string removeDuplicateLetters(string s)
 {
-    vector<int> vis(26), num(26);
+    vector<int> vis(128), num(128);
     for (auto c : s)
-    {
-        num[c - 'a']++;
-    }
+        ++num[c];
     string stk;
     for (char c : s)
     {
-        if (!vis[c - 'a'])//c未重复
+        if (!vis[c])//c未遍历过
         {
             while (!stk.empty() && stk.back() > c)
             {

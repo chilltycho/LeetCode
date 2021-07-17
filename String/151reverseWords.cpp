@@ -15,17 +15,17 @@ string trim_space(string s)
 //双指针，从最右边字符开始
 string reverseWords(string s)
 {
-    s = trim_space(s); //删除首尾空格
-    int l = s.size() - 1, r = l;//从末端开始
+    s = trim_space(s);           //删除首尾空格
+    int l = s.size() - 1, r = l; //从末端开始
     string res;
     while (l >= 0)
     {
-        while (l >= 0 && s[l] != ' ')//搜索首个空格
+        while (l >= 0 && s[l] != ' ') //搜索首个空格
             l--;
-        res += s.substr(l + 1, r - l) + " ";//添加单词
-        while (l >= 0 && s[l] == ' ')//跳过空格间单词
+        res += s.substr(l + 1, r - l) + " "; //添加单词
+        while (l >= 0 && s[l] == ' ')        //跳过空格间单词
             l--;
-        r = l;//r指向下个单词末尾
+        r = l; //r指向下个单词末尾
     }
     return trim_space(res);
 }

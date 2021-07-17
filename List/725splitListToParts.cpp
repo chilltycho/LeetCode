@@ -10,15 +10,15 @@ vector<ListNode *> splitListToParts(ListNode *root, int k)
         cur = cur->next;
     }
     int width = N / k, rem = N % k;
-    vector<ListNode *> res(N);
+    vector<ListNode *> res(k, nullptr);
     cur = root;
     for (int i = 0; i < k; i++)
     {
         auto head = cur;
-        for (int j = 0; j < width + (i < rem ? 1 : 0) - 1; j++)
+        for (int j = 0; j < width + (i < rem ? 1 : 0) - 1; j++) // 前rem个多取1
             if (cur != nullptr)
                 cur = cur->next;
-        if (cur != nullptr)
+        if (cur != nullptr) // 将cur移动为下条链的起点
         {
             auto pre = cur;
             cur = cur->next;
@@ -27,4 +27,13 @@ vector<ListNode *> splitListToParts(ListNode *root, int k)
         res[i] = head;
     }
     return res;
+}
+
+int main()
+{
+    vector<int> vi{1, 2, 3};
+    auto head = createLinkedList(vi);
+    auto res = splitListToParts(head, 5);
+    for (auto l : res)
+        printLinkeList(l);
 }

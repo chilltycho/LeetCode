@@ -44,6 +44,7 @@ int findMin_1(vector<int> &nums)
             left = mid + 1;
         else
             right = mid;
+        // if(nums[mid]==nums[right]) --right;
     }
     return nums[left];
 }

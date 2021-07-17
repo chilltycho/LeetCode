@@ -2,7 +2,7 @@
 #include <vector>
 #include <stack>
 #include <cassert>
-#include<iostream>
+#include <iostream>
 using namespace std;
 int getMax(vector<int> &height)
 {
@@ -95,7 +95,7 @@ int trap_31(vector<int> &height)
         max_right[i] = max(max_right[i + 1], height[i + 1]);
     for (int i = 1; i < len - 1; i++)
     {
-        max_left = min(max_left, height[i - 1]);
+        max_left = max(max_left, height[i - 1]);
         int min_lr = min(max_left, max_right[i]);
         if (min_lr > height[i])
             sum += (min_lr - height[i]);
@@ -110,21 +110,26 @@ int trap_4(vector<int> &height)
 
     int len = height.size();
     int sum = 0, max_left = height[0], max_right = height[len - 1];
-    int left = 0;
-    int right = len - 1; //右指针
-    while (left <= right)
+    int ml = 0, mr = 0;
+    int left = 1;
+    int right = len - 2; //右指针
+    for (int i = 1; i < len - 1; ++i)
     {
-        max_left = max(max_left, height[left]);
-        max_right = max(max_right, height[right]);
-        if (max_left < max_right)
+        if(height[left-1]<height[right+1]) // 从左向右更新条件
         {
-            sum += max_left - height[left];
-            left++;
+            ml = max(height[left - 1], ml);
+            auto mlr = ml;
+            if (mlr > height[left])
+                sum += mlr - height[left];
+            ++left;
         }
-        else
+        else                               // 从右向左更新
         {
-            sum += max_right - height[right];
-            right--;
+            mr = max(mr, height[right + 1]);
+            auto mlr = mr;
+            if (mlr > height[right])
+                sum += mlr - height[right];
+            --right;
         }
     }
     return sum;
@@ -157,5 +162,5 @@ int trap_6(vector<int> &height)
 int main()
 {
     vector<int> vi{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-    cout<<trap_6(vi);
+    cout << trap_6(vi);
 }
