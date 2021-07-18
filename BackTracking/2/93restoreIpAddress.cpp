@@ -5,6 +5,42 @@
 #include <iostream>
 using namespace std;
 
+vector<string> ans;
+vector<string> temp;
+
+void dfs_1(string &s, int start)
+{
+    if (start == s.size() && temp.size() == 4)
+    {
+        auto str = temp[0];
+        for (int i = 1; i < temp.size(); ++i)
+            str += "." + temp[i];
+        ans.push_back(str);
+        return;
+    }
+    for (int len = 1; len <= 3; ++len)
+    {
+        if (start >= s.size())
+            return;
+        if (len != 1 && s[start] == '0')
+            return;
+        string str = s.substr(start, len);
+        if (len == 3 && atoi(str.c_str()) > 255)
+            return;
+        temp.push_back(str);
+        dfs_1(s, start + len);
+        temp.pop_back();
+    }
+}
+vector<string> restoreIpAddresses_1(string s)
+{
+    int len = s.size();
+    if (len < 4 || len > 12) //字符串长度小于4或大于12，一定不能凑出合法ip
+        return ans;
+    dfs_1(s, 0);
+    return ans;
+}
+
 vector<string> res;
 
 int judgeIfIpSegment(string s, int left, int right) //判断片段是否合法，0-255
