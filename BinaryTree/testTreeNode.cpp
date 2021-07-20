@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-    vector<int> vi{1, 2, 3, -1, 4, 5, 6};
+    vector<int> vi{9, 4, 10, 3, 5, -1, 12};
     auto t = vecToTree(vi);
     auto res = inorder(t);
     for (auto c : res)

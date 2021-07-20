@@ -25,7 +25,7 @@ Node *copyRandomList(Node *head)
     Node *newHead = new Node(head->val);
     Node *copy = newHead;
 
-    while (pos)
+    while (pos) // 先顺序遍历
     {
         match[pos] = copy;
         pos = pos->next;

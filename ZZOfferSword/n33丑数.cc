@@ -7,6 +7,8 @@
 */
 #include <vector>
 #include <iostream>
+#include <queue>
+#include <unordered_set>
 using namespace std;
 
 int nthUglyNumber(int n)
@@ -15,7 +17,7 @@ int nthUglyNumber(int n)
         return 0;
     vector<int> dp(n, 0);
     dp[0] = 1;
-    int p2 = 0, p3 = 0, p5 = 0;
+    int p2 = 0, p3 = 0, p5 = 0; // 表示前p2个数已经乘过2
     for (int i = 1; i < n; i++)
     {
         int n2 = dp[p2] * 2, n3 = dp[p3] * 3, n5 = dp[p5] * 5;
@@ -29,6 +31,29 @@ int nthUglyNumber(int n)
             p5++;
     }
     return dp[n - 1];
+}
+
+int sol1(int n)
+{
+    priority_queue<long, vector<long>, greater<long>> pq;
+    pq.push(1);
+    unordered_set<long> st;
+    long x = 0;
+    vector<long> tmp{2, 3, 5};
+    for (int i = 0; i < n; ++i)
+    {
+        x = pq.top();
+        pq.pop();
+        for (auto c : tmp)
+        {
+            if (st.find(c * x) == st.end())
+            {
+                pq.push(c * x);
+                st.insert(c * x);
+            }
+        }
+    }
+    return x;
 }
 int main()
 {
