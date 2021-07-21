@@ -5,7 +5,7 @@ using namespace std;
 //bfs
 string serialize(TreeNode *root)
 {
-    if(root==nullptr)
+    if (root == nullptr)
         return {};
     ostringstream out;
     queue<TreeNode *> mq;
@@ -62,27 +62,17 @@ TreeNode *deserialize(string data)
 string serialize_dfs(TreeNode *root)
 {
     if (root == nullptr)
-        return "#";
-    return root->val + "," + serialize_dfs(root->left) + "," + serialize(root->right);
-}
-
-TreeNode *dfs(queue<string> mq)
-{
-    string sVal = mq.front();
-    mq.pop();
-    if (sVal == "#")
-        return nullptr;
-    auto root = new TreeNode(stoi(sVal));
-    root->left = dfs(mq);
-    root->right = dfs(mq);
-    return root;
+        return "null";
+    return to_string(root->val) + " " + serialize_dfs(root->left) + " " + serialize_dfs(root->right);
 }
 
 int main()
 {
     vector<int> vi{1, 2, 3, -1, -1, 4, 5};
     auto root = vecToTree(vi);
-    auto res = serialize(root);
+    preprint(root);
+    auto res = serialize_dfs(root);
+    cout << res << endl;
     auto t1 = deserialize(res);
     preprint(t1);
 }

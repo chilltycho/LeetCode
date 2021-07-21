@@ -5,7 +5,8 @@ using namespace std;
 bool helper(vector<vector<char>> &board, string word, size_t i, size_t j, size_t p)
 {
     //是否越界或者字符不匹配
-    if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() || board[i][j] != word[p])
+    if (i < 0 || i >= board.size() || j < 0 || j >= board[0].size() 
+            || board[i][j] != word[p])
     {
         return false;
     }
