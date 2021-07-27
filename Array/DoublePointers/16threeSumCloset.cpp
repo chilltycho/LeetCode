@@ -22,13 +22,13 @@ int threeSumClosest(vector<int> &nums, int target)
             int sum = nums[first] + nums[l] + nums[r];
             if (sum == target)
                 return target;
-            if (sum > target)
+            else if (sum > target)
             {
                 r--;
                 while (l < r && nums[r] == nums[r + 1])
                     r--;
             }
-            if (sum < target)
+            else
             {
                 l++;
                 while (l < r && nums[l] == nums[l - 1])
