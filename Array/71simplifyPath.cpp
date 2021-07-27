@@ -14,6 +14,7 @@ string simplifyPath(string path)
     string res = "", temp = "";
     while (getline(is, temp, '/')) // getline从给定输入流获取数据
     {
+        cout<<"ff: "<<temp<<endl;
         if (temp == "" || temp == ".")
             continue;
         else if (temp == ".." && !strs.empty())
@@ -30,7 +31,7 @@ string simplifyPath(string path)
 
 int main()
 {
-    //cout << simplifyPath("/a/.b/../../c/") << endl;
+    cout << simplifyPath("/a/.b/../../.c/") << endl;
     auto ms{"/home/jjjj"};
     stringstream is(ms);
     string tmp{};

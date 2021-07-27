@@ -105,5 +105,6 @@ int main()
     string s{"barfoothefoobarman"};
     vector<string> words{"foo", "bar"};
     auto res = findSubstring(s, words); //[0,9]
-    cout << s.substr(0, 3) << endl;
+    for(auto c:res)
+        cout<<c<<' ';
 }

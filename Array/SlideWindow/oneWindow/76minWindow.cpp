@@ -32,9 +32,9 @@ string minWindow(string s, string t)
                 min_size = r - l + 1;
                 start = l; //记录该窗口起始
             }
-            need[s[l]]++; //无论后面是否还有包含t窗口,窗口右移
-            l++;
-            count++;
+            // need[s[l]]++; //无论后面是否还有包含t窗口,窗口右移
+            // l++;
+            // count++;
         }
     }
     return min_size == s.size() + 1 ? "" : s.substr(start, min_size);
@@ -42,5 +42,5 @@ string minWindow(string s, string t)
 
 int main()
 {
-    assert("BANC" == minWindow("ADOBECODEBANC", "ABC"));
+    assert("BANC" == minWindow("ADOBECODEBANCDDD", "ABC"));
 }

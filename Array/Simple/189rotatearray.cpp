@@ -30,11 +30,7 @@ void rotate_1(vector<int> &nums, int k)
         do
         {
             int next = (current + k) % n;
-
-            int temp = nums[next];
-            nums[next] = prev;
-            prev = temp;
-
+            swap(nums[next],prev);
             current = next;
             count++;
         } while (start != current);

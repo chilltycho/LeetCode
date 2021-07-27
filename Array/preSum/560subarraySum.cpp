@@ -4,7 +4,7 @@
 #include <unordered_map>
 using namespace std;
 
-// 构建前缀和数组，快速计算区间和
+// 构建前缀和数组，快速计算区间和，超时
 int subarraySum(vector<int> &nums, int k)
 {
     vector<int> preSum(nums.size() + 1, 0);

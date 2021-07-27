@@ -56,28 +56,10 @@ ListNode *sortList(ListNode *head)
     return mergeSort(head);
 }
 
-void print(ListNode *root)
-{
-    if (root != nullptr)
-    {
-        cout << root->val << ' ';
-        print(root->next);
-    }
-}
-
 int main()
 {
-    ListNode root(5);
-    ListNode n1(1);
-    ListNode n2(2);
-    ListNode n3(3);
-    ListNode n4(4);
-
-    root.next = &n2;
-    n2.next = &n3;
-    n3.next = &n1;
-    n1.next = &n4;
-
-    auto res = sortList(&root);
-    print(res);
+    vector<int> vi{5,3,4,2,1};
+    auto root=createLinkedList(vi);
+    auto res = sortList(root);
+    printLinkeList(res);
 }
