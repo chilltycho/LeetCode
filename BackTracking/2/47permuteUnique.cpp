@@ -14,7 +14,7 @@
 using namespace std;
 
 vector<int> path;
-bool *used;
+vector<bool> used;
 vector<vector<int>> res;
 void dfs(vector<int> &nums, int len, int depth)
 {
@@ -46,7 +46,7 @@ vector<vector<int>> permute_1(vector<int> &nums)
     if (len == 0)
         return res;
     sort(nums.begin(), nums.end()); //排序是剪枝前提
-    used = new bool[len]{false};
+    used = vector<bool>(len,false);
     dfs(nums, len, 0);
     return res;
 }

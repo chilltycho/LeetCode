@@ -8,7 +8,7 @@ using namespace std;
 vector<string> res;
 //使用异或转换字母大小写,大写字母与对应小写字母ASCII差为32,2^5
 //若是小写,减去32,若是大写,加上32.合并为对字符的异或操作
-void dfs(string S, int index)
+void dfs_1(string S, int index)
 {
     if (S.size() == index)
     {
@@ -16,60 +16,49 @@ void dfs(string S, int index)
         return;
     }
     //未修改时
-    dfs(S, index + 1);
+    dfs_1(S, index + 1);
     //修改当前字母时
     if (isalpha(S[index]))
     {
         S[index] = S[index] ^ 32;
-        dfs(S, index + 1);
+        dfs_1(S, index + 1);
     }
 }
 vector<string> letterCasePermutation(string S)
 {
-    dfs(S, 0);
+    dfs_1(S, 0);
     return res;
 }
 
-vector<string> letterCasePermutation_ite(string S)
+string path;
+vector<string> res;
+void dfs(int depth, string &s)
 {
-    vector<string> ans{S};
-    for (int i = 0; i < S.size(); i++)
+    if (depth == s.size())
     {
-        if (isalpha(S[i]))
-        {
-            for (int j = ans.size() - 1; j >= 0; j--)
-            {
-                ans.push_back(ans[j]);
-                ans[j][i] ^= 32;
-            }
-        }
+        res.push_back(path);
+        return;
     }
-    return ans;
-}
-
-void dfs_1(string s, int i, vector<string>& l)
-{
-    for (; i < s.size(); i++)
+    if (isalpha(s[depth])) // 字母时
     {
-        if (s[i] >= 'a' && s[i] <= 'z')
-        {
-            s[i] = s[i] - 'a' + 'A';
-            dfs_1(s, i + 1, l);
-            s[i] = s[i] - 'A' + 'a';
-        }
-        if (s[i] >= 'A' && s[i] <= 'Z')
-        {
-            s[i] = s[i] - 'A' + 'a';
-            dfs_1(s, i + 1, l);
-            s[i] = s[i] - 'a' + 'A';
-        }
-    }
-    l.push_back(s);
-}
+        path.push_back(s[depth]); // 不修改
+        dfs(depth + 1, s);
+        path.pop_back();
 
-vector<string> letterCasePermutation_1(string S)
+        path.push_back(s[depth] ^ 32); // 修改
+        dfs(depth + 1, s);
+        path.pop_back();
+    }
+    else // 非字母，不修改
+    {
+        path.push_back(s[depth]);
+        dfs(depth + 1, s);
+        path.pop_back();
+    }
+}
+vector<string> letterCasePermutation(string s)
 {
-    dfs_1(S, 0, res);
+    dfs(0, s);
     return res;
 }
 
