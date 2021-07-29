@@ -23,10 +23,7 @@ int calDis(vector<int> &arr, int value)
 int findBestValue(vector<int> &arr, int target)
 {
     int left = 1;
-    int maxval = 0;
-    for (auto c : arr)
-        maxval = max(maxval, c);
-    int right = maxval;
+    int right = *max_element(arr.begin(), arr.end());
     while (left < right)
     {
         int mid = left + (right - left) / 2;

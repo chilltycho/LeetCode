@@ -6,12 +6,18 @@ using namespace std;
 int cal(vector<int> &piles, int sp)
 {
     int res = 0;
-    for (auto c : piles)
+    for (auto p : piles)
     {
-        if (c < sp)
-            res += 1;
+        if (p < sp)
+            ++res;
         else
-            res += (c + sp - 1) / sp;
+        {
+            int remain = p % sp;
+            if (remain > 0)
+                res += p / sp + 1;
+            else
+                res += p / sp;
+        }
     }
     return res;
 }

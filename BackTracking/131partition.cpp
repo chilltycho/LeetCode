@@ -54,7 +54,7 @@ void dfs_1(string s, int start, int len, vector<vector<bool>> &dp)
         if (!dp[start][i])
             continue;
         path.push_back(s.substr(start, i + 1 - start));
-        dfs(s, i + 1, len);
+        dfs_1(s, i + 1, len, dp);
         path.pop_back();
     }
 }
