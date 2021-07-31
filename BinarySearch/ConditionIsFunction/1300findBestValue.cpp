@@ -6,40 +6,29 @@
 #include <cmath>
 #include <climits>
 #include <cassert>
+#include <algorithm>
 using namespace std;
-int calDis(vector<int> &arr, int value)
-{
-    int dis = 0;
-    for (auto c : arr)
-    {
-        if (c > value)
-            dis += value;
-        else
-            dis += c;
-    }
-    return dis;
-}
 
 int findBestValue(vector<int> &arr, int target)
 {
-    int left = 1;
-    int maxval = 0;
-    for (auto c : arr)
-        maxval = max(maxval, c);
-    int right = maxval;
-    while (left < right)
+    sort(arr.begin(), arr.end()); // 排序，前几个小于i的，后几个变为i
+    int n = arr.size();
+    vector<int> prefix(n + 1, 0); // 快速计算改变后总和
+    for (int i = 1; i <= n; ++i)
+        prefix[i] = prefix[i - 1] + arr[i - 1]; 
+    int r = *max_element(arr.begin(), arr.end());
+    int res = 0, diff = target;
+    for (int i = 1; i <= r; ++i) // 左右边界l,r
     {
-        int mid = left + (right - left) / 2;
-        if (calDis(arr, mid) < target) //选出来可能偏大，结果判断两次
-            left = mid + 1;
-        else
-            right = mid;
+        auto iter = lower_bound(arr.begin(), arr.end(), i);
+        int cur = prefix[iter - arr.begin()] + (arr.end() - iter) * i;
+        if (abs(cur - target) < diff)
+        {
+            res = i;
+            diff = abs(cur - target);
+        }
     }
-    int dis1 = calDis(arr, left - 1);
-    int dis2 = calDis(arr, left);
-    if (abs(target - dis1) <= abs(target - dis2))
-        return left - 1;
-    return left;
+    return res;
 }
 
 int main()
