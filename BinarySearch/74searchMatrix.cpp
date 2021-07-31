@@ -4,9 +4,9 @@ using namespace std;
 
 bool searchMatrix(vector<vector<int>> &matrix, int target)
 {
-    size_t row = matrix.size();
-    size_t col = matrix[0].size();
-    size_t l = 0, r = row * col - 1; // 将矩阵看作数组
+    int row = matrix.size();
+    int col = matrix[0].size();
+    int l = 0, r = row * col - 1; // 将矩阵看作数组
     while (l < r)
     {
         auto m = l + (r - l) / 2;

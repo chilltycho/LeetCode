@@ -4,29 +4,19 @@
 #include <iostream>
 #include <cassert>
 using namespace std;
-//[1，3，4，2，2,5]为例，中位数为3，遍历数组，统计小于等于3的整数，若不存在重复元素，最多3个。
 int findDuplicate(vector<int> &nums)
 {
-    if (nums.empty())
-        return -1;
-    int len = nums.size();
-    int left = 1;
-    int right = len - 1;
-    while (left < right)
+    for (int i = 0; i < nums.size(); ++i)
     {
-        int mid = left + (right - left) / 2;
-        int cnt = 0;
-        for (int num : nums)
-        {
-            if (num <= mid)
-                cnt++;
-        }
-        if (cnt > mid)
-            right = mid;
-        else
-            left = mid + 1;
+        while (nums[i] != nums[nums[i] - 1])
+            swap(nums[i], nums[nums[i] - 1]);
     }
-    return left;
+    for (int i = 0; i < nums.size(); ++i)
+    {
+        if (nums[i] != i + 1)
+            return nums[i];
+    }
+    return -1;
 }
 /*快慢指针[1,2,3,4,5,6,7,8,9,5],按路径point=0; point=nums[point]移动,
 陷入循环1,2,3,4,5,[6,7,8,9],[6,7,8,9]
