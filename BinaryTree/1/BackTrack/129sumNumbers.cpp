@@ -1,22 +1,26 @@
 /*给定二叉树，每个节点存放0-9，从根到叶子节点路径1->2->3代表123，计算从根到叶子节点生成
 所有数字之和*/
 #include <queue>
-#include "../TreeNode.h"
+#include "../../TreeNode.h"
 using namespace std;
-
-int helper(TreeNode *root, int temp) //dfs
+int res = 0, path = 0;
+void helper(TreeNode *root) //dfs
 {
     if (root == nullptr)
-        return 0;
-    temp = temp * 10 + root->val;                       //temp不能作为全局变量
-    if (root->left == nullptr && root->right == nullptr) //到达叶子节点时返回
-        return temp;
-    return helper(root->left, temp) + helper(root->right, temp);
+        return;
+    int tmp = path;
+    path = path * 10 + root->val;
+    if (root->left == nullptr && root->right == nullptr)
+        res += path;
+    helper(root->left);
+    helper(root->right);
+    path = tmp;// 回溯
 }
 
 int sumNumbers(TreeNode *root)
 {
-    return helper(root, 0);
+    helper(root);
+    return res;
 }
 
 int sumNumbers_1(TreeNode *root) //bfs

@@ -3,26 +3,31 @@
 #include <queue>
 using namespace std;
 
-void construct(TreeNode *root, string path, vector<string> &paths)
+vector<string> res;
+string path;
+void dfs(TreeNode *root)
 {
-    if (root != nullptr)
+    if (root == nullptr)
+        return;
+    auto tmp = path;
+    path += to_string(root->val);
+    path += "->";
+    if (root->left == nullptr && root->right == nullptr)
     {
-        path += to_string(root->val);
-        if (root->left == nullptr && root->right == nullptr) //叶子节点
-            paths.push_back(path);
-        else
-        {
-            path += "->";
-            construct(root->left, path, paths);
-            construct(root->right, path, paths);
-        }
+        res.push_back(path);
     }
+    dfs(root->left);
+    dfs(root->right);
+    path = tmp;//回溯
 }
 vector<string> binaryTreePaths(TreeNode *root)
 {
-    vector<string> res;
-    string emp = "";
-    construct(root, emp, res);
+    dfs(root);
+    for (auto &str : res) // 删除最后的->
+    {
+        str.pop_back();
+        str.pop_back();
+    }
     return res;
 }
 
