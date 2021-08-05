@@ -8,9 +8,9 @@ bool hasPathSum(TreeNode *root, int sum) //注意sum为0，空树的情况，此
 {
     if (root == nullptr)
         return false;
-    if (root->left == nullptr && root->right == nullptr)
-        return sum == root->val;
     int target = sum - root->val;
+    if (root->left == nullptr && root->right == nullptr && target == 0)
+        return true;
     return hasPathSum(root->left, target) || hasPathSum(root->right, target);
 }
 

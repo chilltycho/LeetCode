@@ -9,10 +9,10 @@ int dfs(TreeNode *root)
 {
     if (root == nullptr)
         return 0;
-    int left = dfs(root->left);//左节点为根的最大路径长度
+    int left = dfs(root->left); //左节点为根的最大路径长度
     int right = dfs(root->right);
     diameter = max(diameter, left + right);
-    return 1 + max(left, right);//当前节点为根的最大路径长度
+    return 1 + max(left, right); //当前节点为根的最大路径长度
 }
 int diameterOfBinaryTree(TreeNode *root)
 {

@@ -52,11 +52,11 @@ void updateMatrix(vector<vector<int>> &matrix)
 
 int main()
 {
-    vector<vector<int>> vii1{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}};
+    vector<vector<int>> vii1{{0}, {0}, {0}};
     vector<vector<int>> vii2{{0, 0, 0}, {0, 1, 0}, {1, 1, 1}};
     vector<vector<int>> vii3{{0, 1, 1}, {1, 1, 1}, {1, 1, 1}};
-    updateMatrix(vii3);
-    for (auto c : vii3)
+    updateMatrix(vii1);
+    for (auto c : vii1)
     {
         for (auto cc : c)
             cout << cc << ' ';

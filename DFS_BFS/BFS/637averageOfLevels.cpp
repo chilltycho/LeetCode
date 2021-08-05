@@ -29,30 +29,30 @@ vector<double> averageOfLevels(TreeNode *root)
     return res;
 }
 
-void dfs(TreeNode* root,int depth,vector<int>& counts,vector<double>& sums)
+void dfs(TreeNode *root, int depth, vector<int> &counts, vector<double> &sums)
 {
-    if(root==nullptr)
+    if (root == nullptr)
         return;
-    if(depth<sums.size())//同层其他元素
+    if (depth >= sums.size())
     {
-        sums[depth]+=root->val;
-        counts[depth]++;
-    }
-    else//同层第一个元素
-    {
-        sums.push_back(1.0*root->val);
+        sums.push_back(1.0 * root->val);
         counts.push_back(1);
     }
-    dfs(root->left,depth+1,counts,sums);
-    dfs(root->right,depth+1,counts,sums);
+    else
+    {
+        sums[depth] += root->val;
+        counts[depth]++;
+    }
+    dfs(root->left, depth + 1, counts, sums);
+    dfs(root->right, depth + 1, counts, sums);
 }
-vector<double> averageOfLevels_dfs(TreeNode* root)
+vector<double> averageOfLevels_dfs(TreeNode *root)
 {
-    vector<int> counts;//每层节点个数
-    vector<double> sums;//每层节点总和
-    dfs(root,0,counts,sums);
-    for(size_t i=0;i<counts.size();i++)
-        sums[i]/=counts[i];
+    vector<int> counts;  //每层节点个数
+    vector<double> sums; //每层节点总和
+    dfs(root, 0, counts, sums);
+    for (size_t i = 0; i < counts.size(); i++)
+        sums[i] /= counts[i];
     return sums;
 }
 int main()

@@ -1,5 +1,6 @@
 //给定非空二叉树,返回最大路径和
 #include "../TreeNode.h"
+#include <climits>
 using namespace std;
 
 int res = INT_MIN;

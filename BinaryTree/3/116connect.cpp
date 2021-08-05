@@ -5,17 +5,17 @@ struct Node
     Node *left;
     Node *right;
     Node *next;
-    Node(int x):val(x),left(nullptr),right(nullptr),next(nullptr){}
+    Node(int x) : val(x), left(nullptr), right(nullptr), next(nullptr) {}
 };
 //要求常量空间，不能使用bfs
 Node *connect(Node *root)
 {
-    if(root==nullptr)
+    if (root == nullptr)
         return root;
-    if(root->left!=nullptr)
-        root->left->next=root->right;//node左子节点next为node右子节点
-    if(root->right!=nullptr)
-        root->right->next=root->next!=nullptr?root->next->left:nullptr;//node右子节点next为node->next左子节点
+    if (root->left != nullptr)
+        root->left->next = root->right; //node左子节点next为node右子节点
+    if (root->right != nullptr)
+        root->right->next = root->next != nullptr ? root->next->left : nullptr; //node右子节点next为node->next左子节点
     connect(root->left);
     connect(root->right);
     return root;
@@ -31,10 +31,10 @@ int main()
     Node n6(7);
     Node n7(7);
 
-    r.left=&n2;
-    r.right=&n3;
-    n2.left=&n4;
-    n2.right=&n5;
-    n3.left=&n6;
-    n3.right=&n7;
+    r.left = &n2;
+    r.right = &n3;
+    n2.left = &n4;
+    n2.right = &n5;
+    n3.left = &n6;
+    n3.right = &n7;
 }
