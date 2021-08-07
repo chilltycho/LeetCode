@@ -51,21 +51,20 @@ string longestPalindrome(string s)
 奇数回文串‘中心’是一个具体字符，如'aba'中心是'b'
 偶数回文串‘中心’是空隙，'abba'*/
 // 时间复杂度O(n^2) 空间复杂度O(1)
-string centerSpred(string s, int left, int right) //若传入重合索引，长度为奇数。若传入相邻索引，长度为偶数
+string centerSpred(string s, int l, int r) //若传入重合索引，长度为奇数。若传入相邻索引，长度为偶数
 {
-    auto size = s.size();
-    auto i = left, j = right;
-    while (i >= 0 && j < size)
+    int n = s.size();
+    while (l >= 0 && r < n)
     {
-        if (s[i] == s[j])
+        if (s[l] == s[r])
         {
-            i--;
-            j++;
+            --l;
+            ++r;
         }
         else
             break;
     }
-    return s.substr(i + 1, j - i - 1);
+    return s.substr(l + 1, r - l - 1);
 }
 
 string longestPalindrome_cen(string s)

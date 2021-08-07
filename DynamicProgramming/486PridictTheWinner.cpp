@@ -24,12 +24,13 @@ bool PredictTheWinner_dp(vector<int> &nums)
     if (nums.empty())
         return true;
     auto size = nums.size();
-    vector<vector<int>> dp(size, vector<int>(size)); // dp[i][j]表示玩家在数组[i:j]先手，赢对方分数
+    // dp[i][j]表示玩家在数组[i:j]先手，赢对方分数
+    vector<vector<int>> dp(size, vector<int>(size)); 
     for (int i = 0; i < size; i++)
     {
         dp[i][i] = nums[i];
     }
-
+    // 注意计算顺序，和左边、下边有关
     for (int i = size - 2; i >= 0; i--)
     {
         for (int j = i + 1; j < size; j++)

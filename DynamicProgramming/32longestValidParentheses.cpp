@@ -2,12 +2,13 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+#include <stack>
 using namespace std;
 /**动态规划，以下标i结尾的合法括号长度
  * dp[i] = dp[i-2] + 2
  * dp[i] = dp[i-1] + dp[i-dp[i-1]-2] + 2
 */
-int longestValidParenttheses(string s)
+int sol_dp(string s)
 {
     int res = 0;
     vector<int> dp(s.size(), 0);
@@ -25,33 +26,29 @@ int longestValidParenttheses(string s)
     return res;
 }
 
-int longestValidParentheses_1(string s)
+int sol_stack(string s)
 {
-    if (s.empty())
-        return 0;
-    int l = 0, res = 0;
-    for (auto c : s)
+    int res = 0;
+    stack<int> stk;
+    stk.push(-1);
+    for (int i = 0; i < s.size(); ++i)
     {
-        if (c == '(')
-            l++;
+        if (s[i] == '(')
+            stk.push(i);
         else
         {
-            if (l > 0)
-            {
-                --l;
-                res++;
-            }
+            stk.pop();
+            if (stk.empty())
+                stk.push(i); // 总有一个垫底的
             else
-            {
-                l = 0;
-            }
+                res = max(res, i - stk.top());
         }
     }
-    return res * 2;
+    return res;
 }
 
 int main()
 {
     string s{"()(()"};
-    cout << longestValidParentheses_1(s) << endl;
+    cout << sol_dp(s) << endl;
 }

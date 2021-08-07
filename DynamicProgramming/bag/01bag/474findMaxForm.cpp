@@ -3,6 +3,7 @@
 #include <cassert>
 #include <string>
 using namespace std;
+//将0，1个数视为容量，字符串视为物品。
 /*dp[i][j][k]表示输入字符串在子区间[0,i]能使用j个0，k个1的字符串的最大数量
 dp[i][j][k]=max(dp[i-1][j][k],dp[i-1][j-zeros][k-ones]+1)*/
 pair<int, int> countZeroAndOne(string str)

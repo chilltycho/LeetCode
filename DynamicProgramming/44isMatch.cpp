@@ -1,4 +1,4 @@
-//?可匹配任何单个字符，*可匹配任意字符串（包括空字符串）
+//?可匹配任何单个字符，*可匹配任意字符（包括空字符）
 #include <iostream>
 #include <vector>
 using namespace std;

@@ -7,24 +7,26 @@ int coinChange_1(vector<int> &coins, int amount)
 {
     if (amount == 0)
         return 0;
-    vector<vector<int>> dp(coins.size(), vector<int>(amount + 1, INT_MAX));
-    dp[0][coins[0]] = 1;
-    for (int i = 1; i < coins.size(); i++)
+    vector<vector<int>> dp(coins.size() + 1, vector<int>(amount + 1, amount + 2));
+    dp[0][0] = 0;
+    for (int i = 1; i <= coins.size(); ++i)
     {
-        for (int j = 0; j <= amount; j++)
+        for (int j = 0; j <= amount; ++j)
         {
             if (j == 0)
             {
                 dp[i][j] = 0;
                 continue;
             }
-            if (j >= coins[i])
-                dp[i][j] = min(dp[i - 1][j], dp[i][j - coins[i]] + 1);
+            if (j >= coins[i - 1])
+            {
+                dp[i][j] = min(dp[i - 1][j], dp[i][j - coins[i - 1]] + 1);
+            }
             else
-                dp[i][j] = dp[i-1][j];
+                dp[i][j] = dp[i - 1][j];
         }
     }
-    return dp[coins.size() - 1][amount];
+    return dp[coins.size()][amount] == amount + 2 ? -1 : dp[coins.size()][amount];
 }
 int coinChange(vector<int> &coins, int amount)
 {

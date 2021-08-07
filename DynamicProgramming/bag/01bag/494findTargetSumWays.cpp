@@ -2,9 +2,9 @@
 可从+或-中选择一个符号添加在前面。返回可使最终数组和为目标数S的所有添加符号的方法数*/
 #include <vector>
 #include <cassert>
-#include<numeric>
+#include <numeric>
 #include <cmath>
-#include<iostream>
+#include <iostream>
 using namespace std;
 static int res = 0;
 void calcu(vector<int> &nums, int i, int sum, int S) //dfs递归
@@ -27,7 +27,7 @@ int findTargetSumWays_vilo(vector<int> &nums, int S)
 }
 int findTargetSumWays_dp(vector<int> &nums, int S)
 {
-    int sum = accumulate(nums.begin(),nums.end(),0);
+    int sum = accumulate(nums.begin(), nums.end(), 0);
     if (abs(S) > sum)
         return 0; //注意是非负整数数组
     auto len = nums.size();
@@ -54,7 +54,7 @@ int findTargetSumWays_dp(vector<int> &nums, int S)
 // 假定所有符号为+的数之和为x，为-的数之和为y。想要的S=x-y, 而x+y=sum。x=(S+sum)/2, 即选出几个数，另其和为target。
 int findTargetSumWays_dp1(vector<int> &nums, int S)
 {
-    int sum = accumulate(nums.begin(),nums.end(),0);
+    int sum = accumulate(nums.begin(), nums.end(), 0);
     if (abs(S) > sum)
         return 0;
     if ((sum + S) % 2 == 1) //背包容量x应为整数
@@ -72,26 +72,25 @@ int findTargetSumWays_dp1(vector<int> &nums, int S)
 
 int findTargetSumWays_dp2(vector<int> &nums, int S)
 {
-    int sum = accumulate(nums.begin(),nums.end(),0);
+    int sum = accumulate(nums.begin(), nums.end(), 0);
     if (abs(S) > sum)
         return 0;
     if ((sum + S) % 2 == 1) //背包容量x应为整数
         return 0;
-    auto len = (sum + S) / 2; //目标容量
-    vector<vector<int>> dp(nums.size(), vector<int>(len+1, 0));
+    int bagcap = (S + sum) / 2;
+    vector<vector<int>> dp(nums.size() + 1, vector<int>(bagcap + 1, 0));
     dp[0][0] = 1;
-    dp[0][nums[0]] = 1;
-    for (int i = 1; i < nums.size(); i++)
+    for (int i = 1; i <= nums.size(); ++i)
     {
-        for (int j = 0; j <= len; j++)
+        for (int j = 0; j <= bagcap; ++j)
         {
-            if (j >= nums[i])
-                dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]];
+            if (j >= nums[i - 1])
+                dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i - 1]];
             else
                 dp[i][j] = dp[i - 1][j];
         }
     }
-    return dp[nums.size()-1][len];
+    return dp[nums.size()][bagcap];
 }
 
 int main()
@@ -99,5 +98,5 @@ int main()
     vector<int> nums{1000};
     int S = -1000;
     //assert(5 == findTargetSumWays_dp2(nums, S));
-    cout<<findTargetSumWays_dp2(nums,S)<<endl;
+    cout << findTargetSumWays_dp2(nums, S) << endl;
 }

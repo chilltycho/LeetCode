@@ -12,16 +12,16 @@ int findRotateSteps(string ring, string key)
     int n = ring.size(), m = key.size();
     vector<int> pos[26];
     for (int i = 0; i < n; i++)
-        pos[ring[i] - 'a'].push_back(i);
+        pos[ring[i] - 'a'].push_back(i); // 记录各字符位置
     int dp[m][n];
     memset(dp, 0x3f3f3f3f, sizeof(dp));
     for (auto &i : pos[key[0] - 'a']) //先key匹配第一个字符
         dp[0][i] = min(i, n - i) + 1;
-    for (int i = 1; i < m; i++)
+    for (int i = 1; i < m; i++) // 对key每个字符
     {
-        for (auto &j : pos[key[i] - 'a'])
+        for (auto &j : pos[key[i] - 'a']) // 每个字符位置
         {
-            for (auto &k : pos[key[i - 1] - 'a'])
+            for (auto &k : pos[key[i - 1] - 'a']) // 上个字符位置
                 dp[i][j] = min(dp[i][j], dp[i - 1][k] + min(abs(j - k), n - abs(j - k)) + 1);
         }
     }

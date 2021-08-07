@@ -9,25 +9,24 @@ int change(int amount, vector<int> &coins)
         return 1;
     if (coins.empty())
         return 0;
-    const auto m = coins.size();
-    vector<vector<int>> dp(m + 1, vector<int>(amount + 1));
-    for (int i = 0; i <= m; i++)
+    vector<vector<int>> dp(coins.size() + 1, vector<int>(amount + 1, 0));
+    dp[0][0] = 1;
+    for (int i = 1; i <= coins.size(); ++i)
     {
-        for (int k = 0; k <= amount; k++)
+        for (int j = 0; j <= amount; ++j)
         {
-            if (k == 0)
-                dp[i][k] = 1; //使用硬币列表[0,i]可凑成金额为j的组合数
-            else if (i == 0)
-                dp[i][k] = 0;
+            if (j == 0)
+                dp[i][j] = 1;
             else
             {
-                dp[i][k] = dp[i - 1][k]; //f(i,k)=f(i,k-ci)+f(i-1,k)  决定拿面额最大硬币ci + 决定不拿ci只选(c1..ci)
-                if (k >= coins[i - 1])
-                    dp[i][k] += dp[i][k - coins[i - 1]];
+                if (j >= coins[i - 1])
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - coins[i - 1]]; // 完全背包，选了i后
+                else
+                    dp[i][j] = dp[i - 1][j];
             }
         }
     }
-    return dp[m][amount];
+    return dp[coins.size()][amount];
 }
 
 int change_sp(int amount, vector<int> &coins)
