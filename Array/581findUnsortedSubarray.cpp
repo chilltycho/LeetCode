@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 #include <stack>
+#include <algorithm>
 using namespace std;
 //向左找最远递增的序号，向右找最远递减
 int findUnsortedSubarray(vector<int> &nums)
@@ -35,14 +36,33 @@ int findUnsortedSubarray_1(vector<int> &nums)
             end = i;
         else
             max = nums[i];
-        if (nums[len - i - 1] > min)// 右端降序结束
+        if (nums[len - i - 1] > min) // 右端降序结束
             begin = len - i - 1;
         else
             min = nums[len - i - 1];
     }
     return end - begin + 1;
 }
-
+int findUnsortedSubarray(vector<int> &nums)
+{
+    if (nums.empty() || nums.size() == 1)
+        return 0;
+    auto arr = nums;
+    sort(nums.begin(), nums.end());
+    int i = -1;
+    for (i = 0; i < nums.size(); ++i)
+    {
+        if (nums[i] != arr[i])
+            break;
+    }
+    if (i == nums.size())
+        return 0;
+    int j = -1;
+    for (j = nums.size() - 1; j >= 0; j--)
+        if (nums[j] != arr[j])
+            break;
+    return j - i + 1;
+}
 int main()
 {
     vector<int> vi{2, 6, 4, 8, 10, 9, 15};

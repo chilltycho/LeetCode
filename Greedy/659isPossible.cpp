@@ -5,6 +5,38 @@
 #include <unordered_map>
 #include <queue>
 using namespace std;
+
+bool isPossible_1(vector<int> &nums)
+{
+    // nc存储数字出现次数，tail存储以数字i结尾的合法序列
+    unordered_map<int, int> nc, tail;
+    for (auto n : nums)
+        nc[n]++;
+    for (auto n : nums)
+    {
+        if (nc[n] == 0)// 不存在
+            continue;
+        else if (nc[n] > 0 && tail[n - 1] > 0) // 优先拼接
+        {
+            // 拼接到tail[n-1]后
+            nc[n]--;
+            tail[n - 1]--;
+            tail[n]++;
+        }
+        else if (nc[n] > 0 && nc[n + 1] > 0 && nc[n + 2] > 0) // 随后组成新队列
+        {
+            // 组成新的tai
+            nc[n]--;
+            nc[n + 1]--;
+            nc[n + 2]--;
+            tail[n + 2]++;
+        }
+        else
+            return false;
+    }
+    return true;
+}
+
 /*哈希+堆，只需知道子序列最后一个数字和子序列长度，就能确定子序列。
 1.当x在数组中，若存在一个子序列以x-1结尾，长度为k，则可将x加入子序列中，得到长度为
 k+1的子序列。若不存在x-1结尾的子序列，则新建只包含x的子序列，长度为1
@@ -82,37 +114,6 @@ bool isPossible_greedy(vector<int> &nums)
         }
     }
     return dp1 == 0 && dp2 == 0;
-}
-
-bool isPossible_1(vector<int> &nums)
-{
-    // nc存储数字出现次数，tail存储以数字i结尾的合法序列
-    unordered_map<int, int> nc, tail;
-    for (auto n : nums)
-        nc[n]++;
-    for (auto n : nums)
-    {
-        if (nc[n] == 0)// 不存在
-            continue;
-        else if (nc[n] > 0 && tail[n - 1] > 0) // 优先拼接
-        {
-            // 拼接到tail[n-1]后
-            nc[n]--;
-            tail[n - 1]--;
-            tail[n]++;
-        }
-        else if (nc[n] > 0 && nc[n + 1] > 0 && nc[n + 2] > 0) // 随后组成新队列
-        {
-            // 组成新的tai
-            nc[n]--;
-            nc[n + 1]--;
-            nc[n + 2]--;
-            tail[n + 2]++;
-        }
-        else
-            return false;
-    }
-    return true;
 }
 
 int main()

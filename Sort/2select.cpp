@@ -1,4 +1,5 @@
-//时间复杂度：O(N^2) 空间复杂度O(1)
+/*时间复杂度：最好最坏均为O(N^2) 空间复杂度O(1)，不稳定排序 如[5,8,5,2,9]，第一次会选择2和
+第一个5交换，导致两个5相对顺序变化*/
 #include <vector>
 #include <iostream>
 using namespace std;

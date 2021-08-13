@@ -1,37 +1,41 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 using namespace std;
 
-// 滑动窗口法
-int sol(vector<int> &nums, int k)
+struct ListNode
 {
-    int l = 0, r = 0;
-    int cursum = nums[0];
-    int res = 0;
-    while (r < nums.size())
+    int x;
+    shared_ptr<ListNode> next;
+    ListNode(int x_) : x(x_), next(nullptr) {}
+    ListNode() : x(0), next(nullptr) {}
+};
+
+shared_ptr<ListNode> createList(const vector<int> &nums)
+{
+    if (nums.empty())
+        return nullptr;
+    auto head = make_shared<ListNode>(nums[0]);
+    auto res = head;
+    for (int i = 1; i < nums.size(); ++i)
     {
-        if (cursum == k) // 找到符合条件窗口，窗口和==k
-        {
-            res = max(res, r - l + 1); // 更新最长长度
-            cursum -= nums[l++];       // 窗口右移，后面可能有更好的解
-        }
-        else if (cursum < k)    // 窗口之和<k
-        
-        {
-            r++;       // 扩张窗口右边界
-            if (r == nums.size()) // 到达数组边界，直接退出
-                break;
-            cursum += nums[r];  // 否则向右扩张窗口
-        }
-        else
-            cursum -= nums[l++]; // 窗口之和过大，窗口左边界右移。
+        head->next = make_shared<ListNode>(nums[i]);
+        head = head->next;
     }
     return res;
 }
 
+void ListPrint(shared_ptr<ListNode> head)
+{
+    while (head)
+    {
+        cout << head->x << ' ';
+        head = head->next;
+    }
+}
+
 int main()
 {
-    vector<int> vi{1, 3, 1, 1, 1, 2};
-    int k = 4;
-    cout << sol(vi, k) << endl; // 4
+    shared_ptr<int> sp1 = make_shared<int>(1);
+    sp1 = make_shared<int>(2);
 }

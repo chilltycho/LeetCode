@@ -107,8 +107,24 @@ unordered_map<State, unordered_map<CharType, State>> transfer{
     {STATE_EXP_NUMBER, {
                            {CHAR_NUMBER, STATE_EXP_NUMBER},
                        }}};
+string removespace(string &s)//删除两端空格
+{
+    string res{};
+    int l = 0, r = s.size() - 1;
+    while (s[l] == ' ')
+        ++l;
+    if (l >= s.size())
+        return res;
+    while (s[r] == ' ')
+        --r;
+    if (r < 0)
+        return res;
+    res.assign(s.begin() + l, s.begin() + r + 1);
+    return res;
+}
 bool isNumber(string s)
 {
+    s = removespace(s);
     int len = s.size();
     State st = STATE_INITIAL;
     for (int i = 0; i < len; i++)
@@ -183,6 +199,6 @@ bool isNumeric_1(string str)
 
 int main()
 {
-    string res{"e1.234"};
+    string res{"1 "};
     cout << isNumber(res) << endl;
 }

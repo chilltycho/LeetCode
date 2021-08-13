@@ -1,3 +1,4 @@
+// 摆动序列，连续数字之间的差严格在正数和负数之间交替
 #include <vector>
 using namespace std;
 int wiggleMaxLength(vector<int> &nums)

@@ -4,6 +4,31 @@
 #include <vector>
 #include <cassert>
 using namespace std;
+
+/* 如果总油量减去总消耗>=0那么一定能跑完一圈。
+说明各个站点的加油站剩油量rest[i]相加一定>=0,
+每个加油站剩余量res[i]为gas[i]-cost[i]
+i从0累加到rest[i],和记为curSum, 一旦curSum<0，则[0,i]
+区间不能作为起始位置，起始位置从i+1算起，再从0计算curSum
+*/
+int canComplete(vector<int> &gas, vector<int> &cost)
+{
+    int curSum = 0, totalSum = 0, start = 0;
+    for (int i = 0; i < gas.size(); ++i)
+    {
+        curSum += gas[i] - cost[i];
+        totalSum += gas[i] - cost[i];
+        if (curSum < 0)
+        {
+            start = i + 1;
+            curSum = 0;
+        }
+    }
+    if (totalSum < 0)
+        return -1;
+    return start;
+}
+
 // 暴力法
 int can_vio(vector<int> &gas, vector<int> &cost)
 {
@@ -54,30 +79,6 @@ int can_1(vector<int> &gas, vector<int> &cost)
         farIndexRemain[i] = remain;
     }
     return -1;
-}
-
-/* 如果总油量减去总消耗>=0那么一定能跑完一圈。
-说明各个站点的加油站剩油量rest[i]相加一定>=0,
-每个加油站剩余量res[i]为gas[i]-cost[i]
-i从0累加到rest[i],和记为curSum, 一旦curSum<0，则[0,i]
-区间不能作为起始位置，起始位置从i+1算起，再从0计算curSum
-*/
-int canComplete(vector<int> &gas, vector<int> &cost)
-{
-    int curSum = 0, totalSum = 0, start = 0;
-    for (int i = 0; i < gas.size(); ++i)
-    {
-        curSum += gas[i] - cost[i];
-        totalSum += gas[i] - cost[i];
-        if (curSum < 0)
-        {
-            start = i + 1;
-            curSum = 0;
-        }
-    }
-    if (totalSum < 0)
-        return -1;
-    return start;
 }
 
 // 折线图，保证最低点在水平线即可

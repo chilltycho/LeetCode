@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+/*
+稳定排序，最好O(n)，最坏O(n^2)
+*/
 void insertSort(vector<int> &nums)
 {
     auto len = nums.size();

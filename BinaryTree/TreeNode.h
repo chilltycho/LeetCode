@@ -55,64 +55,60 @@ TreeNode *vecToTree(vector<int> &nums)
     return root;
 }
 
-vector<int> inorder(TreeNode *root)
+void freeTree(TreeNode *root)
 {
-    vector<int> res;
-    stack<TreeNode *> st;
-    auto rt = root;
-    while (rt || st.size())
-    {
-        if (rt)
-        {
-            st.push(rt);
-            rt = rt->left;
-        }
-        else
-        {
-            auto node = st.top();
-            st.pop();
-            res.push_back(node->val);
-            rt = node->right;
-        }
-    }
-    return res;
+    if (root == nullptr)
+        return;
+    freeTree(root->left);
+    freeTree(root->right);
+    delete root;
 }
 
-vector<int> preorder(TreeNode *root)
+#if 0
+
+struct TreeNode
 {
-    vector<int> res;
-    stack<TreeNode *> st;
-    auto rt = root;
-    while (rt || st.size())
+    int val = 0;
+    shared_ptr<TreeNode> left;
+    shared_ptr<TreeNode> right;
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+};
+
+shared_ptr<TreeNode> createTree(vector<int> &nums)
+{
+    if (nums.empty())
+        return nullptr;
+    auto root = make_shared<TreeNode>(nums[0]);
+    queue<shared_ptr<TreeNode>> mq;
+    mq.push(root);
+    int i = 1, len = nums.size();
+    while (mq.size())
     {
-        while (rt)
+        auto node = mq.front();
+        mq.pop();
+        if (i < len && nums[i] != -1)
         {
-            res.push_back(rt->val); // 一直向左走，把当前值记录，把右节点入栈
-            st.push(rt->right);
-            rt = rt->left;
+            node->left = make_shared<TreeNode>(nums[i]);
+            mq.push(node->left);
         }
-        rt = st.top();
-        st.pop();
+        ++i;
+        if (i < len && nums[i] != -1)
+        {
+            node->right = make_shared<TreeNode>(nums[i]);
+            mq.push(node->right);
+        }
+        ++i;
     }
-    return res;
+    return root;
 }
 
-vector<int> postorder(TreeNode *root)
+void preprint(shared_ptr<TreeNode> root)
 {
-    stack<TreeNode *> stk;
-    auto rt = root;
-    vector<int> res;
-    while (rt || stk.size())
-    {
-        while (rt)
-        {
-            res.push_back(rt->val);
-            stk.push(rt->left);
-            rt = rt->right;
-        }
-        rt = stk.top();
-        stk.pop();
-    }
-    reverse(res.begin(), res.end());
-    return res;
+    if (!root)
+        return;
+    cout << root->val << ' ';
+    preprint(root->left);
+    preprint(root->right);
 }
+#endif

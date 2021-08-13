@@ -115,7 +115,7 @@ int trap_4(vector<int> &height)
     int right = len - 2; //右指针
     for (int i = 1; i < len - 1; ++i)
     {
-        if(height[left-1]<height[right+1]) // 从左向右更新条件
+        if (height[left - 1] < height[right + 1]) // 从左向右更新条件
         {
             ml = max(height[left - 1], ml);
             auto mlr = ml;
@@ -123,7 +123,7 @@ int trap_4(vector<int> &height)
                 sum += mlr - height[left];
             ++left;
         }
-        else                               // 从右向左更新
+        else // 从右向左更新
         {
             mr = max(mr, height[right + 1]);
             auto mlr = mr;

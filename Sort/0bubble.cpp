@@ -2,7 +2,8 @@
 #include <vector>
 using namespace std;
 /**
- * 冒泡：比较相邻，若不是递增，则交换。每次把较大地放到最后
+ * 最好O(n)，最坏O(n^2)
+ * 冒泡：比较相邻，若不是递增，则交换。每次把较大地放到最后，稳定排序，不改变相对顺序
 */
 void bubbleSort(vector<int> &nums)
 {

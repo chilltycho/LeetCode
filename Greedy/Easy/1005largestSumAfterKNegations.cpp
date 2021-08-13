@@ -1,3 +1,4 @@
+//给定数组A，修改该数组：选择某个索引 i 并将 A[i] 替换为 -A[i]，然后总共重复这个过程 K 次。以这种方式修改数组后，返回数组可能的最大和。
 #include <vector>
 #include <queue>
 using namespace std;
