@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
 using namespace std;
+// 初始化堆时间复杂度O(n)，n-1次删除操作时间复杂度O(nlogn)，总操作时间复杂度O(nlogn)
 /*时间复杂度：NlogM, M. 其中N为输入规模，M为想找最大或最小数量。插入logN，删除logN*/
 void heapify(vector<int> &arr, int n, int i)
 {

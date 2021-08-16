@@ -7,7 +7,6 @@ using namespace std;
 class UnionFind
 {
 private:
-
     int count;
     int *parent;
     int *rank;

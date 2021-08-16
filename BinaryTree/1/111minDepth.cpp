@@ -39,8 +39,8 @@ int minDepth_1(TreeNode *root)
     if (root->left == nullptr && root->right == nullptr) // 叶子节点
         return 1;
     // 如果左或右有一个为空，返回较大的
-    int l = minDepth(root->left);
-    int r = minDepth(root->right);
+    int l = minDepth_1(root->left);
+    int r = minDepth_1(root->right);
     if (!root->left || !root->right)
         return l + r + 1; // l，r必然一个为0
     return min(l, r) + 1; // 都不为空

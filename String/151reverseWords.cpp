@@ -1,6 +1,7 @@
 //给定字符串，逐个翻转字符串中每个单词
 #include <string>
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 string trim_space(string s)
@@ -30,8 +31,34 @@ string reverseWords(string s)
     return trim_space(res);
 }
 
+string reverse_s(string &s)
+{
+    vector<string> vs;
+    int l = 0, r = 0;
+    while (r < s.size())
+    {
+        while (l < s.size() && s[l] == ' ')
+            ++l;
+        r = l + 1;
+        while (r < s.size() && s[r] != ' ')
+            ++r;
+        string tmp=s.substr(l,r-l);
+        cout<<tmp;
+        vs.push_back(s.substr(l, r - l));
+        l = r + 1;
+        ++r;
+    }
+    reverse(vs.begin(), vs.end());
+    string res{};
+    for (auto c : vs)
+        res += c + " ";
+    res.pop_back();
+    return res;
+}
+
 int main()
 {
-    string s = "b";
-    cout << reverseWords(s);
+    string s = "  hello world! ";
+    //cout << reverseWords(s);
+    cout << reverse_s(s);
 }
