@@ -1,5 +1,5 @@
 //给出两非空链表表示两非负整数，将两个数相加起来，返回新链表表示它们的和
-#include "utl.h"
+#include "../utl.h"
 
 ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
 {
@@ -28,12 +28,36 @@ ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
     return resHead->next;
 }
 
+ListNode *helper(ListNode *l1, ListNode *l2, int carry)
+{
+    if (!l1 && !l2)
+        return carry == 0 ? nullptr : new ListNode(carry);
+    if (l1)
+    {
+        carry += l1->val;
+        l1 = l1->next;
+    }
+    if (l2)
+    {
+        carry += l2->val;
+        l2 = l2->next;
+    }
+    auto tmp = new ListNode(carry % 10);
+    tmp->next = helper(l1, l2, carry / 10);
+    return tmp;
+}
+
+ListNode *addTwoNumbers_1(ListNode *l1, ListNode *l2)
+{
+    return helper(l1,l2,0);
+}
+
 int main()
 {
     vector<int> v1{2, 4, 3};
     vector<int> v2{5, 6, 4};
     auto l1 = createLinkedList(v1);
     auto l2 = createLinkedList(v2);
-    auto l3 = addTwoNumbers(l1, l2);
+    auto l3 = addTwoNumbers_1(l1, l2);
     printLinkeList(l3); //7->0>8
 }

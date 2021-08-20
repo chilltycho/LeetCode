@@ -6,32 +6,27 @@ using namespace std;
 // O(N)
 int partition(vector<int> &a, int l, int r)
 {
-    int pivot = a[l]; //基准值
-    int lt = l;       //less than
-    //循环不变量：确保[left+1,lt]<pivot, [lt+1,i]>=pivot
-    for (int i = l + 1; i <= r; i++)
+    int pivot = rand() % (r - l + 1) + l;
+    swap(a[pivot], a[l]);
+    int i = l + 1, j = r;
+    while (true)
     {
-        if (pivot > a[i])
-        {
-            lt++;
-            swap(a[i], a[lt]);
-        }
+        while (i <= r && a[i] <= a[l])
+            ++i;
+        while (j > l && a[j] >= a[l])
+            --j;
+        if (i >= j)
+            break;
+        swap(a[i++], a[j--]);
     }
-    swap(a[l], a[lt]);
-    return lt;
-}
-
-int randomPartition(vector<int> &a, int l, int r)
-{
-    int i = rand() % (r - l + 1) + l;
-    swap(a[i], a[r]);
-    return partition(a, l, r);
+    swap(a[l], a[j]);
+    return j;
 }
 
 int quickSelect(vector<int> &a, int l, int r, int index)
 {
     //a[l..q..r]
-    int q = randomPartition(a, l, r);
+    int q = partition(a, l, r);
     if (q == index)
     {
         return a[q];
@@ -50,5 +45,5 @@ int findKthLargest(vector<int> &nums, int k)
 int main()
 {
     vector<int> vi{3, 2, 1, 5, 6, 4};
-    cout << findKthLargest(vi, 1);
+    cout << findKthLargest(vi, 5);
 }

@@ -22,13 +22,15 @@ ListNode *removeNthFromEnd(ListNode *head, int n)
     {
         auto temp = head;
         head = curr->next;
-        free(temp);
+        delete temp;
+        temp = nullptr;
     }
     else
     {
         auto temp = curr;
         prev->next = curr->next;
-        free(temp);
+        delete temp;
+        temp = nullptr;
     }
     return head;
 }

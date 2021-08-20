@@ -43,6 +43,6 @@ int lengthOfLIS(vector<int> &nums)
 
 int main()
 {
-    vector<int> nums{10, 9, 2, 5, 3, 7, 101, 18};
+    vector<int> nums{0,1,0,3,2,3};
     assert(4 == lengthOfLIS(nums));
 }
