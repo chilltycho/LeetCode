@@ -33,6 +33,7 @@ string reverseWords(string s)
 
 string reverse_s(string &s)
 {
+    s = trim_space(s);
     vector<string> vs;
     int l = 0, r = 0;
     while (r < s.size())
@@ -42,8 +43,6 @@ string reverse_s(string &s)
         r = l + 1;
         while (r < s.size() && s[r] != ' ')
             ++r;
-        string tmp = s.substr(l, r - l);
-        cout << tmp;
         vs.push_back(s.substr(l, r - l));
         l = r + 1;
         ++r;
@@ -58,7 +57,7 @@ string reverse_s(string &s)
 
 int main()
 {
-    string s = "  hello world! ";
+    string s = " hello world ";
     //cout << reverseWords(s);
     cout << reverse_s(s);
 }
