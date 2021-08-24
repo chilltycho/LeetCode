@@ -1,8 +1,11 @@
 //给定不同面额硬币coins,总金额amount。求凑成总金额所需最少硬币数目。每种硬币无限，若凑不成，返回-1
 #include <cassert>
 #include <vector>
+#include <climits>
+#include <cstring>
 #include <iostream>
 using namespace std;
+
 int coinChange_1(vector<int> &coins, int amount)
 {
     if (amount == 0)
@@ -28,6 +31,7 @@ int coinChange_1(vector<int> &coins, int amount)
     }
     return dp[coins.size()][amount] == amount + 2 ? -1 : dp[coins.size()][amount];
 }
+
 int coinChange(vector<int> &coins, int amount)
 {
     if (amount == 0)

@@ -42,8 +42,8 @@ string reverse_s(string &s)
         r = l + 1;
         while (r < s.size() && s[r] != ' ')
             ++r;
-        string tmp=s.substr(l,r-l);
-        cout<<tmp;
+        string tmp = s.substr(l, r - l);
+        cout << tmp;
         vs.push_back(s.substr(l, r - l));
         l = r + 1;
         ++r;

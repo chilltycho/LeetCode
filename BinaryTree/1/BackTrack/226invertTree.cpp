@@ -1,7 +1,7 @@
 //翻转二叉树
 #include <iostream>
 #include <queue>
-#include "../TreeNode.h"
+#include "../../TreeNode.h"
 using namespace std;
 
 TreeNode *invertTree(TreeNode *root)
