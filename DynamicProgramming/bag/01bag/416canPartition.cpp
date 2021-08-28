@@ -2,7 +2,7 @@
 #include <vector>
 #include <cassert>
 #include <iostream>
-#include<numeric>
+#include <numeric>
 using namespace std;
 //转换0-1背包问题，挑选一些数，使得和为整个数组元素和的一半(和一定为偶)。
 bool canPartition(vector<int> &nums)
@@ -10,7 +10,7 @@ bool canPartition(vector<int> &nums)
     int len = nums.size();
     if (len == 0)
         return false;
-    int sum = accumulate(nums.begin(),nums.end(),0);
+    int sum = accumulate(nums.begin(), nums.end(), 0);
     if ((sum & 1) == 1)
         return false;
     int target = sum / 2;
@@ -83,7 +83,7 @@ bool find_dfs(vector<int> &nums, int target, int index)
         return true;
     for (int i = index; i < nums.size(); i++)
     {
-        if (i > index && nums[i] == nums[i - 1])//剪枝，假定三个连续1，若第一次未找到，则第二次也不会
+        if (i > index && nums[i] == nums[i - 1]) //剪枝，假定三个连续1，若第一次未找到，则第二次也不会
             continue;
         if (target - nums[i] < 0)
             return false;
@@ -105,10 +105,41 @@ bool canPartition_dfs(vector<int> &nums)
     return find_bru(nums, total / 2, 0);
 }
 
+bool canPartition_nnn(vector<int> &nums)
+{
+    int len = nums.size();
+    if (len == 0)
+        return false;
+    int sum = accumulate(nums.begin(), nums.end(), 0);
+    int target = sum / 2;
+    if (sum & 1)
+        return false;
+    vector<vector<bool>> dp(len + 1, vector<bool>(target + 1, false));
+    for (int i = 0; i <= len; ++i)
+    {
+        for (int j = 0; j <= target; ++j)
+        {
+            if (j == 0)
+                dp[i][j] = true;
+            else if (i == 0 && j != 0)
+                dp[i][j] = false;
+            else
+            {
+                if (nums[i - 1] > j)
+                    dp[i][j] = dp[i - 1][j];
+                else if (nums[i - 1] == j)
+                    dp[i][j] = true;
+                else
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];
+            }
+        }
+    }
+    return dp[len][target];
+}
 int main()
 {
     vector<int> v1{1, 5, 11, 5};
-    assert(canPartition(v1));
+    assert(canPartition_nnn(v1));
     vector<int> v2{1, 2, 3, 5};
-    assert(!canPartition_sp(v2));
+    assert(!canPartition_nnn(v2));
 }
