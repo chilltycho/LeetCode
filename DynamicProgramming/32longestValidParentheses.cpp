@@ -6,8 +6,7 @@
 using namespace std;
 /**动态规划，以下标i结尾的合法括号长度
  * dp[i] = dp[i-2] + 2
- * dp[i] = dp[i-1] + dp[i-dp[i-1]-2] + 2
-*/
+ * dp[i] = dp[i-1] + dp[i-dp[i-1]-2] + 2*/
 int sol_dp(string s)
 {
     int res = 0;
