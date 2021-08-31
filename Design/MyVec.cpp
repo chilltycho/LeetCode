@@ -21,20 +21,23 @@ public:
 
 private:
     T *m_ptrElement;
-    int m_length;
-    int m_capacity;
+    size_t m_length;
+    size_t m_capacity;
 };
+
 template <typename T>
 MyVec<T>::~MyVec()
 {
     delete[] m_ptrElement;
     m_ptrElement = nullptr;
 }
+
 template <typename T>
 MyVec<T>::MyVec() : m_capacity(16), m_length(0)
 {
     this->m_ptrElement = new T[m_capacity];
 }
+
 template <typename T>
 void MyVec<T>::print()
 {
@@ -42,6 +45,7 @@ void MyVec<T>::print()
         cout << m_ptrElement[i] << ' ';
     cout << endl;
 }
+
 template <typename T>
 MyVec<T>::MyVec(size_t len, T element) : m_capacity(len)
 {

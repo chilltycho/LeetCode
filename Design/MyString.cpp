@@ -18,12 +18,14 @@ public:
             strcpy(data, str);
         }
     }
+
     String(const String &str)
     {
         length = str.size();
         data = new char[length + 1];
         strcpy(data, str.c_str());
     }
+
     ~String()
     {
         delete[] data;
@@ -31,16 +33,20 @@ public:
         length = 0;
     }
 
-    String operator+(const String &str) const
+    friend String operator+(const String &lhs, const String &rhs)
     {
-        String newString;
-        newString.length = str.size() + length;
-        newString.data = new char[newString.length + 1];
-        memset(newString.data,0,newString.length);
-        strcpy(newString.data, data);
-        strcat(newString.data, str.c_str());
-        return newString;
+        String res;
+        int len = lhs.length + rhs.length + 1;
+        res.length = len;
+        char *newptr = new char[len];
+        memset(newptr, 0, len);
+        strcpy(newptr, lhs.data);
+        strcat(newptr, rhs.data);
+        delete[] res.data;
+        res.data = newptr;
+        return res;
     }
+
     String &operator=(const String &str)
     {
         if (this == &str)
@@ -68,9 +74,8 @@ public:
     char &operator[](size_t n) const
     {
         if (n >= length)
-            return data[length - 1];
-        else
-            return data[n];
+            throw out_of_range("operator [] out of range!");
+        return data[n];
     }
     size_t size() const
     {
@@ -104,9 +109,10 @@ int main()
 {
     String s{"fff"};
     cout << s << ": " << s.size() << endl;
-    char a[] = "Hello", b[] = "World!";
+    char a[] = "Hello", b[] = "World";
     String s1(a);
     String s2(b);
-    String s3 = s1 + s2;
+    String s3;
+    s3 = s1 + s2;
     cout << s1 << " + " << s2 << " = " << s3 << endl;
 }
