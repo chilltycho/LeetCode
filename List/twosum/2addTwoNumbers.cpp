@@ -59,5 +59,5 @@ int main()
     auto l1 = createLinkedList(v1);
     auto l2 = createLinkedList(v2);
     auto l3 = addTwoNumbers_1(l1, l2);
-    printLinkeList(l3); //7->0>8
+    printLinkeList(l3); //7->0->8
 }
