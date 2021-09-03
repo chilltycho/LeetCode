@@ -32,24 +32,6 @@ ListNode *reverseKGroup_1(ListNode *head, int k)
     return newHead;
 }
 
-ListNode *reverseKGroup(ListNode *head, int k)
-{
-    if (head == nullptr)
-        return head;
-    auto a = head;
-    auto b = head;
-    for (int i = 1; i < k; i++)
-    {
-        b = b->next;
-        if (b == nullptr)
-            return head;
-    }
-    auto nb = b->next;
-    auto newHead = reverse(a, b);
-    a->next = reverseKGroup(nb, k);
-    return newHead;
-}
-
 int main()
 {
     vector<int> vi{1, 2, 3, 4, 5};

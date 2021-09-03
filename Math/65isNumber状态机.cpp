@@ -107,7 +107,7 @@ unordered_map<State, unordered_map<CharType, State>> transfer{
     {STATE_EXP_NUMBER, {
                            {CHAR_NUMBER, STATE_EXP_NUMBER},
                        }}};
-string removespace(string &s)//删除两端空格
+string removespace(string &s) //删除两端空格
 {
     string res{};
     int l = 0, r = s.size() - 1;
@@ -147,54 +147,52 @@ bool isNumber(string s)
            st == STATE_END;
 }
 
-bool isNumeric_1(string str)
+bool isNumeric_1(string s)
 {
-    // sign: 正负号 出现位置
-    // point:点 出现位置
-    // E:    e 出现位置
-    // num:  数字出现位置
-    vector<int> sign, point, E;
-    //       为了方便查找，使用unordered_set
-    unordered_set<int> num;
-    int length = str.length();
-    for (int i = 0; i < length; i++)
+    removespace(s);
+    bool sign = false;
+    bool num = false; //整数部分
+    bool dec = false; //小数部分
+    bool point = 0;   //小数点
+    bool exp = 0;
+    int n = s.size();
+    for (int i = 0; i < n; ++i)
     {
-        if (str[i] == '+' || str[i] == '-')
-            sign.push_back(i);
-        else if (str[i] == '.')
-            point.push_back(i);
-        else if (str[i] == 'e' || str[i] == 'E')
-            E.push_back(i);
-        else if (str[i] <= '9' && str[i] >= '0')
-            num.insert(i);
+        if (s[i] == '+' || s[i] == '-')
+        {
+            if (sign)
+                return false; //重复符号
+            if (i == 0 || s[i - 1] == 'E' || s[i - 1] == 'e')
+                sign = true; // 符号位只能出现位置
+            else
+                return false;
+        }
+        else if (s[i] == '.')
+        {
+            if (exp || point)
+                return false; // 小数点不能在e之后，不能重复
+            point = true;
+        }
+        else if (s[i] == 'e' || s[i] == 'E')
+        {
+            if (exp || (num == false && dec == false))
+                return false;
+            else
+            {
+                sign = false, num = false, dec = false, exp = true;
+            }
+        }
+        else if (s[i] >= '0' && s[i] <= '9')
+        {
+            if (num == false || exp == true)
+                num = true;
+            else if (point)
+                dec = true;
+        }
         else
             return false;
     }
-    //       正负号 不多于2个；点 不多于1个；e 不多于1个；数字 不少于1个；
-    if (sign.size() > 2 || point.size() > 1 || E.size() > 1 || num.size() < 1)
-        return false;
-    //      当有两个+-时，必然一个在最前面，一个在e后面
-    //      当有一个+-时，必然在最前面，或在e后面
-    //      当有一个.时，.后必然有数字,.必在e前
-    //      当有一个e时，e前是数字，e后是数字或+-
-    bool bRet = true;
-    if (sign.size() == 2)
-    {
-        bRet = bRet && (sign[0] == 0 && E.size() == 1 && sign[1] == E[0] + 1);
-    }
-    if (sign.size() == 1)
-    {
-        bRet = bRet && (sign[0] == 0 || (E.size() == 1 && sign[0] == E[0] + 1));
-    }
-    if (point.size() == 1)
-    {
-        bRet = bRet && num.count(point[0] + 1) && (E.size() == 0 || (E.size() == 1 && point[0] < E[0]));
-    }
-    if (E.size() == 1)
-    {
-        bRet = bRet && num.count(E[0] - 1) && (num.count(E[0] + 1) || (sign.size() == 1 && E[0] + 1 == sign[0]) || (sign.size() == 2 && E[0] + 1 == sign[1]));
-    }
-    return bRet;
+    return num || dec;
 }
 
 int main()

@@ -2,11 +2,56 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <climits>
 using namespace std;
+
+unordered_map<string, unordered_set<string>> um{{"start", {"start", "end", "in_number", "signed"}},
+                                                {"signed", {"in_number", "end"}},
+                                                {"in_number", {"in_number", "end"}},
+                                                {"end", {"end"}}};
+
+string getType(char c)
+{
+    if (isspace(c))
+        return "start";
+    if (c == '+' || c == '-')
+        return "signed";
+    if (isdigit(c))
+        return "in_number";
+    return "end";
+}
+
+int matoi(string s)
+{
+    long long res = 0;
+    int sign = 1;
+    string state{"start"};
+    for (auto c : s)
+    {
+        string nstate = getType(c);
+        if (um[state].find(nstate) != um[state].end())
+        {
+            if (nstate == "in_number")
+            {
+                res = res * 10 + c - '0';
+                res = sign == 1 ? min(res, (long long)INT_MAX) : min(res, -(long long)INT_MIN);
+            }
+            else if (nstate == "signed")
+            {
+                sign = c == '+' ? 1 : -1;
+            }
+            state = nstate;
+        }
+        else
+            break;
+    }
+    return res;
+}
+
 int myAtoi(string str)
 {
-    unsigned long len = str.size();
+    int len = str.size();
     int index = 0;
     // 去除前导空格
     while (index < len)
@@ -40,4 +85,10 @@ int myAtoi(string str)
         ++index;
     }
     return res;
+}
+
+int main()
+{
+    string s{"+-12"};
+    cout << matoi(s) << endl;
 }

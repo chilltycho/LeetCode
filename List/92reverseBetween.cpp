@@ -1,16 +1,17 @@
-#include"utl.h"
+#include "utl.h"
 
 ListNode *reverseList(ListNode *head, int n)
 {
     ListNode *prev = head;
     ListNode *curr = head->next;
     ListNode *curnext = nullptr;
-    while (n--)
+    while (n)
     {
         curnext = curr->next;
         curr->next = prev;
         prev = curr;
         curr = curnext;
+        --n;
     }
     head->next = curnext;
     return prev;
@@ -23,13 +24,12 @@ ListNode *reverseBetween(ListNode *head, int m, int n)
         return head;
     ListNode *prev = nullptr;
     ListNode *curr = head;
-    int i;
-    for (i = 1; i < m; i++)
+    for (int i = 1; i < m; i++)
     {
         prev = curr;
         curr = curr->next;
     }
-    if (prev == nullptr)//头节点
+    if (prev == nullptr) //头节点
         return reverseList(head, n - m);
     else
     {
@@ -40,8 +40,8 @@ ListNode *reverseBetween(ListNode *head, int m, int n)
 
 int main()
 {
-    vector<int> vi{1,2,3,4,5};
-    auto head=createLinkedList(vi);
-    auto res=reverseBetween(head,2,4);
+    vector<int> vi{1, 2, 3, 4, 5};
+    auto head = createLinkedList(vi);
+    auto res = reverseBetween(head, 2, 4);
     printLinkeList(res);
 }

@@ -63,7 +63,7 @@ int dfs(TreeNode *root)
     return root->val + max(0, max(l, r));
 }
 
-int maxPathSUm(TreeNode *root)
+int maxPathSum(TreeNode *root)
 {
     dfs(root);
     return res;
