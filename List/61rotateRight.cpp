@@ -13,17 +13,17 @@ ListNode *rotateRight(ListNode *head, int k)
         p = p->next;
         len++;
     }
-    p->next = head;//形成环
-    
+    p->next = head; //形成环
+
     k %= len;
-    p=head;
-    while(len!=k+1)//找断点
+    p = head;
+    while (len != k + 1) //找断点
     {
         --len;
-        p=p->next;
+        p = p->next;
     }
 
-    head = p->next;//新头
+    head = p->next; //新头
     p->next = nullptr;
     return head;
 }
