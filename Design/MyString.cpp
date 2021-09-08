@@ -23,7 +23,7 @@ public:
     {
         length = str.size();
         data = new char[length + 1];
-        strcpy(data, str.c_str());
+        strcpy(data, str.data);
     }
 
     ~String()
@@ -36,14 +36,11 @@ public:
     friend String operator+(const String &lhs, const String &rhs)
     {
         String res;
-        int len = lhs.length + rhs.length + 1;
-        res.length = len;
-        char *newptr = new char[len];
-        memset(newptr, 0, len);
-        strcpy(newptr, lhs.data);
-        strcat(newptr, rhs.data);
+        res.length = lhs.length + rhs.length;
         delete[] res.data;
-        res.data = newptr;
+        res.data = new char[res.length + 1];
+        strcpy(res.data, lhs.data);
+        strcat(res.data, rhs.data);
         return res;
     }
 
@@ -54,9 +51,10 @@ public:
         delete[] data;
         length = str.length;
         data = new char[length + 1];
-        strcpy(data, str.c_str());
+        strcpy(data, str.data);
         return *this;
     }
+
     String &operator+=(const String &str)
     {
         length += str.length;
@@ -67,26 +65,32 @@ public:
         data = newData;
         return *this;
     }
+
     bool operator==(const String &str) const
     {
         return strcmp(data, str.data) == 0;
     }
+    
     char &operator[](size_t n) const
     {
         if (n >= length)
             throw out_of_range("operator [] out of range!");
         return data[n];
     }
+    
     size_t size() const
     {
         return length;
     }
+    
     const char *c_str() const
     {
         return data;
     }
+    
     friend istream &operator>>(istream &is, String &str)
     {
+        delete[] str.data;
         char tmp[1000];
         is >> tmp;
         str.length = strlen(tmp);
@@ -94,6 +98,7 @@ public:
         strcpy(str.data, tmp);
         return is;
     }
+    
     friend ostream &operator<<(ostream &os, String &str)
     {
         os << str.data;
@@ -114,5 +119,9 @@ int main()
     String s2(b);
     String s3;
     s3 = s1 + s2;
+    String s4;
+    s4 += s1 = s2;
+    //cin >> s2;
     cout << s1 << " + " << s2 << " = " << s3 << endl;
+    cout << s4 << endl;
 }

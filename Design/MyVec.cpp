@@ -33,23 +33,25 @@ MyVec<T>::~MyVec()
 }
 
 template <typename T>
-MyVec<T>::MyVec() : m_capacity(16), m_length(0)
+MyVec<T>::MyVec()
 {
+    m_capacity = 16;
+    m_length = 0;
     this->m_ptrElement = new T[m_capacity];
 }
 
 template <typename T>
 void MyVec<T>::print()
 {
-    for (int i = 0; i < m_length; ++i)
+    for (size_t i = 0; i < m_length; ++i)
         cout << m_ptrElement[i] << ' ';
     cout << endl;
 }
 
 template <typename T>
-MyVec<T>::MyVec(size_t len, T element) : m_capacity(len)
+MyVec<T>::MyVec(size_t len, T element)
 {
-    m_capacity += len;
+    m_capacity = len * 2;
     m_length = len;
     m_ptrElement = new T[m_capacity];
     for (size_t i = 0; i < m_length; ++i)
@@ -70,13 +72,9 @@ MyVec<T> &MyVec<T>::operator=(const MyVec<T> &vec)
 {
     if (this == &vec)
         return *this;
-    if (m_ptrElement != nullptr)
-    {
-        delete[] m_ptrElement;
-        m_ptrElement = nullptr;
-    }
     m_capacity = vec.m_capacity;
     m_length = vec.m_length;
+    delete[] m_ptrElement;
     m_ptrElement = new T[vec.m_capacity];
     memcpy(m_ptrElement, vec.m_ptrElement, sizeof(T) * vec.m_length);
     return *this;

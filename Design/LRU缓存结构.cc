@@ -14,7 +14,7 @@ class LRUCache
 {
 private:
     size_t cap = 0;
-    list<pair<int, int>> cache; // 键-值
+    list<pair<int, int>> cache;                            // 键-值
     unordered_map<int, list<pair<int, int>>::iterator> mp; // 键，在链表中位置
 
 public:
@@ -24,7 +24,6 @@ public:
     }
     int get(int key)
     {
-
         auto it = mp.find(key);
         // 未找到
         if (it == mp.end())
@@ -37,8 +36,7 @@ public:
         cache.push_front(n);
         // 删除旧的
         cache.erase(target_it);
-        mp.erase(key);
-        mp.emplace(key, cache.begin());
+        mp[key] = cache.begin();
         return n.second;
     }
     void put(int key, int value)
@@ -61,4 +59,23 @@ public:
             cache.pop_back();
         }
     }
+    void print()
+    {
+        for (auto i : cache)
+            cout << i.first << ' ' << i.second << ' ';
+        cout << endl;
+    }
 };
+
+int main()
+{
+    size_t size = 10;
+    LRUCache l(size);
+    for (size_t i = 0; i < size; ++i)
+        l.put(i, i);
+    l.print();
+    cout << l.get(2) << endl;
+    l.print();
+    l.get(3);
+    l.print();
+}
