@@ -14,13 +14,9 @@ vector<string> split(string &s, char delim)
 }
 int main()
 {
-    int n;
-    cin >> n;
-    while (n)
-    {
-        string s;
-        cin >> s;
-        cout << s << endl;
-        --n;
-    }
+    string s{"172.16.254.1."};
+    auto res = split(s, '.');
+    for (auto c : res)
+        cout << c << ' ';
+    cout << res.size();
 }

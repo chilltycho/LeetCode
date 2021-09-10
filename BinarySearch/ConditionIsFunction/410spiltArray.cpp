@@ -1,7 +1,7 @@
 /*给定非负整数数组和整数m，将数组分成m个非空的连续子数组，设计算法使m个子数组各自和的最大值最小*/
 #include <vector>
 #include <cassert>
-#include<numeric>
+#include <numeric>
 using namespace std;
 
 int split(vector<int> &nums, int maxIntervalSum)
@@ -24,8 +24,8 @@ int splitArray(vector<int> &nums, int m)
 {
     if (m > nums.size())
         return -1;
-    int biggest = *max_element(nums.begin(),nums.end());
-    int sum=accumulate(nums.begin(),nums.end(),0);
+    int biggest = *max_element(nums.begin(), nums.end());
+    int sum = accumulate(nums.begin(), nums.end(), 0);
     int left = biggest; //maxIntervalSum的最小值，每个数为一组
     int right = sum;    //maxIntervalSUm最大值，整个数组为一组
     while (left < right)

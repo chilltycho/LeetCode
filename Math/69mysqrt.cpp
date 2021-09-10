@@ -1,17 +1,20 @@
+// 较小的值可能是答案，标记较小的值
 int mysqrt(int x)
 {
     int l = 0, r = x, ans = -1;
     while (l <= r)
     {
-        int mid = l + (r - l) / 2;
-        if ((long long)mid * mid <= x)
+        int m = l + (r - l) / 2;
+        if (x / m == m)
+            return m;
+        else if (x / m > m)
         {
-            ans = mid;
-            l = mid + 1;
+            ans = m;
+            l = m + 1;
         }
         else
         {
-            r = mid - 1;
+            r = m - 1;
         }
     }
     return ans;
