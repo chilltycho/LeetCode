@@ -57,7 +57,6 @@ int main()
     vector<int> v2{1, 2, 3};
     vector<int> v3{1, 2, 3, 4};
     vector<int> ss{-1, 0, 1, 2, 3, 4, 5};
-    cout << binarysearch(v1, 0) << endl;
-    for (auto s : ss)
-        cout << binarysearch(v3, s) << endl;
+    vector<int> vs{1};
+    cout << m_lowerbound(vs, 1) << ' ' << m_upperbound(vs, 1) << endl;
 }
