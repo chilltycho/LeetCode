@@ -1,10 +1,11 @@
 #include <vector>
 using namespace std;
-int binarySearch(int arr[], int n, int target)
+int binarySearch(vector<int> &arr, int target)
 {
 
 	//在[l,r]中查找target
 	//包含右边界
+	int n = arr.size();
 	int l = 0, r = n - 1;
 	int res;
 	while (l <= r)

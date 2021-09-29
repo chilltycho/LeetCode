@@ -30,7 +30,7 @@ public:
     }
     void enqueue(const int &value)
     {
-        if (is_full)
+        if (is_full())
         {
             cout << "enqueue in full CircleQueue" << endl;
             return;
