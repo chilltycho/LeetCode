@@ -19,7 +19,7 @@ public:
 	int *_count = 0;
 
 public:
-	 SP(T *ptr = nullptr) : _ptr(ptr)
+	SP(T *ptr = nullptr) : _ptr(ptr)
 	{
 		if (_ptr)
 			_count = new int(1);
@@ -56,13 +56,13 @@ public:
 	}
 	T &operator*()
 	{
-		if(this->_ptr==nullptr)
+		if (this->_ptr == nullptr)
 			throw("");
 		return *(this->_ptr);
 	}
 	T *operator->()
 	{
-		if(this->_ptr==nullptr)
+		if (this->_ptr == nullptr)
 			throw("");
 		return this->_ptr;
 	}
