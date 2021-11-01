@@ -44,6 +44,6 @@ int findKthLargest(vector<int> &nums, int k)
 
 int main()
 {
-    vector<int> vi{3, 2, 1, 5, 6, 4};
-    cout << findKthLargest(vi, 5);
+    vector<int> vi{1};
+    cout << findKthLargest(vi, 1);
 }

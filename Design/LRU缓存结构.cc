@@ -24,39 +24,34 @@ public:
     }
     int get(int key)
     {
-        auto it = mp.find(key);
-        // 未找到
-        if (it == mp.end())
-            return -1;
-
-        // 找到迭代器
-        auto target_it = it->second;
-        pair<int, int> n{target_it->first, target_it->second};
-        // 重新放到链表头部
-        cache.push_front(n);
-        // 删除旧的
-        cache.erase(target_it);
-        mp[key] = cache.begin();
-        return n.second;
+        if(mp.count(key))
+        {
+            auto kv=mp[key];
+            cache.push_front(make_pair(kv->first,kv->second));
+            cache.erase(kv);
+            mp[key]=cache.begin();
+            return cache.front().second;
+        }
+        return -1;
     }
     void put(int key, int value)
     {
-        auto it = mp.find(key);
-        // 已经存在，先删除，需要插入链表头部
-        if (it != mp.end())
+        if(mp.count(key))
         {
-            cache.erase(it->second);
-            mp.erase(key);
+            auto kv=mp[key];
+            cache.erase(kv);
+            cache.push_front(make_pair(key,value));
+            mp[key]=cache.begin();
         }
-
-        pair<int, int> n{key, value};
-        cache.push_front(n);
-        mp.emplace(key, cache.begin());
-        // 超出容量，删除末尾的
-        if (cache.size() > cap)
+        else
         {
-            mp.erase(cache.back().first);
-            cache.pop_back();
+            cache.push_front(make_pair(key,value));
+            mp[key]=cache.begin();
+            if(cache.size()>cap)
+            {
+                mp.erase(cache.back().first);
+                cache.pop_back();
+            }
         }
     }
     void print()
@@ -69,13 +64,19 @@ public:
 
 int main()
 {
-    size_t size = 10;
+    size_t size = 2;
     LRUCache l(size);
-    for (size_t i = 0; i < size; ++i)
-        l.put(i, i);
+    l.put(1,1);
     l.print();
-    cout << l.get(2) << endl;
+    l.put(2,2);
     l.print();
+    cout<<l.get(1)<<endl;
+    l.put(3,3);
+    l.print();
+    cout<<l.get(2)<<endl;
+    l.put(4,4);
+    l.print();
+    cout<<l.get(1)<<endl;
     l.get(3);
-    l.print();
+    l.get(4);
 }
