@@ -41,7 +41,7 @@ int count1_2(int n)
     }
     return res;
 }
-
+// 不断消除较低位的1
 int count1_2(int n)
 {
     // val: 1101000, val-1: 1100111,  val&(val-1): 1100000略过0

@@ -1,4 +1,5 @@
 #include <vector>
+#include <climits>
 using namespace std;
 int FindGreatestSumOfSubArray(vector<int> array)
 {

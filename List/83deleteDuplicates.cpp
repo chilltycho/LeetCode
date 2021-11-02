@@ -29,6 +29,6 @@ int main()
 {
     vector<int> vi{1, 1, 2};
     auto head = createLinkedList(vi);
-    auto res = deleteDuplicates_re(head);
+    auto res = deleteDuplicates(head);
     printLinkeList(res);
 }

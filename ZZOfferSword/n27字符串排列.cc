@@ -1,6 +1,7 @@
 // 输入abc 输出[abc, acb, bac, cab, cba] 输入可能有字母重复
 #include <vector>
 #include <string>
+#include <algorithm>
 using namespace std;
 vector<string> res;
 string temp;

@@ -23,5 +23,5 @@ double myPow(double x, int n)
 
 int main()
 {
-    assert(1024==myPow(2,10));
+    assert(1024 == myPow(2, 10));
 }

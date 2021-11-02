@@ -10,11 +10,11 @@ bool helper(vector<int> &po, int l, int r)
     if (l >= r)
         return true;
     int m = l;
-    while (po[m] < po[r])
+    while (po[m] < po[r]) // 左子树
         ++m;
-    int tm = m;
+    int tm = m; // 右子树开始位置
     for (int i = m; m < r; ++m)
-        if (po[m] < po[r])
+        if (po[m] < po[r])  // 右子树节点应大于根节点
             return false;
     return helper(po, l, tm - 1) && helper(po, tm, r - 1);
 }

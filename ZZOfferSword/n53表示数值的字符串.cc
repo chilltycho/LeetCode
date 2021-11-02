@@ -70,6 +70,7 @@ CharType toCharType(char ch)
         return CHAR_ILLEGAL;
     }
 }
+
 unordered_map<State, unordered_map<CharType, State>> transfer{
     {STATE_INITIAL, {
                         {CHAR_NUMBER, STATE_INTEGER},
@@ -106,6 +107,7 @@ unordered_map<State, unordered_map<CharType, State>> transfer{
     {STATE_EXP_NUMBER, {
                            {CHAR_NUMBER, STATE_EXP_NUMBER},
                        }}};
+
 bool isNumber(string s)
 {
     int len = s.size();

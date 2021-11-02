@@ -30,7 +30,7 @@ void rotate_1(vector<int> &nums, int k)
         do
         {
             int next = (current + k) % n;
-            swap(nums[next],prev);
+            swap(nums[next], prev);
             current = next;
             count++;
         } while (start != current);
@@ -39,9 +39,9 @@ void rotate_1(vector<int> &nums, int k)
 
 void reverse(vector<int> &nums, int i, int j)
 {
-    while(i<j)
+    while (i < j)
     {
-        swap(nums[i++],nums[j--]);
+        swap(nums[i++], nums[j--]);
     }
 }
 

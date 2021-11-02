@@ -6,15 +6,15 @@ using namespace std;
 int removeElement(vector<int> &nums, int val)
 {
     //[0,index]为有效元素
-    int index = -1;//初始时无元素
-    for(int i=0;i<nums.size();i++)
+    int index = -1; //初始时无元素
+    for (int i = 0; i < nums.size(); i++)
     {
-        if(nums[i]!=val)
+        if (nums[i] != val)
         {
-            nums[++index]=nums[i];
+            nums[++index] = nums[i];
         }
     }
-    return index+1;
+    return index + 1;
 }
 
 int main()

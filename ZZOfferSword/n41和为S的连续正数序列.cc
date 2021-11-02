@@ -1,25 +1,29 @@
-#include<vector>
+#include <vector>
 using namespace std;
 vector<int> temp;
 vector<vector<int>> res;
 vector<vector<int>> FindContinuousSequence(int sum)
 {
+    int len = sum / 2 + 1;
     vector<vector<int>> res;
     vector<int> path;
     int windowsum = 0;
-    for (int r = 1; r <= (sum + 1) / 2; r++)
+    for (int l = 1, r = 1; r <= len; ++r)
     {
-        windowsum += r;
-        path.push_back(r);
-        while (windowsum >= sum)
+        windowsum+=r;
+        if(windowsum>sum)
         {
-            if (windowsum == sum)
-            {
-                if (path.size() > 1)
-                    res.push_back(path);
-            }
-            windowsum -= *(path.begin());
-            path.erase(path.begin());
+            windowsum-=l;
+            ++l;
+        }
+        if(windowsum==sum)
+        {
+            vector<int> tmp;
+            for(int i=l;i<=r;++i)
+                tmp.push_back(i);
+            res.push_back(tmp);
+            windowsum-=l;
+            ++l;
         }
     }
     return res;

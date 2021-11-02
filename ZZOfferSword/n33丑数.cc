@@ -57,5 +57,5 @@ int sol1(int n)
 }
 int main()
 {
-    cout << nthUglyNumber(10) << endl;
+    cout << nthUglyNumber(7) << endl;
 }
