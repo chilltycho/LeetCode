@@ -90,5 +90,5 @@ int main()
 	}
 	*s;
 	SP<int> s1;
-	*s1;
+	//*s1;
 }

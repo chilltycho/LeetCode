@@ -2,6 +2,10 @@
 using namespace std;
 class String
 {
+private:
+    char *data;
+    size_t length;
+    
 public:
     String(const char *str = nullptr)
     {
@@ -104,10 +108,6 @@ public:
         os << str.data;
         return os;
     }
-
-private:
-    char *data;
-    size_t length;
 };
 
 int main()

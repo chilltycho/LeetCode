@@ -17,16 +17,12 @@ void heapify(vector<int> &arr, int n, int i)
         swap(arr[largest], arr[i]);
         heapify(arr, n, largest);
     }
-    for (auto c : arr)
-        cout << c << ' ';
-    cout << endl;
 }
 
 void heapsort(vector<int> &arr, int n)
 {
-    for (int i = n / 2 - 1; i >= 0; --i) // 建立堆，对所有父节点，保证比子节点小，最大堆
+    for (int i = n / 2 - 1; i >= 0; --i) // 自底向上建立堆，对所有父节点，保证比子节点小，最大堆
         heapify(arr, n, i);              // O(n/2)次调用heapify, heapify:O(log(n))，建堆O(n)
-    cout << "堆：" << endl;
     for (int i = n - 1; i > 0; --i) // 弹出根节点
     {
         swap(arr[0], arr[i]);
