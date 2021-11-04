@@ -13,6 +13,7 @@ ListNode *findMid(ListNode *head)
     pre->next = nullptr;
     return s;
 }
+
 ListNode *merge2Lists(ListNode *l1, ListNode *l2)
 {
     if (!l1)
@@ -30,6 +31,7 @@ ListNode *merge2Lists(ListNode *l1, ListNode *l2)
         return l2;
     }
 }
+
 ListNode *mergeSort(ListNode *head)
 {
     if (!head || !(head->next))
