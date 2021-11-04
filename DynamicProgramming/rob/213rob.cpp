@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cassert>
 using namespace std;
-//不能偷相邻，首尾相邻。
+//不能偷相邻，首尾相邻。分为偷第一间，偷最后一间
 int ite(vector<int> &nums, int start, int end)
 {
     auto size = end - start;
