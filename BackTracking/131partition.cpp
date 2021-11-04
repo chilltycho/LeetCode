@@ -4,31 +4,30 @@
 using namespace std;
 vector<vector<string>> res;
 vector<string> path;
-bool isPalindrome(string s, int l, int r)
+vector<vector<bool>> dp;
+
+void prePro(string &s, int l, int r)
 {
-    while (l < r)
+    while (l >= 0 && r < s.size() && s[l] == s[r])
     {
-        if (s[l] != s[r])
-            return false;
-        l++;
-        r--;
+        dp[l][r] = true;
+        --l, ++r;
     }
-    return true;
 }
 
-void dfs(string s, int start, int len)
+void dfs(string &s, int start)
 {
-    if (start == len)
+    if (start == s.size())
     {
         res.push_back(path);
         return;
     }
-    for (int i = start; i < len; i++)
+    for (int i = start; i < s.size(); ++i)
     {
-        if (!isPalindrome(s, start, i))
+        if (!dp[start][i])
             continue;
         path.push_back(s.substr(start, i + 1 - start));
-        dfs(s, i + 1, len);
+        dfs(s, i + 1);
         path.pop_back();
     }
 }
@@ -38,55 +37,20 @@ vector<vector<string>> partition(string s)
     int len = s.size();
     if (len == 0)
         return res;
-    dfs(s, 0, len);
-    return res;
-}
-
-void dfs_1(string s, int start, int len, vector<vector<bool>> &dp)
-{
-    if (start == len)
-    {
-        res.push_back(path);
-        return;
-    }
-    for (int i = start; i < len; i++)
-    {
-        if (!dp[start][i])
-            continue;
-        path.push_back(s.substr(start, i + 1 - start));
-        dfs_1(s, i + 1, len, dp);
-        path.pop_back();
-    }
-}
-
-// 中心扩展法先判断子串是否回文
-void prePro(string &s, int l, int r, vector<vector<bool>> &dp)
-{
-    while (l >= 0 && r < s.size() && s[l] == s[r])
-    {
-        dp[l][r] = true;
-        --l, ++r;
-    }
-}
-vector<vector<string>> partition_1(string s)
-{
-    int len = s.size();
-    if (len == 0)
-        return res;
-    vector<vector<bool>> dp(len, vector<bool>(len, false));
+    dp = vector<vector<bool>>(len, vector<bool>(len, false));
     for (int i = 0; i < len; ++i)
     {
-        prePro(s, i, i, dp);
-        prePro(s, i, i + 1, dp);
+        prePro(s, i, i);
+        prePro(s, i, i + 1);
     }
-    dfs_1(s, 0, len, dp);
+    dfs(s, 0);
     return res;
 }
 
 int main()
 {
     string s = "aab";
-    partition_1(s);
+    partition(s);
     for (auto v : res)
     {
         for (auto s : v)

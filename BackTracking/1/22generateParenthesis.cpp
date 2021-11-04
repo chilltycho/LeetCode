@@ -3,36 +3,34 @@
 #include <iostream>
 using namespace std;
 
+string path;
 vector<string> res;
-//curstr当前结果，left剩余左括号，right剩余右括号,做减法
-void dfs(string curstr, int left, int right) //dfs
+void dfs(int l, int r)
 {
-    if (left == 0 && right == 0)
+    if (l == 0 && r == 0)
     {
-        res.push_back(curstr);
+        res.push_back(path);
         return;
     }
-    if (left > right) //剩余左括号大于右括号，错误结果
-    {
+    if (l > r)
         return;
-    }
-    if (left > 0)
+    if (l > 0)
     {
-        curstr += "(";
-        dfs(curstr, left - 1, right);
-        curstr.pop_back();
+        path += "(";
+        dfs(l - 1, r);
+        path.pop_back();
     }
-    if (right > 0)
+    if (r > 0)
     {
-        curstr += ")";
-        dfs(curstr, left, right - 1);
-        curstr.pop_back();
+        path += ")";
+        dfs(l, r - 1);
+        path.pop_back();
     }
 }
 
 vector<string> generateParenthesis(int n)
 {
-    dfs("", n, n);
+    dfs(n, n);
     return res;
 }
 /*dp[i]使用i对括号能够生成的组合，i对括号一个组合，在i-1对括号基础上得到

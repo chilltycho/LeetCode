@@ -24,7 +24,7 @@ void dfs_1(string S, int index)
         dfs_1(S, index + 1);
     }
 }
-vector<string> letterCasePermutation(string S)
+vector<string> letterCasePermutation_1(string S)
 {
     dfs_1(S, 0);
     return res;

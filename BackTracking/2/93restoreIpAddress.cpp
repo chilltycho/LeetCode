@@ -5,17 +5,16 @@
 #include <iostream>
 using namespace std;
 
-vector<string> ans;
-vector<string> temp;
-
-void dfs_1(string &s, int start)
+vector<string> path;
+vector<string> res;
+void dfs(string &s, int start)
 {
-    if (start == s.size() && temp.size() == 4)
+    if (start == s.size() && path.size() == 4)
     {
-        auto str = temp[0];
-        for (int i = 1; i < temp.size(); ++i)
-            str += "." + temp[i];
-        ans.push_back(str);
+        auto str = path[0];
+        for (int i = 1; i < 4; ++i)
+            str += "." + path[i];
+        res.push_back(str);
         return;
     }
     if (start >= s.size())
@@ -24,21 +23,20 @@ void dfs_1(string &s, int start)
     {
         if (len != 1 && s[start] == '0')
             return;
-        string str = s.substr(start, len);
-        if (len == 3 && atoi(str.c_str()) > 255)
+        auto str = s.substr(start, len);
+        if (len == 3 && stoi(str) > 255)
             return;
-        temp.push_back(str);
-        dfs_1(s, start + len);
-        temp.pop_back();
+        path.push_back(str);
+        dfs(s, start + len);
+        path.pop_back();
     }
 }
-vector<string> restoreIpAddresses_1(string s)
+vector<string> restoreIpAddresses(string s)
 {
-    int len = s.size();
-    if (len < 4 || len > 12) //字符串长度小于4或大于12，一定不能凑出合法ip
-        return ans;
-    dfs_1(s, 0);
-    return ans;
+    if (s.size() < 4 || s.size() > 12)
+        return res;
+    dfs(s, 0);
+    return res;
 }
 
 int main()
