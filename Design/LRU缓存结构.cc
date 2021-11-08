@@ -24,30 +24,30 @@ public:
     }
     int get(int key)
     {
-        if(mp.count(key))
+        if (mp.count(key))
         {
-            auto kv=mp[key];
-            cache.push_front(make_pair(kv->first,kv->second));
+            auto kv = mp[key];
+            cache.push_front(make_pair(kv->first, kv->second));
             cache.erase(kv);
-            mp[key]=cache.begin();
+            mp[key] = cache.begin();
             return cache.front().second;
         }
         return -1;
     }
     void put(int key, int value)
     {
-        if(mp.count(key))
+        if (mp.count(key))
         {
-            auto kv=mp[key];
+            auto kv = mp[key];
             cache.erase(kv);
-            cache.push_front(make_pair(key,value));
-            mp[key]=cache.begin();
+            cache.push_front(make_pair(key, value));
+            mp[key] = cache.begin();
         }
         else
         {
-            cache.push_front(make_pair(key,value));
-            mp[key]=cache.begin();
-            if(cache.size()>cap)
+            cache.push_front(make_pair(key, value));
+            mp[key] = cache.begin();
+            if (cache.size() > cap)
             {
                 mp.erase(cache.back().first);
                 cache.pop_back();
@@ -66,17 +66,17 @@ int main()
 {
     size_t size = 2;
     LRUCache l(size);
-    l.put(1,1);
+    l.put(1, 1);
     l.print();
-    l.put(2,2);
+    l.put(2, 2);
     l.print();
-    cout<<l.get(1)<<endl;
-    l.put(3,3);
+    cout << l.get(1) << endl;
+    l.put(3, 3);
     l.print();
-    cout<<l.get(2)<<endl;
-    l.put(4,4);
+    cout << l.get(2) << endl;
+    l.put(4, 4);
     l.print();
-    cout<<l.get(1)<<endl;
+    cout << l.get(1) << endl;
     l.get(3);
     l.get(4);
 }

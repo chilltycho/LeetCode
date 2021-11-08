@@ -24,7 +24,7 @@ void dfs(string &s, int start)
         if (len != 1 && s[start] == '0')
             return;
         auto str = s.substr(start, len);
-        if (len == 3 && stoi(str) > 255)
+        if (stoi(str) > 255)
             return;
         path.push_back(str);
         dfs(s, start + len);
@@ -42,7 +42,7 @@ vector<string> restoreIpAddresses(string s)
 int main()
 {
     string s = "25525511135";
-    auto res = restoreIpAddresses_1(s);
+    auto res = restoreIpAddresses(s);
     for (auto c : res)
         cout << c << ' ';
 }
