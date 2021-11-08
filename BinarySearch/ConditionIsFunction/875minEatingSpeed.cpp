@@ -1,6 +1,7 @@
 //共piles.size()堆，每堆piles[i]。求可在H小时内吃完所有的最小速度K(整数)
 #include <vector>
 #include <cassert>
+#include <algorithm>
 using namespace std;
 
 int cal(vector<int> &piles, int sp)
@@ -25,9 +26,7 @@ int cal(vector<int> &piles, int sp)
 /*吃速度越小，耗时越多，速度越大，耗时越小，单调性。*/
 int minEatingSpeed(vector<int> &piles, int H)
 {
-    int maxVal = 1;
-    for (int c : piles)
-        maxVal = max(maxVal, c);
+    int maxVal = *max_element(piles.begin(), piles.end());
     int left = 1;       //最小速度
     int right = maxVal; //最大速度
     while (left < right)

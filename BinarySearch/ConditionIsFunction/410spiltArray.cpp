@@ -2,6 +2,7 @@
 #include <vector>
 #include <cassert>
 #include <numeric>
+#include <algorithm>
 using namespace std;
 
 int split(vector<int> &nums, int maxIntervalSum)

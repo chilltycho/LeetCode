@@ -9,26 +9,28 @@
 #include <algorithm>
 using namespace std;
 
+int cal(vector<int> &arr, int val)
+{
+    int res = 0;
+    for (auto c : arr)
+        res += min(c, val);
+    return res;
+}
+
 int findBestValue(vector<int> &arr, int target)
 {
-    sort(arr.begin(), arr.end()); // 排序，前几个小于i的，后几个变为i
-    int n = arr.size();
-    vector<int> prefix(n + 1, 0); // 快速计算改变后总和
-    for (int i = 1; i <= n; ++i)
-        prefix[i] = prefix[i - 1] + arr[i - 1]; 
-    int r = *max_element(arr.begin(), arr.end());
-    int res = 0, diff = target;
-    for (int i = 1; i <= r; ++i) // 左右边界l,r
+    int l = 0, r = *max_element(arr.begin(), arr.end());
+    while (l < r)
     {
-        auto iter = lower_bound(arr.begin(), arr.end(), i);
-        int cur = prefix[iter - arr.begin()] + (arr.end() - iter) * i;
-        if (abs(cur - target) < diff)
-        {
-            res = i;
-            diff = abs(cur - target);
-        }
+        int m = l + (r - l) / 2;
+        if (cal(arr, m) < target)
+            l = m + 1;
+        else
+            r = m;
     }
-    return res;
+    if (abs(cal(arr, l - 1) - target) <= abs(cal(arr, l) - target))
+        return l - 1;
+    return l;
 }
 
 int main()

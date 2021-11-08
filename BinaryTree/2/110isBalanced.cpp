@@ -9,7 +9,7 @@ int height(TreeNode *root)
         return 0;
     return max(height(root->left), height(root->right)) + 1;
 }
-// O(n^2), n时二叉树节点个数，
+// O(n^2), n是二叉树节点个数，
 bool isBalanced(TreeNode *root)
 {
     if (root == nullptr)

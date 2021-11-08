@@ -10,15 +10,20 @@ int mySqrt_bi(int x)
     if (x == 0 || x == 1)
         return x;
     int l = 1, r = x / 2;
-    //区间只有2个数时，区间划分[l.m-1],[m,r]，如果m向下取整，只有两个数时m=l，进入[m,r]时死循环
     while (l < r)
     {
-        int m = l + (r - l + 1) / 2;
-        if (m > x / m)
-            r = m - 1;
+        int m = l + (r - l) / 2;
+        if (m < x / m)
+        {
+            l = m + 1;
+        }
         else
-            l = m;
+        {
+            r = m;
+        }
     }
+    if (x / l < l)
+        return l - 1;
     return l;
 }
 /*

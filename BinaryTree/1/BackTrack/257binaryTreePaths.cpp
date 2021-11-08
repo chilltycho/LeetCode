@@ -1,5 +1,5 @@
 /*给定二叉树，返回所有从根节点到叶子节点的路径*/
-#include "../TreeNode.h"
+#include "../../TreeNode.h"
 #include <queue>
 using namespace std;
 
