@@ -27,4 +27,5 @@ int main()
     assert(4 == romanToInt("IV"));
     assert(9 == romanToInt("IX"));
     assert(58 == romanToInt("LVIII"));
+    cout<<romanToInt(string{"IIV"})<<endl;
 }

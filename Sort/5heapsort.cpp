@@ -22,13 +22,14 @@ void heapify(vector<int> &arr, int n, int i)
 
 void heapsort(vector<int> &arr, int n)
 {
-    for (int i = n / 2 - 1; i >= 0; --i) // 建立堆，对所有父节点，保证比子节点小，最大堆
+    // 建立堆，对所有父节点，保证比子节点小，最大堆
+    for (int i = n / 2 - 1; i >= 0; --i)// 从左下角三角堆开始
         heapify(arr, n, i);              
     cout << "堆：" << endl;
     for (auto c : arr)
         cout << c << ' ';
     cout << endl;
-    for (int i = n - 1; i > 0; --i) // 弹出根节点
+    for (int i = n - 1; i > 0; --i) // 将根节点（最大元素）不断交换到末尾
     {
         swap(arr[0], arr[i]);
         heapify(arr, i, 0);
