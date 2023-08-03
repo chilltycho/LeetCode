@@ -10,33 +10,28 @@ i=3,j=0, res=[24,12,8,6] 输出res
 */
 
 // 除自身的乘积等于左边乘积和右边乘积。
-vector<int> productExceptSelf(vector<int> &nums)
-{
-    vector<int> res(nums.size(), 1);
-    int l = 1, r = 1;
-    for (int i = 0, j = nums.size() - 1; i < nums.size(); ++i, --j)
-    {
-        res[i] *= l;
-        res[j] *= r;
-        l *= nums[i];
-        r *= nums[j];
-    }
-    return res;
+vector<int> productExceptSelf(vector<int> &nums) {
+  vector<int> res(nums.size(), 1);
+  int l = 1, r = 1;
+  for (int i = 0, j = nums.size() - 1; i < nums.size(); ++i, --j) {
+    res[i] *= l;
+    res[j] *= r;
+    l *= nums[i];
+    r *= nums[j];
+  }
+  return res;
 }
 
-vector<int> sol(vector<int> &nums)
-{
-    int n = nums.size();
-    vector<int> l(n, 1), r(n, 1), res(n, 1);
-    for (int i = 1; i < n; ++i)
-    {
-        l[i] = nums[i - 1] * l[i - 1];
-    }
-    for (int i = n - 2; i >= 0; --i)
-    {
-        r[i] = nums[i + 1] * r[i + 1];
-    }
-    for (int i = 0; i < n; ++i)
-        res[i] = l[i] * r[i];
-    return res;
+vector<int> sol(vector<int> &nums) {
+  int n = nums.size();
+  vector<int> l(n, 1), r(n, 1), res(n, 1);
+  for (int i = 1; i < n; ++i) {
+    l[i] = nums[i - 1] * l[i - 1];
+  }
+  for (int i = n - 2; i >= 0; --i) {
+    r[i] = nums[i + 1] * r[i + 1];
+  }
+  for (int i = 0; i < n; ++i)
+    res[i] = l[i] * r[i];
+  return res;
 }
