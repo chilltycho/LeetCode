@@ -31,7 +31,7 @@ string simplifyPath(string path)
 
 int main()
 {
-    cout << simplifyPath("/a/.b/../../.c/") << endl;
+    cout << simplifyPath("/a/.b/../../c/") << endl;
     auto ms{"/home/jjjj"};
     stringstream is(ms);
     string tmp{};
