@@ -44,8 +44,24 @@ void preprint(shared_ptr<TreeNode> root) {
   preprint(root->right);
 }
 
+void midprint(shared_ptr<TreeNode> root) {
+  if (!root)
+    return;
+  midprint(root->left);
+  cout << root->val << ' ';
+  midprint(root->right);
+}
+
+void aftprint(shared_ptr<TreeNode> root) {
+  if (!root)
+    return;
+  aftprint(root->left);
+  aftprint(root->right);
+  cout << root->val << ' ';
+}
+
 int main() {
   vector<int> vi{1, 2, 3, 4, 5};
   auto root = createTree(vi);
-  preprint(root);
+  aftprint(root);
 }

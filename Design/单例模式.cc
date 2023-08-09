@@ -1,34 +1,30 @@
-#include <mutex>
 #include <iostream>
+#include <mutex>
 using namespace std;
 // 惰性求值，正确销毁，线程安全。
-class S
-{
+class S {
 public:
-    static S &getInstance()
-    {
-        cout << "initialized" << endl;
-        static S instance; // 保证销毁，第一次使用时初始化。
-        return instance;
-    }
+  static S &getInstance() {
+    cout << "initialized" << endl;
+    static S instance; // 保证销毁，第一次使用时初始化。
+    return instance;
+  }
 
 private:
-    S() {} // 需要{}，在getInstance里使用。
-    // // C++ 03做法
-    // S(S const &);              // Don't Implement
-    // void operator=(S const &); // Don't implement
+  S() {} // 需要{}，在getInstance里使用。
+         // // C++ 03做法
+         // S(S const &);              // Don't Implement
+         // void operator=(S const &); // Don't implement
 public:
-    // C++ 11做法
-    S(S const &) = delete; // delete函数声明为public会有更好的错误信息，因为编译器会在删除状态前检查是否能访问。
-    S& operator=(S const &) = delete;
+  // C++11做法，delete函数声明为public会有更好的错误信息，因为编译器会在删除状态前检查是否能访问。
+  S(S const &) = delete;
+  S &operator=(S const &) = delete;
 };
 
-int main()
-{
-    cout << "start main" << endl;
-    S::getInstance();
+int main() {
+  cout << "start main" << endl;
+  S::getInstance();
 }
-
 
 #if 0
 // 懒汉，只适合在单线程下，多线程时，考虑两个线程同时首次调用instance，则同时构造实例给p，违反单例

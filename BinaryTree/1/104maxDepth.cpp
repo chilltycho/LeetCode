@@ -4,8 +4,9 @@
 #include <cassert>
 using namespace std;
 
-int maxDepth(TreeNode *root) //解决的是根节点到最远叶子节点的最长路径
+int maxDepth(TreeNode *root) 
 {
+    //解决的是根节点到最远叶子节点的最长路径
     if (root == nullptr)
         return 0;
     return 1 + max(maxDepth(root->left), maxDepth(root->right));

@@ -11,49 +11,43 @@ using namespace std;
 全局变量：最大BST子树节点和
 递归函数：四个返回值*/
 
-struct TreeInfo
-{
-    bool isBST;
-    int min;
-    int max;
-    int sum;
-    TreeInfo(bool isBST, int min, int max, int sum)
-    {
-        this->isBST = isBST;
-        this->min = min;
-        this->max = max;
-        this->sum = sum;
-    }
+struct TreeInfo {
+  bool isBST;
+  int min;
+  int max;
+  int sum;
+  TreeInfo(bool isBST, int min, int max, int sum) {
+    this->isBST = isBST;
+    this->min = min;
+    this->max = max;
+    this->sum = sum;
+  }
 };
+
 int maxSum;
-TreeInfo dfs(TreeNode *root)
-{
-    if (root == nullptr)
-        return TreeInfo(true, INT_MAX, INT_MIN, 0);
-    TreeInfo le = dfs(root->left);
-    TreeInfo ri = dfs(root->right);
-    int sum = root->val + le.sum + ri.sum;
-    if (le.isBST && ri.isBST && le.max < root->val && root->val < ri.min)
-    {
-        maxSum = max(maxSum, sum);
-        int mi = min(le.min, root->val);
-        int ma = max(ri.max, root->val);
-        return TreeInfo(true, mi, ma, sum);
-    }
-    else
-        return TreeInfo(false, INT_MAX, INT_MIN, sum);
+TreeInfo dfs(TreeNode *root) {
+  if (root == nullptr)
+    return TreeInfo(true, INT_MAX, INT_MIN, 0);
+  TreeInfo le = dfs(root->left);
+  TreeInfo ri = dfs(root->right);
+  int sum = root->val + le.sum + ri.sum;
+  if (le.isBST && ri.isBST && le.max < root->val && root->val < ri.min) {
+    maxSum = max(maxSum, sum);
+    int mi = min(le.min, root->val);
+    int ma = max(ri.max, root->val);
+    return TreeInfo(true, mi, ma, sum);
+  } else
+    return TreeInfo(false, INT_MAX, INT_MIN, sum);
 }
 
-int maxSumBST(TreeNode *root)
-{
-    maxSum = 0;
-    dfs(root);
-    return maxSum;
+int maxSumBST(TreeNode *root) {
+  maxSum = 0;
+  dfs(root);
+  return maxSum;
 }
 
-int main()
-{
-    vector<int> vi{1, 4, 3, 2, 4, 2, 5, -1, -1, -1, -1, -1, -1, 4, 6};
-    auto root = vecToTree(vi);
-    cout << maxSumBST(root);
+int main() {
+  vector<int> vi{1, 4, 3, 2, 4, 2, 5, -1, -1, -1, -1, -1, -1, 4, 6};
+  auto root = vecToTree(vi);
+  cout << maxSumBST(root);
 }
