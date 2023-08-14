@@ -29,8 +29,8 @@ bool isMatch(string s, string p) {
         dp[i][j] = dp[i - 1][j - 1];
       else if (p[j - 1] == '*') // 不匹配，但有*号
       {
-        if (s[i - 1] == p[j - 2] ||
-            p[j - 2] == '.') //*号可让消失，重复1次，重复多次
+        if (s[i - 1] == p[j - 2] || p[j - 2] == '.')
+          //*号可让消失，重复1次，重复多次
           dp[i][j] = dp[i][j - 2] || dp[i - 1][j - 2] || dp[i - 1][j];
         else
           dp[i][j] = dp[i][j - 2];

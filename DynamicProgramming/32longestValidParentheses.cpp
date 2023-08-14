@@ -45,3 +45,4 @@ int main() {
   string s{"()(()"};
   cout << sol_dp(s) << endl;
 }
+
