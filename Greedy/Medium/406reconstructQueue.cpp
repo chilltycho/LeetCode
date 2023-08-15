@@ -4,31 +4,30 @@
 所表示的队列。返回的队列应该格式化为数组 queue ，其中 
 queue[j] = [hj, kj] 是队列中第 j 个人的属性
 （queue[0] 是排在队列前面的人）。*/
-#include <vector>
 #include <algorithm>
-#include <queue>
 #include <list>
+#include <queue>
+#include <vector>
 using namespace std;
-bool cmp(const vector<int> &a, const vector<int> &b)
-{
-    if (a[0] == b[0])
-        return a[1] < b[1];
-    return a[0] > b[0];
+bool cmp(const vector<int> &a, const vector<int> &b) {
+  if (a[0] == b[0])
+    return a[1] < b[1];
+  return a[0] > b[0];
 }
-vector<vector<int>> reconstructQueue(vector<vector<int>> &people)
-{
-    sort(people.begin(), people.end(), cmp);// 身高高的在前
-    list<vector<int>> que;
-    for (size_t i = 0; i < people.size(); i++)
-    {
-        int pos = people[i][1];
-        auto ite = que.begin();
-        while (pos)
-        {
-            ++ite;
-            --pos;
-        }
-        que.insert(ite, people[i]);
+
+vector<vector<int>> reconstructQueue(vector<vector<int>> &people) {
+  sort(people.begin(), people.end(), cmp); // 身高高的在前
+  list<vector<int>> que;
+  for (size_t i = 0; i < people.size(); i++) {
+    int pos = people[i][1];
+    auto ite = que.begin();
+    while (pos) {
+      ++ite;
+      --pos;
     }
-    return vector<vector<int>>(que.begin(), que.end());
+    que.insert(ite, people[i]);
+  }
+  return vector<vector<int>>(que.begin(), que.end());
 }
+
+
