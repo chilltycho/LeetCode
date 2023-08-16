@@ -28,6 +28,7 @@ int largestRectangleArea(vector<int> &heights)
     }
     return res;
 }
+
 //转化为84题
 int maximalRectangle(vector<vector<char>> &matrix)
 {

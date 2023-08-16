@@ -5,39 +5,38 @@
 #include <iostream>
 using namespace std;
 /*见图*/
-ListNode *detectCycle(ListNode *head)
-{
-    ListNode *slow = head;
-    ListNode *fast = head;
-    while (fast != nullptr && fast->next != nullptr)
+ListNode *detectCycle(ListNode *head) {
+  ListNode *slow = head;
+  ListNode *fast = head;
+  while (fast != nullptr && fast->next != nullptr) {
+    slow = slow->next;
+    fast = fast->next->next;
+    //第一次相遇
+    if (slow == fast) 
     {
+      slow = head;
+      while (slow != fast) {
         slow = slow->next;
-        fast = fast->next->next;
-        if (slow == fast) //第一次相遇
-        {
-            slow = head;
-            while (slow != fast)
-            {
-                slow = slow->next;
-                fast = fast->next;
-            }
-            return fast;
-        }
+        fast = fast->next;
+      }
+      return fast;
     }
-    return nullptr;
+  }
+  return nullptr;
 }
 
-int main()
-{
-    ListNode root(3);
-    ListNode n2(2);
-    ListNode n0(0);
-    ListNode n4(4);
+int main() {
+  ListNode root(3);
+  ListNode n2(2);
+  ListNode n0(0);
+  ListNode n4(4);
 
-    root.next = &n2;
-    n2.next = &n0;
-    n0.next = &n4;
-    n4.next = &n2;
+  root.next = &n2;
+  n2.next = &n0;
+  n0.next = &n4;
+  n4.next = &n2;
 
-    cout << detectCycle(&root)->val;
+  cout << detectCycle(&root)->val;
 }
+
+
