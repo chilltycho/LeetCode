@@ -40,4 +40,3 @@ int main() {
   vector<int> vi{1};
   cout << findKthLargest(vi, 1);
 }
-

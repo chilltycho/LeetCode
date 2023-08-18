@@ -6,29 +6,36 @@ using namespace std;
 //基数排序，先个位再十位再百位
 int maximumGap(vector<int> &nums) {
   int n = nums.size();
-  if (n < 2)
+  if (n < 2) {
     return 0;
-  int exp = 1;
-  vector<int> buf(n);
-  int maxVal = *max_element(nums.begin(), nums.end());
-  while (maxVal >= exp) {
-    vector<int> cnt(10);
-    for (int i = 0; i < n; i++) {
-      int digit = (nums[i] / exp) % 10;
-      cnt[digit]++;
-    }
-    for (int i = 1; i < 10; i++)
-      cnt[i] += cnt[i - 1];
-    for (int i = n - 1; i >= 0; i--) {
-      int digit = (nums[i] / exp) % 10;
-      buf[cnt[digit] - 1] = nums[i];
-      cnt[digit]--;
-    }
-    copy(buf.begin(), buf.end(), nums.begin());
-    exp *= 10;
   }
+  int radix = 1; // 初始基数为1
+  int maxVal = *max_element(nums.begin(), nums.end());
+  // 对每位进行排序
+  while (maxVal / radix) {
+    vector<vector<int>> buckets(10);// 10个桶
+    // 将元素按最低位放入对应桶
+    for(auto c:nums){
+      buckets[(c/radix)%10].push_back(c);
+    }
+    // 桶中元素放回数组
+    int j=0;
+    for(int i=0;i<10;i++){
+      for(auto c:buckets[i]){
+        nums[j++]=c;
+      }
+    }
+    radix*=10;
+  }
+
   int ret = 0;
   for (int i = 1; i < n; i++)
     ret = max(ret, nums[i] - nums[i - 1]);
   return ret;
+}
+
+int main() {
+  vector<int> nums{3, 6, 9, 1};
+  // 3
+  cout << maximumGap(nums) << endl;
 }

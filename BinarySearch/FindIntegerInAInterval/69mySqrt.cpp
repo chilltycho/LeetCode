@@ -22,8 +22,9 @@ int mySqrt_bi(int x) {
   return l;
 }
 /*
-不断用(x, f(x))切线来逼近x^2-a=0的根。x-f(x)/(2x)比x更接近解。代入f(x)=x^2-a
-得到x-(x^2-a)/(2x)，即(x+a/x)/2
+牛顿迭代法
+x1 = x0 - f(x0)/f'(x0) x1比x0更接近根
+这里f(x)=x^2-a
 */
 int mySqrt_newton(int x) {
   if (x == 0 || x == 1)
@@ -39,3 +40,4 @@ int mySqrt_newton(int x) {
 }
 
 int main() { cout << mySqrt_bi(4) << endl; }
+

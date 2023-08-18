@@ -93,8 +93,8 @@ void quickSort_3ways(vector<int> &nums, int left, int right) {
 }
 
 int main() {
-  vector<int> vi{3, 4, 1, 2, 5};
-  quickSort(vi, 0, vi.size() - 1);
+  vector<int> vi{3, 3, 3, 2, 5};
+  quicksort(vi, 0, vi.size() - 1);
   print(vi);
 }
 
