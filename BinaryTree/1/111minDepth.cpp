@@ -5,7 +5,7 @@
 using namespace std;
 
 //层序
-int minDepth(TreeNode *root)  {
+int minDepth(TreeNode *root) {
   if (root == nullptr)
     return 0;
   queue<TreeNode *> mq;
@@ -37,13 +37,35 @@ int minDepth_1(TreeNode *root) {
   // 如果左或右有一个为空，返回较大的
   int l = minDepth_1(root->left);
   int r = minDepth_1(root->right);
+  // 有一个为空时，返回不为空的孩子的深度
   if (!root->left || !root->right)
     return l + r + 1;   // l，r必然一个为0
   return min(l, r) + 1; // 都不为空
 }
 
+int dfs1(TreeNode *node) {
+  // 根为null，返回0
+  if (!node) {
+    return 0;
+  }
+  // 叶节点，返回1
+  if (!node->left && !node->right) {
+    return 1;
+  }
+  // 左节点为空，返回1+右节点的
+  if (!node->left) {
+    return 1 + dfs1(node->right);
+  }
+  // 右节点为空，返回1+左节点的
+  if (!node->right) {
+    return 1 + dfs1(node->left);
+  }
+  return 1 + min(dfs1(node->left), dfs1(node->right));
+}
+
 int main() {
-  vector<int> vi{3, 9, 20, -1, -1, 15, 7};
+  vector<int> vi{3, 9, 20, 15, -1, -1, 7};
   auto t1 = vecToTree(vi);
+  cout << minDepth(t1) << endl;
   assert(2 == minDepth(t1));
 }
