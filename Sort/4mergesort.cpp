@@ -1,7 +1,15 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-//将已排好序的数组合并，nums[lef,...mid]和nums[mid+1,right]
+
+void print(vector<int> &nums) {
+  for (auto c : nums) {
+    cout << c << ' ';
+  }
+  cout << endl;
+}
+
+// 将已排好序的数组合并，nums[lef,...mid]和nums[mid+1,right]
 void merge(vector<int> &nums, int L, int mid, int R) {
   vector<int> rec;
   int i = L, j = mid + 1;
@@ -11,7 +19,7 @@ void merge(vector<int> &nums, int L, int mid, int R) {
     else
       rec.push_back(nums[j++]);
   }
-  while (i <= mid)
+  while (i <= mid) 
     rec.push_back(nums[i++]);
   while (j <= R)
     rec.push_back(nums[j++]);
