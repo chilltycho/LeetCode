@@ -35,9 +35,9 @@ void heapsort(vector<int> &arr, int n) {
     // 从左下角三角堆开始
     heapify(arr, n, i);
   }
-  cout<<"已构建堆 "<<endl;
-  for (int i = n - 1; i > 0; --i) // 将根节点（最大元素）不断交换到末尾
-  {
+  cout << "已构建堆 " << endl;
+  // 将根节点（最大元素）不断交换到末尾
+  for (int i = n - 1; i > 0; --i) {
     swap(arr[0], arr[i]);
     heapify(arr, i, 0);
   }
@@ -52,7 +52,7 @@ void heapsort(vector<int> &arr, int n) {
 int main() {
   vector<int> vi{4, 10, 3, 5, 1};
   heapsort(vi, vi.size());
-  cout<<endl;
+  cout << endl;
   for (auto c : vi)
     cout << c << ' ';
   cout << endl;
