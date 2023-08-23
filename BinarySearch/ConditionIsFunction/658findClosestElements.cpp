@@ -28,8 +28,10 @@ vector<int> findClosestElements_bi(vector<int> &arr, int k, int x) {
   int left = 0;
   int right = len - k;
   while (left < right) {
+    // 从x在区间[mid,mid+k]左边、中间、右边考虑
     int mid = left + (right - left) / 2;
-    if (x - arr[mid] > arr[mid + k] - x) // 左索引差值>右索引差值，右移
+    // abs(nums[m]-x)>abs(nums[m+k]-x) || (nums[m]==nums[m+k]&&nums[m]-x<0)
+    if (x - arr[mid] > arr[mid + k] - x) 
       left = mid + 1;
     else
       right = mid;

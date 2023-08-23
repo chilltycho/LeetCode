@@ -27,7 +27,9 @@ int splitArray(vector<int> &nums, int m) {
   int left = biggest; // maxIntervalSum的最小值，每个数为一组
   int right = sum;    // maxIntervalSUm最大值，整个数组为一组
   while (left < right) {
+    // 最大子数组和
     int mid = left + (right - left) / 2;
+    // 组数
     int splits = split(nums, mid);
     if (splits > m) // 分组数超过要求，子数组各自的和的最大值太小
       left = mid + 1;
