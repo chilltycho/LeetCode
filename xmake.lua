@@ -3,7 +3,7 @@ add_rules("mode.debug", "mode.release")
 set_languages("c++20")
 target("main")
     set_kind("binary")
-    add_files("D:\\CODE\\LeetCode\\Array\\54spiralOrder.cpp")
+    add_files("D:\\CODE\\LeetCode\\BinaryTree\\3\\114flatten.cpp")
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
