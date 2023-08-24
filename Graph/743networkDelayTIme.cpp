@@ -81,7 +81,7 @@ int networkDelayTime_DijPQ(vector<vector<int>> &times, int N, int K) {
     for (const auto &next : graph[cur_end]) {
       auto next_end = next.second;
       auto next_weight = next.first;
-      // 更新到这个邻居最短距离
+      // 更新到这个邻居最短距离，避免了环
       if (dist[next_end] > next_weight + cur_weight) {
         dist[next_end] = next_weight + cur_weight;
         pq.push({dist[next_end], next_end});
@@ -96,5 +96,5 @@ int networkDelayTime_DijPQ(vector<vector<int>> &times, int N, int K) {
 
 int main() {
   vector<vector<int>> times{{2, 1, 1}, {2, 3, 1}, {3, 4, 1}};
-  cout << networkDelayTime_DijPQ(times, 4, 2);
+  cout << networkDelayTime2(times, 4, 2);
 }

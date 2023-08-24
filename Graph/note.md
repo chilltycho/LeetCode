@@ -3,13 +3,45 @@
 1. 不带负权边：Dijkstra，堆优化(小堆)，时间复杂度$O(VlogV+E)$，可处理环
 2. 带负权边：Bellman-Ford,$O(VE)$ SPFA,$O(E)$
 ### 多源最短路
-Floyd 动态规划，$O(V^3)$
+Floyd 动态规划，$O(V^3)$ 适合负权图
 
 ```C++
+// 743题为例
+
+// Floyd
+int floyd(vector<vector<int>>& times, int start, int n) {
+    int w[n+1][n+1];
+    // 初始化
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            w[i][j]=w[j][i]=i==j?0:INT8_MAX;
+        }
+    }
+
+    for(auto t:times) {
+        w[t[0]][t[1]]=t[2];
+    }
+
+    // 三层循环：枚举中转点-起点-终点
+    for(int p = 1; p <= n; p++) {
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= n; j++) {
+                w[i][j] = min(w[i][j], w[i][p] + w[p][j]);
+            }
+        }
+    }
+
+    int res=0;
+    for(int i=1;i<=n;i++) {
+        res=max(res,w[start][i]);
+    }
+    return res==INT8_MAX?-1:res;
+}
+
 /**用于求单源到其他节点最短路径,times:{u,w,v}起点,终点,权值
  * 不断探测相邻点
 */
-void Dijkstra(vector<vector<int>> times,int start)
+void Dijkstra(vector<vector<int>>& times,int start)
 {
     unordered_map<int,vector<pair<int,int>>> graph;//邻接表 起点:终点,权值
     for(const auto &t:times)
@@ -30,23 +62,29 @@ void Dijkstra(vector<vector<int>> times,int start)
     }
 }
 
-// 通过N次迭代，找到从源点到终点不超过N条边构成的最短路路径。
-void bellman-ford(vector<vector<int>> &times, int N, int K)
+// 通过N次迭代(走n步)，找到从源点到终点不超过N条边构成的最短路路径。
+void bellman_ford(vector<vector<int>> &times, int N, int start)
 {
+    // 起点到其他点权值
     vector<int> dist(N + 1, INT8_MAX);
-    dist[K] = 0;
-    for (int i = 0; i < N; i++)
-    {
-        for (const auto &e : times)
-        {
+    // 起点到起点权值
+    dist[start] = 0;
+    for (int i = 0; i < N; i++) {
+        for (const auto &e : times) {
+            // 起点、终点、权值
             int u = e[0], v = e[1], w = e[2];
-            if (dist[u] != INT8_MAX && dist[v] > dist[u] + w)
+            // dist[u] != INT8_MAX意味着从起点开始，类似BFS
+            if (dist[u] != INT8_MAX && dist[v] > dist[u] + w) {
                 dist[v] = dist[u] + w;
+            }
         }
     }
     int maxwait = 0;
-    for (int i = 1; i <= N; i++)
+    for (int i = 1; i <= N; i++) {
         maxwait = max(maxwait, dist[i]);
+    }
     return maxwait == INT8_MAX ? -1 : maxwait;
 }
+
+// SPFA邻接表，可认为是Bellman的优化
 ```
