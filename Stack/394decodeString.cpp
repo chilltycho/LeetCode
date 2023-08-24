@@ -20,24 +20,24 @@ c为[，将multi和res入栈
 string decodeString(string s) {
   string res{};
   stack<pair<int, string>> si;
-  int multi = 0;
+  int num = 0;
   for (auto c : s) {
     if (c == '[') {
-      si.emplace(multi, res);
-      multi = 0;
+      si.emplace(num, res);
+      num = 0;
       res.clear();
     } else if (c == ']') {
       string tmp{};
-      auto cur_multi = si.top().first;
-      cout << cur_multi << endl;
-      while (cur_multi) {
+      auto cur_num = si.top().first;
+      cout << cur_num << endl;
+      while (cur_num) {
         tmp += res;
-        --cur_multi;
+        --cur_num;
       }
       res = si.top().second + tmp;
       si.pop();
     } else if (c >= '0' && c <= '9')
-      multi = multi * 10 + c - '0';
+      num = num * 10 + c - '0';
     else
       res.push_back(c);
   }
@@ -48,4 +48,3 @@ int main() {
   auto res = decodeString("100[lee]");
   cout << res << endl;
 }
-
