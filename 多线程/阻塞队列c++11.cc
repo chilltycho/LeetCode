@@ -30,7 +30,7 @@ void consumer() {
 }
 
 int main() {
-  thread t1(consumer), t2(producer);
+  thread t1(consumer), t2(producer), t3(consumer);
   while (true) {
   }
 }

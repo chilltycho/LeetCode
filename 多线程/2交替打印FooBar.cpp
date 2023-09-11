@@ -22,7 +22,7 @@ public:
                 unique_lock<mutex> ul(m);
                 cv.wait(ul, [this]()
                         { return fo; });
-                cout << "foo";
+                cout << "foo \n";
                 cout.flush();
                 fo = false;
             }
@@ -37,7 +37,7 @@ public:
                 unique_lock<mutex> ul(m);
                 cv.wait(ul, [this]()
                         { return !fo; });
-                cout << "bar";
+                cout << "bar \n";
                 cout.flush();
                 fo = true;
             }

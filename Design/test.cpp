@@ -1,43 +1,78 @@
-#include <bits/stdc++.h>
+#include <cstddef>
+#include <iostream>
 using namespace std;
 
-void heapify(vector<int> &arr, int n, int i)
-{
-    int largest = i;
-    int l = 2 * i + 1, r = 2 * i + 2;
-    if (l < n && arr[l] > arr[largest])
-        largest = l;
-    if (r < n && arr[r] > arr[largest])
-        largest = r;
-    if (largest != i)
-    {
-        swap(arr[largest], arr[i]);
-        heapify(arr, n, largest);
+template <typename T> class SP {
+public:
+  T *ptr_;
+  int *count_;
+
+public:
+  SP(T *ptr = nullptr) : ptr_(ptr) {
+    cout << " ctor called" << endl;
+    if (ptr) {
+      count_ = new int(1);
+    } else {
+      count_ = new int(0);
     }
-}
+  }
 
-void print(vector<int> &nums)
-{
-    for (auto c : nums)
-        cout << c << ' ';
-    cout << endl;
-}
-
-void heapsort(vector<int> &arr)
-{
-    int n = arr.size();
-    for (int i = n / 2 - 1; i >= 0; --i)
-        heapify(arr, n, i);
-    print(arr);
-    for (int i = n - 1; i > 0; --i)
-    {
-        swap(arr[0], arr[i]);
-        heapify(arr, i, 0);
+  SP(const SP &ptr) {
+    cout << " copy ctor called " << endl;
+    if (this->ptr_ != ptr.ptr_) {
+      this->ptr_ = ptr.ptr_;
+      this->count_ = ptr.count_;
+      ++(*this->count_);
     }
-}
+  }
 
-int main()
-{
-    vector<int> nums{0, 1, 2, 3, 4, 5};
-    heapsort(nums);
+  SP &operator=(const SP &rhs) {
+    cout << " operator= called" << endl;
+    if (this->ptr_ == rhs.ptr_) {
+      return *this;
+    }
+    if (this->ptr_) {
+      --(*this->count_);
+      if (*this->count_ == 0) {
+        delete this->ptr_;
+        delete this->count_;
+        this->ptr_ = nullptr;
+        this->count_ = nullptr;
+        cout << " released " << endl;
+      }
+    }
+    this->ptr_ = rhs.ptr_;
+    this->count_ = rhs.count_;
+    ++(*this->count_);
+    return *this;
+  }
+
+  T &operator*() {
+    if (!this->ptr_) {
+      throw("");
+    }
+    return *(this->ptr_);
+  }
+
+  T *operator->() {
+    if (!this->ptr_) {
+      throw("");
+    }
+    return this->ptr_;
+  }
+
+  ~SP() {
+    --(*this->count_);
+    if (*this->count_ <= 0) {
+      delete this->count_;
+      delete this->ptr_;
+      cout << " released " << endl;
+    }
+  }
+};
+
+int main() {
+  SP<int> s(new int(1));
+  SP<int> s1(s);
+  cout << s1.ptr_ << endl;
 }

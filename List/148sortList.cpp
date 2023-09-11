@@ -10,6 +10,7 @@ using namespace std;
 划分：不能随机访问链表中点，需遍历一次，O(n)的时间
 递归：与数组排序一样
 合并：只需要用顺序遍历，O(n)*/
+
 // 1.链表切分：寻找链表中点，删除中点左侧指针，将链表断开
 ListNode *findMid(ListNode *head) {
   auto s = head, f = head;

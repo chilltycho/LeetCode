@@ -49,10 +49,10 @@ vector<int> inorderTraversal(TreeNode *root) {
       stk.push(rt);
       rt = rt->left;
     }
-    root = stk.top();
+    rt = stk.top();
     stk.pop();
-    res.push_back(root->val);
-    root = root->right;
+    res.push_back(rt->val);
+    rt = rt->right;
   }
   return res;
 }
@@ -60,7 +60,7 @@ vector<int> inorderTraversal(TreeNode *root) {
 int main() {
   vector<int> vi{1, 2, 3, 4, 5, 6, 7};
   auto root = vecToTree(vi);
-  auto res = preorderTraversal(root);
+  auto res = inorderTraversal(root);
   for (auto c : res) {
     cout << c << ' ';
   }

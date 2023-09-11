@@ -12,8 +12,7 @@
 #include <iostream>
 using namespace std;
 
-template <typename T> 
-class SP {
+template <typename T> class SP {
 public:
   T *_ptr = nullptr;
   int *_count = 0;
@@ -25,7 +24,7 @@ public:
     else
       _count = new int(0);
   }
-  
+
   SP(const SP &ptr) {
     if (this->_ptr != ptr._ptr) // 检测自复制
     {
@@ -63,7 +62,7 @@ public:
       throw("");
     return this->_ptr;
   }
-  
+
   ~SP() {
     --(*this->_count);
     if (*this->_count <= 0) {

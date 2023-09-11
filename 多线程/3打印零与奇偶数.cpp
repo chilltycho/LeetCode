@@ -63,7 +63,7 @@ public:
 };
 int main()
 {
-    ZeroEvenOdd z(2);
+    ZeroEvenOdd z(9);
     auto f1 = async(launch::async, [&z]()
                     { z.zero(); });
     auto f2 = async(launch::async, [&z]()

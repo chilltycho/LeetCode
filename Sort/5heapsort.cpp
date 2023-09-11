@@ -52,8 +52,5 @@ void heapsort(vector<int> &arr, int n) {
 int main() {
   vector<int> vi{4, 10, 3, 5, 1};
   heapsort(vi, vi.size());
-  cout << endl;
-  for (auto c : vi)
-    cout << c << ' ';
-  cout << endl;
+  
 }
